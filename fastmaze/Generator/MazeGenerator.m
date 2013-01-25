@@ -29,7 +29,8 @@
 {
     self = [super init];
     self.batch = batch;
-    self.size = CGSizeMake(900, 600);
+//    self.size = CGSizeMake(900, 600);
+    self.size = CGSizeMake(300, 200);
     self.complexity = 0.9f;
     self.density = 0.5f;
 

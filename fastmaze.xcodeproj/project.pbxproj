@@ -367,8 +367,8 @@
 		0427E40616B16ABD009A103C /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		0427E40716B16ABD009A103C /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		0427E40816B16ABD009A103C /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		0427E40916B16ABD009A103C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0427E40A16B16ABD009A103C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		0427E40916B16ABD009A103C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
+		0427E40A16B16ABD009A103C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = ../Prefix.pch; sourceTree = "<group>"; };
 		0427E40C16B16ABD009A103C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0427E40D16B16ABD009A103C /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		0427E40E16B16ABD009A103C /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
@@ -428,20 +428,18 @@
 			children = (
 				0427E31D16B16ABD009A103C /* AppDelegate.h */,
 				0427E31E16B16ABD009A103C /* AppDelegate.m */,
+				0427E42116B16ABD009A103C /* RootViewController.h */,
+				0427E42216B16ABD009A103C /* RootViewController.m */,
 				0427E31F16B16ABD009A103C /* Constants.h */,
 				0427E32016B16ABD009A103C /* Constants.m */,
 				0427E32116B16ABD009A103C /* Entity.h */,
 				0427E32216B16ABD009A103C /* Entity.m */,
 				0427E32316B16ABD009A103C /* GameConfig.h */,
 				0427E32416B16ABD009A103C /* Generator */,
+				0427E42316B16ABD009A103C /* Scenes */,
 				0427E32916B16ABD009A103C /* Layers */,
 				0427E32E16B16ABD009A103C /* libs */,
-				0427E40916B16ABD009A103C /* main.m */,
-				0427E40A16B16ABD009A103C /* Prefix.pch */,
 				0427E40B16B16ABD009A103C /* Resources */,
-				0427E42116B16ABD009A103C /* RootViewController.h */,
-				0427E42216B16ABD009A103C /* RootViewController.m */,
-				0427E42316B16ABD009A103C /* Scenes */,
 			);
 			path = fastmaze;
 			sourceTree = "<group>";
@@ -773,6 +771,8 @@
 		0427E40B16B16ABD009A103C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0427E40916B16ABD009A103C /* main.m */,
+				0427E40A16B16ABD009A103C /* Prefix.pch */,
 				0427E40C16B16ABD009A103C /* Default.png */,
 				0427E40D16B16ABD009A103C /* fps_images.png */,
 				0427E40E16B16ABD009A103C /* Icon-72.png */,
@@ -1086,7 +1086,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/fastmaze/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = fastmaze;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1104,7 +1104,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/fastmaze/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = fastmaze;
 				TARGETED_DEVICE_FAMILY = 2;

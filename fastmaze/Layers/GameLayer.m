@@ -17,6 +17,7 @@
 @property (nonatomic, retain) MazeGenerator *mazeGenerator;
 @property (nonatomic, retain) CCSpriteBatchNode *batchNode;
 @property (nonatomic, assign) Entity *playerEntity;
+@property (nonatomic, assign) Entity *desireEntity;
 @property (nonatomic, assign) Entity *currentStart;
 @property (nonatomic, assign) Entity *currentEnd;
 @end
@@ -24,6 +25,7 @@
 @implementation GameLayer
 @synthesize mazeGenerator = _mazeGenerator;
 @synthesize playerEntity = _playerEntity;
+@synthesize desireEntity=_desireEntity;
 @synthesize currentStart = _currentStart;
 @synthesize currentEnd = _currentEnd;
 @synthesize batchNode = _batchNode;
@@ -50,6 +52,7 @@
     _currentStart = nil;
     _currentEnd = nil;
     _playerEntity = nil;
+    _desireEntity=nil;
     [self setPosition:ccp(0, 0)];
     [_mazeGenerator createUsingDepthFirstSearch];
     [self loadGeneratedMaze];
@@ -60,17 +63,49 @@
     // determine our maze center
     CGPoint mazeCenter = ccp((_mazeGenerator.size.width)/2, (_mazeGenerator.size.height)/2);
     // find our center cell
-    MazeCell *centerCell = [_mazeGenerator cellForPosition:mazeCenter];
+//    MazeCell *centerCell = [_mazeGenerator cellForPosition:mazeCenter];
     self.playerEntity = [Entity spriteWithFile:@"entity.png"];
-    [_playerEntity setPosition:centerCell.position];
+    //set player position
+    CGPoint rbMaze = ccp((_mazeGenerator.size.width), 0);
+    MazeCell* rbCell= [_mazeGenerator cellForPosition:rbMaze];
+    [_playerEntity setPosition:rbCell.position];
     [self addChild:_playerEntity];
+    
+    self.desireEntity = [Entity spriteWithFile:@"entity.png"];
+    //set player position
+    CGPoint ltMaze = ccp(0,(_mazeGenerator.size.height));
+    MazeCell* ltCell= [_mazeGenerator cellForPosition:ltMaze];
+    [_desireEntity setPosition:ltCell.position];
+    [self addChild:_desireEntity];
+    
+    
+    
     // determine the window center
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint winCenter = ccp(winSize.width/2, winSize.height/2);
     // determine the difference between the two
     CGPoint diff = ccpSub(winCenter, mazeCenter);
     // add the difference to our current position to center the maze
-    [self setPosition:ccpAdd(position_, diff)];
+//    [self setPosition:ccpAdd(ccpAdd(position_, diff),ccp(0,diff.y/2))];
+    [self setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
+    
+    
+    //创建&放置start点
+    if (_currentStart == nil) {
+        _currentStart = [Entity spriteWithFile:@"entity.png"];
+        [_currentStart setColor:ccRED];
+        [self addChild:_currentStart];
+    }
+    [_currentStart setPosition:_playerEntity.position];
+    
+    //创建&放置end点
+    if (_currentEnd == nil) {
+        _currentEnd = [Entity spriteWithFile:@"entity.png"];
+        [_currentEnd setColor:ccGREEN];
+        [self addChild:_currentEnd];
+    }
+    [_currentEnd setPosition:_desireEntity.position];
+    
 }
 
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
@@ -105,22 +140,8 @@
     ];
     if ([_mazeGenerator isPositionInMaze:ccpSub(location, position_)]) {
         [_playerEntity beginMovement];
-        if (_currentStart == nil) {
-            _currentStart = [Entity spriteWithFile:@"entity.png"];
-            [_currentStart setColor:ccRED];
-            [self addChild:_currentStart];
-        }
-        MazeCell *startCell = [_mazeGenerator cellForPosition:_playerEntity.position];
-        [_currentStart setPosition:startCell.position];
-        if (_currentEnd == nil) {
-            _currentEnd = [Entity spriteWithFile:@"entity.png"];
-            [_currentEnd setColor:ccGREEN];
-            [self addChild:_currentEnd];
-        }
-        MazeCell *cell = [_mazeGenerator cellForPosition:ccpSub(location, position_)];
-        [_currentEnd setPosition:cell.position];
-
-        [_mazeGenerator searchUsingDepthFirstSearch:_playerEntity.position endingAt:ccpSub(location, position_) movingEntity:_playerEntity];
+        //开始查找
+        [_mazeGenerator searchUsingDepthFirstSearch:_playerEntity.position endingAt:_desireEntity.position movingEntity:_playerEntity];     
     }
 }
 
