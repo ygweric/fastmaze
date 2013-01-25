@@ -163,6 +163,54 @@
     return returnCell;
 }
 
+- (void)movingEntity:(Entity *)entity direction:(DIRECTION) direction
+{
+    __block MazeCell* currentCell= [self cellForPosition:entity.position];
+    __block BOOL isEnd=NO;
+    MazeCell* oldCell=nil;
+    while (!isEnd && currentCell!=oldCell) {
+        oldCell=currentCell;
+        [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
+         ^(id key, id neig, BOOL *stop) {
+             BOOL hasWall=NO;//是否有wall
+             BOOL isRefWall=NO;//是否在对应方向上判断wall
+             MazeCell* neighbor= (MazeCell*)neig;
+             CGPoint diff = ccp( neighbor.position.x-currentCell.position.x, neighbor.position.y-currentCell.position.y);
+             if (diff.x>0 && direction==kRIGHT) {
+                 isRefWall=YES;
+                 hasWall=(currentCell.eastWall != nil);
+             }else if(diff.x< 0&& direction==kLEFT){
+                 isRefWall=YES;
+                 hasWall=(currentCell.westWall != nil);
+             }else if (diff.y>0&& direction==kUP) {
+                 isRefWall=YES;
+                 hasWall=(currentCell.northWall != nil);
+             }else if(diff.y< 0&& direction==kDOWN){
+                 isRefWall=YES;
+                 hasWall=(currentCell.southWall != nil);
+             }else{
+                 //不是相应方向的neighbor，继续循环
+                 isRefWall=NO;
+             }
+             
+             if (isRefWall) {
+                 if (!hasWall) {
+                     currentCell=neighbor;
+                     NSLog(@"--has no Wall--index:%d",currentCell.index.intValue);
+                 }else{
+                     isEnd=YES;
+                 }
+                 *stop=YES;
+             } else {
+                 
+             }
+         }
+         ];
+    }
+    [entity runAction:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
+    
+}
+
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
 {
     __block float distance = INFINITY;
@@ -219,16 +267,16 @@
 
             if (stackPopped == NO) {
                 // move to neighbor
-                [actions addObject:[CCMoveTo actionWithDuration:0.2f position:neighborCell.position]];
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:neighborCell.position]];
                 [actions addObject:[CCCallFuncN actionWithTarget:entity selector:@selector(dropCurrent:)]];
             } else {
                 // the entity has jumped someone not near - lets make it move there without making it look like
                 // it's flying through walls
-                [actions addObject:[CCFadeOut actionWithDuration:0.1f]];
-                [actions addObject:[CCMoveTo actionWithDuration:0.f position:currentCell.position]];
-                [actions addObject:[CCFadeIn actionWithDuration:0.1f]];
+                [actions addObject:[CCFadeOut actionWithDuration:0.0f]];
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
+                [actions addObject:[CCFadeIn actionWithDuration:0.0f]];
                 // finally, move to the newly added neighbor
-                [actions addObject:[CCMoveTo actionWithDuration:0.2f position:neighborCell.position]];
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:neighborCell.position]];
                 [actions addObject:[CCCallFuncN actionWithTarget:entity selector:@selector(dropCurrent:)]];
             }
             if (CGPointEqualToPoint(neighborCell.position, endCell.position)) {

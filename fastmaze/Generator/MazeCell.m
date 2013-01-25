@@ -8,10 +8,7 @@
 #import "CCSpriteBatchNode.h"
 
 @interface MazeCell ()
-@property (nonatomic, assign) CCSprite *northWall;
-@property (nonatomic, assign) CCSprite *southWall;
-@property (nonatomic, assign) CCSprite *westWall;
-@property (nonatomic, assign) CCSprite *eastWall;
+
 @property (nonatomic, assign) CCSpriteBatchNode *batch;
 @property (nonatomic, retain) CCSprite *horiz;
 @property (nonatomic, retain) CCSprite *vert;

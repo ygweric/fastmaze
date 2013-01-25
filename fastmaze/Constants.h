@@ -5,4 +5,15 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kRegenerateMazeNotification;
+typedef enum{
+    kUP=1,
+    kDOWN,
+    kLEFT,
+    kRIGHT,
+}DIRECTION;
+
+#define kNotiRegenerateMaze  @"__kNotiRegenerateMaze"
+#define kNotiShowMazeAnswer  @"__kNotiShowMazeAnswer"
+
+
+#define MIN_DISTANCE 10.0f

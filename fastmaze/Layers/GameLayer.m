@@ -11,7 +11,7 @@
 #import "CGPointExtension.h"
 #import "MazeCell.h"
 #import "Entity.h"
-#import "Constants.h"
+
 
 @interface GameLayer ()
 @property (nonatomic, retain) MazeGenerator *mazeGenerator;
@@ -40,7 +40,8 @@
     [self addChild:_batchNode];
     self.mazeGenerator = [[[MazeGenerator alloc] initWithBatchNode:_batchNode] autorelease];
     [self regenerateMaze];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regenerateMaze) name:kRegenerateMazeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regenerateMaze) name:kNotiRegenerateMaze object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMazeAnswer) name:kNotiShowMazeAnswer object:nil];
     return self;
 }
 
@@ -57,13 +58,19 @@
     [_mazeGenerator createUsingDepthFirstSearch];
     [self loadGeneratedMaze];
 }
+- (void)showMazeAnswer
+{
+    [_playerEntity beginMovement];
+    //开始查找
+    [_mazeGenerator searchUsingDepthFirstSearch:_currentStart.position endingAt:_currentEnd.position movingEntity:_playerEntity];
+}
+
 
 - (void)loadGeneratedMaze
 {
     // determine our maze center
     CGPoint mazeCenter = ccp((_mazeGenerator.size.width)/2, (_mazeGenerator.size.height)/2);
     // find our center cell
-//    MazeCell *centerCell = [_mazeGenerator cellForPosition:mazeCenter];
     self.playerEntity = [Entity spriteWithFile:@"entity.png"];
     //set player position
     CGPoint rbMaze = ccp((_mazeGenerator.size.width), 0);
@@ -86,7 +93,6 @@
     // determine the difference between the two
     CGPoint diff = ccpSub(winCenter, mazeCenter);
     // add the difference to our current position to center the maze
-//    [self setPosition:ccpAdd(ccpAdd(position_, diff),ccp(0,diff.y/2))];
     [self setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
     
     
@@ -127,22 +133,27 @@
     ];
     // create the difference
     CGPoint diff = ccp(location.x - previousLocation.x, location.y - previousLocation.y);
-    // add the diff to the current position
-    [self setPosition:ccp(position_.x + diff.x, position_.y + diff.y)];
+    DIRECTION direction=-1;
+    if (diff.x>MIN_DISTANCE) {
+        direction=kRIGHT;
+    }else if(diff.x< -MIN_DISTANCE){
+        direction=kLEFT;
+    }else if (diff.y>MIN_DISTANCE) {
+        direction=kUP;
+    }else if(diff.y< -MIN_DISTANCE){
+        direction=kDOWN;
+    }else{
+        NSLog(@"--diff too little: x:%f,y:%f",diff.x,diff.y);
+    }
+    if (direction>0) {
+        [_mazeGenerator movingEntity:_playerEntity direction:direction];
+    }
+        
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    // get our GL location
-    CGPoint location = [[CCDirector sharedDirector]
-            convertToGL:[touch locationInView:touch.view]
-    ];
-    if ([_mazeGenerator isPositionInMaze:ccpSub(location, position_)]) {
-        [_playerEntity beginMovement];
-        //开始查找
-        [_mazeGenerator searchUsingDepthFirstSearch:_playerEntity.position endingAt:_desireEntity.position movingEntity:_playerEntity];     
-    }
+
 }
 
 - (void)dealloc {

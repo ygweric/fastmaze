@@ -19,7 +19,10 @@ static const CGPoint kEast = {32, 0};
 
 - (CCSprite *)wallForNeighbor:(MazeCell *)neighbor;
 
-
+@property (nonatomic, assign) CCSprite *northWall;
+@property (nonatomic, assign) CCSprite *southWall;
+@property (nonatomic, assign) CCSprite *westWall;
+@property (nonatomic, assign) CCSprite *eastWall;
 @property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, assign) BOOL visited;
 @property (nonatomic, retain) NSMutableDictionary *neighbors;

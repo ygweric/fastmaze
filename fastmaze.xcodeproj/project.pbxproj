@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0427E42616B16ABE009A103C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E31E16B16ABD009A103C /* AppDelegate.m */; };
-		0427E42716B16ABE009A103C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32016B16ABD009A103C /* Constants.m */; };
 		0427E42816B16ABE009A103C /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32216B16ABD009A103C /* Entity.m */; };
 		0427E42916B16ABE009A103C /* MazeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32616B16ABD009A103C /* MazeCell.m */; };
 		0427E42A16B16ABE009A103C /* MazeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32816B16ABD009A103C /* MazeGenerator.m */; };
@@ -148,7 +147,6 @@
 		0427E31D16B16ABD009A103C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0427E31E16B16ABD009A103C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0427E31F16B16ABD009A103C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		0427E32016B16ABD009A103C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		0427E32116B16ABD009A103C /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		0427E32216B16ABD009A103C /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		0427E32316B16ABD009A103C /* GameConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
@@ -431,7 +429,6 @@
 				0427E42116B16ABD009A103C /* RootViewController.h */,
 				0427E42216B16ABD009A103C /* RootViewController.m */,
 				0427E31F16B16ABD009A103C /* Constants.h */,
-				0427E32016B16ABD009A103C /* Constants.m */,
 				0427E32116B16ABD009A103C /* Entity.h */,
 				0427E32216B16ABD009A103C /* Entity.m */,
 				0427E32316B16ABD009A103C /* GameConfig.h */,
@@ -930,7 +927,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0427E42616B16ABE009A103C /* AppDelegate.m in Sources */,
-				0427E42716B16ABE009A103C /* Constants.m in Sources */,
 				0427E42816B16ABE009A103C /* Entity.m in Sources */,
 				0427E42916B16ABE009A103C /* MazeCell.m in Sources */,
 				0427E42A16B16ABE009A103C /* MazeGenerator.m in Sources */,
