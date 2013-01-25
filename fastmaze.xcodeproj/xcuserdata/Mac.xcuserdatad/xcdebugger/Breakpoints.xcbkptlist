@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "fastmaze/Generator/MazeGenerator.m"
-         timestampString = "380824513.253505"
+         timestampString = "380824830.707898"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "196"
-         endingLineNumber = "196"
+         startingLineNumber = "192"
+         endingLineNumber = "192"
          landmarkName = "-movingEntity:direction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "fastmaze/Generator/MazeGenerator.m"
-         timestampString = "380824513.253505"
+         timestampString = "380824830.707898"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "173"
-         endingLineNumber = "173"
+         startingLineNumber = "169"
+         endingLineNumber = "169"
          landmarkName = "-movingEntity:direction:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -166,10 +166,6 @@
 - (void)movingEntity:(Entity *)entity direction:(DIRECTION) direction
 {
     __block MazeCell* currentCell= [self cellForPosition:entity.position];
-    __block BOOL isEnd=NO;
-    MazeCell* oldCell=nil;
-    while (!isEnd && currentCell!=oldCell) {
-        oldCell=currentCell;
         [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
          ^(id key, id neig, BOOL *stop) {
              BOOL hasWall=NO;//是否有wall
@@ -198,7 +194,7 @@
                      currentCell=neighbor;
                      NSLog(@"--has no Wall--index:%d",currentCell.index.intValue);
                  }else{
-                     isEnd=YES;
+                     
                  }
                  *stop=YES;
              } else {
@@ -206,7 +202,6 @@
              }
          }
          ];
-    }
     [entity runAction:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
     
 }
