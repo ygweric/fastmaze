@@ -12,4 +12,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "Constants.h"
+#import "CUtil.h"
+#import "cocos2d.h"
+#import "SysConfig.h"
+#import <mach/mach_time.h>
+#import "SimpleAudioEngine.h"
+#import "MyCustomLayer.h"
+#import "MyCustomButton.h"
+#import "DeviceSettings.h"
+
 #endif

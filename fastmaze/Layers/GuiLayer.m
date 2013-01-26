@@ -9,6 +9,7 @@
 #import "CCDirector.h"
 #import "CGPointExtension.h"
 #import "Constants.h"
+#import "MenuLayer.h"
 
 @implementation GuiLayer
 @synthesize gameLayer=_gameLayer;
@@ -37,9 +38,20 @@
     _myjoystick.delegate=self;
     [self addChild:_myjoystick];
     
+    CCSprite* backn= [CCSprite spriteWithFile:@"return.png"];
+    CCSprite* backs= [CCSprite spriteWithFile:@"return.png"];
+    backs.color=ccYELLOW;
+    CCMenuItemSprite* backItem=[CCMenuItemSprite itemFromNormalSprite:backn selectedSprite:backs target:self selector:@selector(goBack)];
+    CCMenu* back= [CCMenu menuWithItems:backItem, nil];
+    [self addChild:back z:zAboveOperation];
+    back.position=ccp(30, winSize.height*2/3);
+    
     return self;
 }
 
+-(void)goBack{
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
+}
 - (id)initWithGameLayer:(GameLayer*)gameLayer
 {
     self = [self init];
@@ -118,5 +130,7 @@
 		[_myjoystick setDockTexture:@"Dock.png"];
 	}
 }
+
+
 
 @end

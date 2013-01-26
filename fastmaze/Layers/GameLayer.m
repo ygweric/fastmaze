@@ -100,7 +100,7 @@
     [_currentEnd setPosition:_desireEntity.position];
     
 }
-
+#if 0
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 
@@ -108,6 +108,7 @@
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
+
     // we also handle touches for map movement
     // simply move the layer around by the diff of this move and the last
     UITouch *touch = [touches anyObject];
@@ -142,7 +143,7 @@
 {
 
 }
-
+#endif
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_mazeGenerator release];

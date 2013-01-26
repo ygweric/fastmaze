@@ -12,6 +12,7 @@
 #import "GameConfig.h"
 #import "RootViewController.h"
 #import "GameScene.h"
+#import "MenuLayer.h"
 
 @implementation AppDelegate
 
@@ -85,7 +86,7 @@
 #if GAME_AUTOROTATION == kGameAutorotationUIViewController
 	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
 #else
-	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
+	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
 #endif
 	
 	[director setAnimationInterval:1.0/60];
@@ -110,7 +111,8 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [GameScene node]];
+	[[CCDirector sharedDirector] runWithScene: [MenuLayer scene]];
+//    [[CCDirector sharedDirector] runWithScene: [GameScene node]];
 }
 
 
