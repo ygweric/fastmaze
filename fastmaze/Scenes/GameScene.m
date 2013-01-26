@@ -12,8 +12,9 @@
 - (id)init
 {
     self = [super init];
-    [self addChild:[[[GameLayer alloc] init] autorelease]];
-    [self addChild:[[[GuiLayer alloc] init] autorelease]];
+    GameLayer* gameLayer=[[[GameLayer alloc] init] autorelease];
+    [self addChild:gameLayer];
+    [self addChild:[[[GuiLayer alloc] initWithGameLayer:gameLayer] autorelease]];
     return self;
 }
 @end

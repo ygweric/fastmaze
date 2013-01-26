@@ -4,22 +4,11 @@
 //
 
 #import "GameLayer.h"
-#import "MazeGenerator.h"
-#import "CCSpriteBatchNode.h"
-#import "CCSpriteFrameCache.h"
-#import "CCSprite.h"
-#import "CGPointExtension.h"
-#import "MazeCell.h"
-#import "Entity.h"
 
 
 @interface GameLayer ()
-@property (nonatomic, retain) MazeGenerator *mazeGenerator;
-@property (nonatomic, retain) CCSpriteBatchNode *batchNode;
-@property (nonatomic, assign) Entity *playerEntity;
-@property (nonatomic, assign) Entity *desireEntity;
-@property (nonatomic, assign) Entity *currentStart;
-@property (nonatomic, assign) Entity *currentEnd;
+
+
 @end
 
 @implementation GameLayer
@@ -40,8 +29,6 @@
     [self addChild:_batchNode];
     self.mazeGenerator = [[[MazeGenerator alloc] initWithBatchNode:_batchNode] autorelease];
     [self regenerateMaze];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(regenerateMaze) name:kNotiRegenerateMaze object:nil];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMazeAnswer) name:kNotiShowMazeAnswer object:nil];
     return self;
 }
 

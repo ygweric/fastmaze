@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "fastmaze/Layers/GameLayer.m"
-         timestampString = "380823039.420147"
+         timestampString = "380872117.814011"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "136"
+         endingLineNumber = "136"
          landmarkName = "-ccTouchesMoved:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "fastmaze/Generator/MazeGenerator.m"
-         timestampString = "380824830.707898"
+         timestampString = "380875544.341531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
+         startingLineNumber = "194"
+         endingLineNumber = "194"
          landmarkName = "-movingEntity:direction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "fastmaze/Generator/MazeGenerator.m"
-         timestampString = "380824830.707898"
+         timestampString = "380875544.341531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "169"
-         endingLineNumber = "169"
+         startingLineNumber = "171"
+         endingLineNumber = "171"
+         landmarkName = "-movingEntity:direction:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "fastmaze/Generator/MazeGenerator.m"
+         timestampString = "380872548.095124"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
          landmarkName = "-movingEntity:direction:"
          landmarkType = "5">
       </FileBreakpoint>

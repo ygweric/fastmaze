@@ -162,10 +162,12 @@
     
     return returnCell;
 }
-
-- (void)movingEntity:(Entity *)entity direction:(DIRECTION) direction
+//return BOOL 表示是否移动成功
+- (BOOL)movingEntity:(Entity *)entity direction:(DIRECTION) direction
 {
+//    NSLog(@"movingEntity--entity:%@,direcion:%d",entity,direction);
     __block MazeCell* currentCell= [self cellForPosition:entity.position];
+    __block BOOL hasMoved=NO;//是否可移动
         [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
          ^(id key, id neig, BOOL *stop) {
              BOOL hasWall=NO;//是否有wall
@@ -192,18 +194,24 @@
              if (isRefWall) {
                  if (!hasWall) {
                      currentCell=neighbor;
+                     hasMoved=YES;
                      NSLog(@"--has no Wall--index:%d",currentCell.index.intValue);
                  }else{
                      
                  }
                  *stop=YES;
-             } else {
-                 
              }
          }
          ];
-    [entity runAction:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
     
+//    NSLog(@"movingEntity--currentCell.position--x:%f,y:%f",currentCell.position.x,currentCell.position.y);
+//    NSLog(@"movingEntity--oldCell.position--x:%f,y:%f",entity.position.x,entity.position.y);
+    
+//    [entity runAction:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
+    if (hasMoved) {
+        entity.position=currentCell.position;
+    }    
+    return hasMoved;
 }
 
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity

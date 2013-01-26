@@ -17,3 +17,4 @@ typedef enum{
 
 
 #define MIN_DISTANCE 10.0f
+#define MIN_DISTANCE_PERCENT 0.5f

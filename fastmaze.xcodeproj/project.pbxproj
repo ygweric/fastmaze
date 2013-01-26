@@ -133,6 +133,12 @@
 		0427E4A316B16ABE009A103C /* walls.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427E42016B16ABD009A103C /* walls.png */; };
 		0427E4A416B16ABE009A103C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E42216B16ABD009A103C /* RootViewController.m */; };
 		0427E4A516B16ABE009A103C /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E42516B16ABD009A103C /* GameScene.m */; };
+		04F56FC716B3A247003F1C23 /* CCJoyStick.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F56FC616B3A247003F1C23 /* CCJoyStick.m */; };
+		04F56FCF16B3A5D5003F1C23 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F56FCA16B3A5D5003F1C23 /* Ball.png */; };
+		04F56FD016B3A5D5003F1C23 /* Ball_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F56FCB16B3A5D5003F1C23 /* Ball_hl.png */; };
+		04F56FD116B3A5D5003F1C23 /* Dock.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F56FCC16B3A5D5003F1C23 /* Dock.png */; };
+		04F56FD216B3A5D5003F1C23 /* Dock_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F56FCD16B3A5D5003F1C23 /* Dock_hl.png */; };
+		04F56FD316B3A5D5003F1C23 /* Stick.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04F56FCE16B3A5D5003F1C23 /* Stick.jpg */; };
 		C2A9F6BB14CB4A2F00F18C13 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A9F6BA14CB4A2F00F18C13 /* QuartzCore.framework */; };
 		C2A9F6BD14CB4A2F00F18C13 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A9F6BC14CB4A2F00F18C13 /* OpenGLES.framework */; };
 		C2A9F6BF14CB4A2F00F18C13 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A9F6BE14CB4A2F00F18C13 /* OpenAL.framework */; };
@@ -391,6 +397,13 @@
 		0427E42216B16ABD009A103C /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		0427E42416B16ABD009A103C /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		0427E42516B16ABD009A103C /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		04F56FC516B3A247003F1C23 /* CCJoyStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJoyStick.h; sourceTree = "<group>"; };
+		04F56FC616B3A247003F1C23 /* CCJoyStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCJoyStick.m; sourceTree = "<group>"; };
+		04F56FCA16B3A5D5003F1C23 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		04F56FCB16B3A5D5003F1C23 /* Ball_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball_hl.png; sourceTree = "<group>"; };
+		04F56FCC16B3A5D5003F1C23 /* Dock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dock.png; sourceTree = "<group>"; };
+		04F56FCD16B3A5D5003F1C23 /* Dock_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dock_hl.png; sourceTree = "<group>"; };
+		04F56FCE16B3A5D5003F1C23 /* Stick.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Stick.jpg; sourceTree = "<group>"; };
 		C2A9F6B614CB4A2F00F18C13 /* fastmaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fastmaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2A9F6BA14CB4A2F00F18C13 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C2A9F6BC14CB4A2F00F18C13 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -432,6 +445,7 @@
 				0427E32116B16ABD009A103C /* Entity.h */,
 				0427E32216B16ABD009A103C /* Entity.m */,
 				0427E32316B16ABD009A103C /* GameConfig.h */,
+				04F56FC416B3A247003F1C23 /* customView */,
 				0427E32416B16ABD009A103C /* Generator */,
 				0427E42316B16ABD009A103C /* Scenes */,
 				0427E32916B16ABD009A103C /* Layers */,
@@ -780,6 +794,7 @@
 				0427E41316B16ABD009A103C /* Icon@2x.png */,
 				0427E41416B16ABD009A103C /* Info.plist */,
 				0427E41516B16ABD009A103C /* iTunesArtwork */,
+				04F56FC916B3A5D5003F1C23 /* joystick */,
 				0427E41616B16ABD009A103C /* walls */,
 			);
 			path = Resources;
@@ -809,6 +824,27 @@
 				0427E42516B16ABD009A103C /* GameScene.m */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		04F56FC416B3A247003F1C23 /* customView */ = {
+			isa = PBXGroup;
+			children = (
+				04F56FC516B3A247003F1C23 /* CCJoyStick.h */,
+				04F56FC616B3A247003F1C23 /* CCJoyStick.m */,
+			);
+			path = customView;
+			sourceTree = "<group>";
+		};
+		04F56FC916B3A5D5003F1C23 /* joystick */ = {
+			isa = PBXGroup;
+			children = (
+				04F56FCA16B3A5D5003F1C23 /* Ball.png */,
+				04F56FCB16B3A5D5003F1C23 /* Ball_hl.png */,
+				04F56FCC16B3A5D5003F1C23 /* Dock.png */,
+				04F56FCD16B3A5D5003F1C23 /* Dock_hl.png */,
+				04F56FCE16B3A5D5003F1C23 /* Stick.jpg */,
+			);
+			path = joystick;
 			sourceTree = "<group>";
 		};
 		C2A9F6AB14CB4A2F00F18C13 = {
@@ -916,6 +952,11 @@
 				0427E4A116B16ABE009A103C /* vert.psd in Resources */,
 				0427E4A216B16ABE009A103C /* walls.plist in Resources */,
 				0427E4A316B16ABE009A103C /* walls.png in Resources */,
+				04F56FCF16B3A5D5003F1C23 /* Ball.png in Resources */,
+				04F56FD016B3A5D5003F1C23 /* Ball_hl.png in Resources */,
+				04F56FD116B3A5D5003F1C23 /* Dock.png in Resources */,
+				04F56FD216B3A5D5003F1C23 /* Dock_hl.png in Resources */,
+				04F56FD316B3A5D5003F1C23 /* Stick.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1070,7 @@
 				0427E48F16B16ABE009A103C /* main.m in Sources */,
 				0427E4A416B16ABE009A103C /* RootViewController.m in Sources */,
 				0427E4A516B16ABE009A103C /* GameScene.m in Sources */,
+				04F56FC716B3A247003F1C23 /* CCJoyStick.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

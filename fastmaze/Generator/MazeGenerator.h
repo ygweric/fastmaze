@@ -25,7 +25,7 @@
 - (BOOL)isPositionInMaze:(CGPoint)position;
 
 - (MazeCell *)cellForPosition:(CGPoint)position;
-- (void)movingEntity:(Entity *)entity direction:(DIRECTION) direction;
+- (BOOL)movingEntity:(Entity *)entity direction:(DIRECTION) direction;
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity;
 
 
