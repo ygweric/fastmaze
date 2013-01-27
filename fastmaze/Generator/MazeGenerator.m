@@ -15,6 +15,8 @@
 @property (nonatomic, assign) float complexity;
 @property (nonatomic, assign) float density;
 @property (nonatomic, assign) CCSpriteBatchNode *batch;
+@property (nonatomic,assign) NSMutableArray* cancelEntitys;
+@property (nonatomic,assign) NSMutableArray* correctEntitys;
 @end
 
 @implementation MazeGenerator
@@ -24,17 +26,23 @@
 @synthesize grid       = _grid;
 @synthesize batch = _batch;
 @synthesize playerEntity=_playerEntity;
+@synthesize cancelEntitys=_cancelEntitys;
+@synthesize correctEntitys=_correctEntitys;
 
 #pragma mark -
 - (id)initWithBatchNode:(CCSpriteBatchNode *)batch
 {
     self = [super init];
     self.batch = batch;
-//    self.size = CGSizeMake(900, 600);
-    self.size = CGSizeMake(300, 200);
+    self.size = CGSizeMake(900, 600);
+//    self.size = CGSizeMake(300, 200);
     self.complexity = 0.1f;
     self.density = 0.5f;
 
+    _cancelEntitys=[[NSMutableArray alloc]initWithCapacity:10];
+    _correctEntitys=[[NSMutableArray alloc]initWithCapacity:10];
+    
+    
     return self;
 }
 //制定position的cell索引
@@ -163,6 +171,8 @@
     
     return returnCell;
 }
+
+#pragma mark -
 //return BOOL 表示是否移动成功
 /*
  将指定entity移至指定position，
@@ -248,6 +258,7 @@
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
 {
     NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+//    [entity beginMovement];
     __block float distance = INFINITY;
     __block NSNumber *index = nil;
     __block float endDistance = INFINITY;
@@ -256,12 +267,14 @@
      ^(id key, id cell, BOOL *stop) {
          MazeCell *mazeCell = (MazeCell *)cell;
          mazeCell.visited = NO;
+         //找到start点
+         //一直循环，找到离start点最近的cell
          float curDistance = ccpDistance(start, mazeCell.position);
          if (curDistance < distance) {
              distance = curDistance;
              index = [cell index];
          }
-         
+         //找到end点
          float curEndDistance = ccpDistance(end, mazeCell.position);
          if (curEndDistance < endDistance) {
              endDistance = curEndDistance;
@@ -286,6 +299,8 @@
     BOOL impossible = NO;
     NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:10];
     BOOL stackPopped = NO;
+    //这里首先要把currentCell置为visited，否则会重复迭代currentCell
+    currentCell.visited=YES;
     while (!found && !impossible) {
         __block MazeCell *neighborCell = nil;
         // grab each neighbor of our current cell
@@ -342,12 +357,12 @@
         }
     }
     [stack release];
-
+    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
     
     //util很快就找到了path，上面的过程只是在生成action
     if (correctCount<=MAX_AUTO_STEP) {
         if (found) {
-            NSLog(@"--ok, the answer has been shown --");
+            NSLog(@"--ok, the auto path has been shown --");
             id sequence = [CCSequence actionsWithArray:actions];
             [entity runAction:sequence];
             return YES;
@@ -403,6 +418,8 @@
     BOOL impossible = NO;
     NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:10];
     BOOL stackPopped = NO;
+    //这里首先要把currentCell置为visited，否则会重复迭代currentCell
+    currentCell.visited=YES;
     while (!found && !impossible) {
         __block MazeCell *neighborCell = nil;
         // grab each neighbor of our current cell
@@ -474,22 +491,29 @@
     
 }
 -(void)handlerActionFinished{
-    CCArray* allEntity=_playerEntity.parent.children;
-    int cancenCount=0,correctCount=0;
-    for (Entity* e in allEntity) {
-        switch (e.tag) {
-            case tCancalEntity:
-                cancenCount++;
-                break;
-            case tCorrectEntity:
-                correctCount++;
-                break;
-        }
+    NSLog(@"handlerActionFinished---_playerEntity.currentEntities.count:%d",_playerEntity.currentEntities.count);
+    for (Entity* e in _playerEntity.currentEntities) {
+        NSLog(@"handlerActionFinished-----e-- x:%f,y:%f",e.position.x,e.position.y);
     }
-    NSLog(@"cancenCount:%d,correctCount:%d",cancenCount,correctCount);
+    
+//    CCArray* allEntity=_playerEntity.parent.children;
+//    int cancenCount=0,correctCount=0;
+//    for (Entity* e in allEntity) {
+//        switch (e.tag) {
+//            case tCancalEntity:
+//                cancenCount++;
+//                break;
+//            case tCorrectEntity:
+//                correctCount++;
+//                break;
+//        }
+//    }
+//    NSLog(@"cancenCount:%d,correctCount:%d",cancenCount,correctCount);
 }
 - (void)dealloc
 {
+    [_correctEntitys release];
+    [_cancelEntitys release];
     [_grid release];
     [super dealloc];
 }

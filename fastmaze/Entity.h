@@ -7,9 +7,11 @@
 #import "CCSprite.h"
 
 @interface Entity : CCSprite
-
+@property (nonatomic, retain) NSMutableArray *currentEntities;
+@property (nonatomic, retain) NSMutableArray *cancelledEntities;
 - (void)beginMovement;
 
 - (void)dropCurrent:(id)node;
 - (void)dropCancelled:(id)node;
+- (BOOL)backToPosition:(CGPoint )destPos mazeGird:(NSMutableDictionary*)grid;
 @end

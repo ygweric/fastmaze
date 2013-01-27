@@ -114,7 +114,14 @@
         && endPosition.y>0
         && endPosition.x<_mazeGenerator.size.width
         && endPosition.y<_mazeGenerator.size.height) {
-         [_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition movingEntity:_playerEntity];
+        
+        BOOL isRevert=[_playerEntity backToPosition:endPosition mazeGird:_mazeGenerator.grid];
+        if (isRevert) {
+            
+        }else{
+            _mazeGenerator.playerEntity=_playerEntity;
+            [_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition movingEntity:_playerEntity];
+        }
     } else {
         NSLog(@"touch is out of the maze..");
     }
