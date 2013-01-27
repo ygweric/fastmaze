@@ -16,7 +16,7 @@
 @synthesize currentEntities = _currentEntities;
 @synthesize cancelledEntities = _cancelledEntities;
 
-
+#pragma mark -
 - (id)init
 {
     self = [super init];
@@ -34,7 +34,7 @@
     self.cancelledEntities = [NSMutableArray arrayWithCapacity:20];
     return self;
 }
-
+//查找前的清空工作
 - (void)beginMovement
 {
     [self stopAllActions];
@@ -56,11 +56,13 @@
 - (void)dropCurrent:(CCSprite *)node
 {
     CCSprite *current = [CCSprite spriteWithFile:@"entity.png"];
+    current.tag=tCorrectEntity;
     [current setColor:ccBLUE];
     [current setPosition:position_];
     [_currentEntities addObject:current];
     [self.parent addChild:current];
-}
+    
+   }
 
 - (void)dropCancelled:(CCSprite *)node
 {
@@ -69,7 +71,7 @@
     __block NSUInteger currentKey = 0;
     [_currentEntities enumerateObjectsUsingBlock:
         ^(id sprite, NSUInteger key, BOOL *stop) {
-            if (CGPointEqualToPoint([sprite position], pos)) {
+            if (CGPointEqualToPoint(((Entity*) sprite).position, pos)) {
                 current = sprite;
                 currentKey = key;
                 *stop = YES;
@@ -80,9 +82,11 @@
     [_currentEntities removeObjectAtIndex:currentKey];
     CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
     [cancelled setColor:ccc3(100, 100, 100)];
+    cancelled.tag=tCancalEntity;
     [cancelled setPosition:pos];
     [_cancelledEntities addObject:cancelled];
     [self.parent addChild:cancelled];
+   
 }
 
 - (void)dealloc {

@@ -13,6 +13,7 @@
 @interface MazeGenerator : NSObject
 @property (nonatomic, retain) NSMutableDictionary *grid;
 @property (nonatomic, assign) CGSize size;
+@property (nonatomic, assign) Entity* playerEntity;
 
 - (id)initWithBatchNode:(CCSpriteBatchNode *)batch;
 
@@ -27,6 +28,7 @@
 - (MazeCell *)cellForPosition:(CGPoint)position;
 - (BOOL)movingEntity:(Entity *)entity direction:(DIRECTION) direction;
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity;
-
+- (BOOL)movingEntity:(Entity *)entity position:(CGPoint) position;
+- (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity;
 
 @end

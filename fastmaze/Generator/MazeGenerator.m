@@ -23,14 +23,15 @@
 @synthesize density    = _density;
 @synthesize grid       = _grid;
 @synthesize batch = _batch;
+@synthesize playerEntity=_playerEntity;
 
-
+#pragma mark -
 - (id)initWithBatchNode:(CCSpriteBatchNode *)batch
 {
     self = [super init];
     self.batch = batch;
-    self.size = CGSizeMake(900, 600);
-//    self.size = CGSizeMake(300, 200); 
+//    self.size = CGSizeMake(900, 600);
+    self.size = CGSizeMake(300, 200);
     self.complexity = 0.1f;
     self.density = 0.5f;
 
@@ -163,6 +164,41 @@
     return returnCell;
 }
 //return BOOL 表示是否移动成功
+/*
+ 将指定entity移至指定position，
+ 首先判断是否相邻
+ 然后判断是否有wall
+ */
+- (BOOL)movingEntity:(Entity *)entity position:(CGPoint) position
+{
+    //    NSLog(@"movingEntity--entity:%@,direcion:%d",entity,direction);
+    __block MazeCell* currentCell= [self cellForPosition:entity.position];
+    __block MazeCell* destCell= [self cellForPosition:position];
+    NSLog(@"currentCell x:%f,y:%f --destCell x:%f,y:%f",currentCell.position.x,currentCell.position.y,destCell.position.x,destCell.position.y);
+    __block BOOL movable=NO;//是否可移动
+    [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
+     ^(id key, id neig, BOOL *stop) {
+         MazeCell* neighbor= (MazeCell*)neig;
+         CGPoint diff= ccpSub(neighbor.position, destCell.position);
+         if (diff.x==0 && diff.y==0) {
+             NSLog(@"is corresponding neighbor");
+             if (![currentCell wallForNeighbor:destCell]) {
+                 movable=YES;
+                 NSLog(@"ok,movable..");
+             } else {
+                  NSLog(@"!!! you can't move role here,has wall");
+             }
+            *stop=YES;  
+         }     
+     }
+     ];
+    if (movable) {
+        entity.position=destCell.position;
+    }
+    return movable;
+}
+
+//return BOOL 表示是否移动成功
 - (BOOL)movingEntity:(Entity *)entity direction:(DIRECTION) direction
 {
 //    NSLog(@"movingEntity--entity:%@,direcion:%d",entity,direction);
@@ -203,15 +239,131 @@
              }
          }
          ];
-    
-//    NSLog(@"movingEntity--currentCell.position--x:%f,y:%f",currentCell.position.x,currentCell.position.y);
-//    NSLog(@"movingEntity--oldCell.position--x:%f,y:%f",entity.position.x,entity.position.y);
-    
-//    [entity runAction:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
     if (hasMoved) {
         entity.position=currentCell.position;
     }    
     return hasMoved;
+}
+
+- (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
+{
+    NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+    __block float distance = INFINITY;
+    __block NSNumber *index = nil;
+    __block float endDistance = INFINITY;
+    __block NSNumber *endIndex = nil;
+    [self.grid enumerateKeysAndObjectsUsingBlock:
+     ^(id key, id cell, BOOL *stop) {
+         MazeCell *mazeCell = (MazeCell *)cell;
+         mazeCell.visited = NO;
+         float curDistance = ccpDistance(start, mazeCell.position);
+         if (curDistance < distance) {
+             distance = curDistance;
+             index = [cell index];
+         }
+         
+         float curEndDistance = ccpDistance(end, mazeCell.position);
+         if (curEndDistance < endDistance) {
+             endDistance = curEndDistance;
+             endIndex = [cell index];
+         }
+     }
+     ];
+    
+    MazeCell *currentCell = [self.grid objectForKey:index];
+    if (currentCell == nil) {
+        return NO;
+    }
+    MazeCell *endCell = [self.grid objectForKey:endIndex];
+    if (endCell == nil) {
+       return NO;
+    }
+    NSMutableArray *actions = [NSMutableArray arrayWithCapacity:10];
+//    NSMutableArray *cancelledEntity = [NSMutableArray arrayWithCapacity:10];
+//    NSMutableArray *correctedEntitys = [NSMutableArray arrayWithCapacity:10];
+     int cancenCount=0,correctCount=0;
+    BOOL found = NO;
+    BOOL impossible = NO;
+    NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:10];
+    BOOL stackPopped = NO;
+    while (!found && !impossible) {
+        __block MazeCell *neighborCell = nil;
+        // grab each neighbor of our current cell
+        [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
+         ^(id key, id neighbor, BOOL *stop) {
+             // grab a neighbor and add it to the neighbors array
+             if ([neighbor visited] != YES && [currentCell wallForNeighbor:neighbor] == nil) {
+                 neighborCell = neighbor;
+                 *stop = YES;
+             }
+         }
+         ];
+        if (neighborCell) {
+            // this neighbor cell will become the current cell
+            [stack addObject:currentCell];
+            neighborCell.visited = YES;
+            
+            if (stackPopped == NO) {
+                // move to neighbor
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:neighborCell.position]];
+                [actions addObject:[CCCallFuncN actionWithTarget:entity selector:@selector(dropCurrent:)]];
+                correctCount++;
+            } else {
+                // the entity has jumped someone not near - lets make it move there without making it look like
+                // it's flying through walls
+                [actions addObject:[CCFadeOut actionWithDuration:0.0f]];
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:currentCell.position]];
+                [actions addObject:[CCFadeIn actionWithDuration:0.0f]];
+                // finally, move to the newly added neighbor
+                [actions addObject:[CCMoveTo actionWithDuration:0.0f position:neighborCell.position]];
+                [actions addObject:[CCCallFuncN actionWithTarget:entity selector:@selector(dropCurrent:)]];
+                correctCount++;
+            }
+            if (CGPointEqualToPoint(neighborCell.position, endCell.position)) {
+                found = YES;
+                break;
+            }
+            // update our current cell to be the newly selected cell
+            currentCell = neighborCell;
+            stackPopped = NO;
+        } else {
+            stackPopped = YES;
+            if (stack.count == 0) {
+                impossible = YES;
+                break;
+            }
+            [actions addObject:[CCMoveTo actionWithDuration:0 position:currentCell.position]];
+            [actions addObject:[CCCallFuncN actionWithTarget:entity selector:@selector(dropCancelled:)]];
+            cancenCount++;
+            correctCount--;
+            // "pop" the top cell off the stack to resume a previously started trail
+            currentCell = [stack objectAtIndex:stack.count - 1];
+            [stack removeObjectAtIndex:stack.count - 1];
+        }
+    }
+    [stack release];
+
+    
+    //util很快就找到了path，上面的过程只是在生成action
+    if (correctCount<=MAX_AUTO_STEP) {
+        if (found) {
+            NSLog(@"--ok, the answer has been shown --");
+            id sequence = [CCSequence actionsWithArray:actions];
+            [entity runAction:sequence];
+            return YES;
+        }else{
+            NSLog(@"OH!, I can't show the Answer! Error !!!");
+        }
+    } else {
+        NSLog(@"you auto step is too long");
+    }
+    
+    return NO;
+    
+    
+    
+    
+    
 }
 
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
@@ -303,12 +455,39 @@
         }
     }
     [stack release];
+    
+    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
+    
+    //util很快就找到了path，上面的过程只是在生成action
     if (found) {
+        NSLog(@"--ok, the answer has been shown --");
         id sequence = [CCSequence actionsWithArray:actions];
         [entity runAction:sequence];
+        
+    }else{
+        NSLog(@"OH!, I can't show the Answer! Error !!!");
     }
+    
+    
+    
+    
+    
 }
-
+-(void)handlerActionFinished{
+    CCArray* allEntity=_playerEntity.parent.children;
+    int cancenCount=0,correctCount=0;
+    for (Entity* e in allEntity) {
+        switch (e.tag) {
+            case tCancalEntity:
+                cancenCount++;
+                break;
+            case tCorrectEntity:
+                correctCount++;
+                break;
+        }
+    }
+    NSLog(@"cancenCount:%d,correctCount:%d",cancenCount,correctCount);
+}
 - (void)dealloc
 {
     [_grid release];

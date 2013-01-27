@@ -420,8 +420,8 @@
 		0427E40616B16ABD009A103C /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		0427E40716B16ABD009A103C /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		0427E40816B16ABD009A103C /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		0427E40916B16ABD009A103C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
-		0427E40A16B16ABD009A103C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = ../Prefix.pch; sourceTree = "<group>"; };
+		0427E40916B16ABD009A103C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0427E40A16B16ABD009A103C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		0427E40C16B16ABD009A103C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0427E40D16B16ABD009A103C /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
 		0427E40E16B16ABD009A103C /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
@@ -545,6 +545,8 @@
 		0427E31C16B16ABD009A103C /* fastmaze */ = {
 			isa = PBXGroup;
 			children = (
+				0427E40916B16ABD009A103C /* main.m */,
+				0427E40A16B16ABD009A103C /* Prefix.pch */,
 				0427E31D16B16ABD009A103C /* AppDelegate.h */,
 				0427E31E16B16ABD009A103C /* AppDelegate.m */,
 				0477272716B3D9AC003806EF /* RootViewController.h */,
@@ -895,8 +897,6 @@
 			children = (
 				0477273716B3DBB7003806EF /* music */,
 				0477272A16B3DAD2003806EF /* Fonts */,
-				0427E40916B16ABD009A103C /* main.m */,
-				0427E40A16B16ABD009A103C /* Prefix.pch */,
 				04DE103C16B3EA1B005394E2 /* mode_endless.png */,
 				04DE103D16B3EA1B005394E2 /* mode_level.png */,
 				0477272F16B3DB2A003806EF /* bg-ipad.jpg */,

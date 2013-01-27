@@ -50,6 +50,7 @@
     [_playerEntity beginMovement];
     //开始查找
     [_mazeGenerator searchUsingDepthFirstSearch:_currentStart.position endingAt:_currentEnd.position movingEntity:_playerEntity];
+    _mazeGenerator.playerEntity=_playerEntity;
 }
 
 
@@ -104,39 +105,31 @@
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [[CCDirector sharedDirector]
+                        convertToGL:[touch locationInView:touch.view]
+                        ];
+    CGPoint endPosition = ccpSub(location, self.position);
+    if (endPosition.x>0
+        && endPosition.y>0
+        && endPosition.x<_mazeGenerator.size.width
+        && endPosition.y<_mazeGenerator.size.height) {
+         [_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition movingEntity:_playerEntity];
+    } else {
+        NSLog(@"touch is out of the maze..");
+    }
+    
+   
 }
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
 
-    // we also handle touches for map movement
-    // simply move the layer around by the diff of this move and the last
     UITouch *touch = [touches anyObject];
-    // get our GL location
     CGPoint location = [[CCDirector sharedDirector]
             convertToGL:[touch locationInView:touch.view]
     ];
-    CGPoint previousLocation = [[CCDirector sharedDirector]
-            convertToGL:[touch previousLocationInView:touch.view]
-    ];
-    // create the difference
-    CGPoint diff = ccp(location.x - previousLocation.x, location.y - previousLocation.y);
-    DIRECTION direction=-1;
-    if (diff.x>MIN_DISTANCE) {
-        direction=kRIGHT;
-    }else if(diff.x< -MIN_DISTANCE){
-        direction=kLEFT;
-    }else if (diff.y>MIN_DISTANCE) {
-        direction=kUP;
-    }else if(diff.y< -MIN_DISTANCE){
-        direction=kDOWN;
-    }else{
-        NSLog(@"--diff too little: x:%f,y:%f",diff.x,diff.y);
-    }
-    if (direction>0) {
-        [_mazeGenerator movingEntity:_playerEntity direction:direction];
-    }
-        
+//    [_mazeGenerator movingEntity:_playerEntity position:location];
 }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

@@ -27,7 +27,7 @@
 @synthesize batch = _batch;
 @synthesize horiz = _horiz;
 @synthesize vert = _vert;
-
+#pragma mark -
 
 - (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch
 {

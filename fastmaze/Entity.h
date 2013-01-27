@@ -12,5 +12,4 @@
 
 - (void)dropCurrent:(id)node;
 - (void)dropCancelled:(id)node;
-
 @end

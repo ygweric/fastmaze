@@ -32,6 +32,12 @@ enum{
     zAboveOperation,
     
 };
+//----tag
+enum{
+    tCancalEntity=100,
+    tCorrectEntity,
+};
+
 
 #define kNotiRegenerateMaze  @"__kNotiRegenerateMaze"
 #define kNotiShowMazeAnswer  @"__kNotiShowMazeAnswer"
@@ -54,6 +60,7 @@ enum{
 #define kMAX_LEVEL_IDEAL 13
 #define kMAX_LEVEL_REAL 13
 
+#define MAX_AUTO_STEP 20
 
 
 
