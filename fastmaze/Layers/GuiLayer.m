@@ -18,16 +18,38 @@
 - (id)init
 {
     self = [super init];
-    CCMenuItemFont* regenerateMaze = [CCMenuItemFont itemFromString:@"Regenerate Maze" target:self selector:@selector(regenerateMaze)];
-    CCMenuItemFont* showMazeAnswer = [CCMenuItemFont itemFromString:@"show maze answer" target:self selector:@selector(showMazeAnswer)];
-    
-    
-    CCMenu *menu = [CCMenu menuWithItems:regenerateMaze,showMazeAnswer, nil];
+
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    [menu setPosition:ccp(winSize.width/2, winSize.height- 40)];
-    [menu alignItemsHorizontallyWithPadding:50];
-    [self addChild:menu];
+
     
+    CCSprite* backn= [CCSprite spriteWithFile:@"button_previous.png"];
+    CCSprite* backs= [CCSprite spriteWithFile:@"button_previous.png"];
+    backs.color=ccYELLOW;
+    CCMenuItemSprite* backItem=[CCMenuItemSprite itemFromNormalSprite:backn selectedSprite:backs target:self selector:@selector(goBack)];
+    CCMenu* back= [CCMenu menuWithItems:backItem, nil];
+    [self addChild:back z:zAboveOperation];
+    back.position=ccp(winSize.width*1/3, winSize.height-50);
+
+    
+    CCSprite* regenerateMazen= [CCSprite spriteWithFile:@"button_new_maze.png"];
+    CCSprite* regenerateMazes= [CCSprite spriteWithFile:@"button_new_maze.png"];
+    regenerateMazes.color=ccYELLOW;
+    CCMenuItemSprite* regenerateMazeItem=[CCMenuItemSprite itemFromNormalSprite:regenerateMazen selectedSprite:regenerateMazes target:self selector:@selector(regenerateMaze)];
+    CCMenu* regenerateMaze= [CCMenu menuWithItems:regenerateMazeItem, nil];
+    [self addChild:regenerateMaze z:zAboveOperation];
+    regenerateMaze.position=ccp(winSize.width*1/2, winSize.height-50);
+    
+    
+    CCSprite* showMazeAnswern= [CCSprite spriteWithFile:@"button_show_answer.png"];
+    CCSprite* showMazeAnswers= [CCSprite spriteWithFile:@"button_show_answer.png"];
+    showMazeAnswers.color=ccYELLOW;
+    CCMenuItemSprite* showMazeAnswerItem=[CCMenuItemSprite itemFromNormalSprite:showMazeAnswern selectedSprite:showMazeAnswers target:self selector:@selector(showMazeAnswer)];
+    CCMenu* showMazeAnswer= [CCMenu menuWithItems:showMazeAnswerItem, nil];
+    [self addChild:showMazeAnswer z:zAboveOperation];
+    showMazeAnswer.position=ccp(winSize.width*2/3, winSize.height-50);
+    
+        
+/*
     _myjoystick=[CCJoyStick initWithBallRadius:25 MoveAreaRadius:65 isFollowTouch:NO isCanVisible:YES isAutoHide:NO hasAnimation:YES];
     [_myjoystick setBallTexture:@"Ball.png"];
     [_myjoystick setDockTexture:@"Dock.png"];
@@ -37,15 +59,9 @@
     _myjoystick.position=ccp(100,100);
     _myjoystick.delegate=self;
     [self addChild:_myjoystick];
+    */
     
-    CCSprite* backn= [CCSprite spriteWithFile:@"return.png"];
-    CCSprite* backs= [CCSprite spriteWithFile:@"return.png"];
-    backs.color=ccYELLOW;
-    CCMenuItemSprite* backItem=[CCMenuItemSprite itemFromNormalSprite:backn selectedSprite:backs target:self selector:@selector(goBack)];
-    CCMenu* back= [CCMenu menuWithItems:backItem, nil];
-    [self addChild:back z:zAboveOperation];
-    back.position=ccp(30, winSize.height*2/3);
-    
+ 
     return self;
 }
 

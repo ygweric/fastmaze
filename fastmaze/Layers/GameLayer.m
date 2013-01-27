@@ -100,7 +100,7 @@
     [_currentEnd setPosition:_desireEntity.position];
     
 }
-#if 0
+#if 1
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 
