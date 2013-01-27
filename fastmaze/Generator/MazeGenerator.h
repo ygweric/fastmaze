@@ -30,5 +30,6 @@
 - (void)searchUsingDepthFirstSearch:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity;
 - (BOOL)movingEntity:(Entity *)entity position:(CGPoint) position;
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity;
-
+- (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end;
+- (BOOL)isDesirePosition:(CGPoint)end desirePosition:(CGPoint)desirePosition;
 @end

@@ -34,8 +34,8 @@
 {
     self = [super init];
     self.batch = batch;
-    self.size = CGSizeMake(900, 600);
-//    self.size = CGSizeMake(300, 200);
+//    self.size = CGSizeMake(900, 600);
+    self.size = CGSizeMake(300, 200);
     self.complexity = 0.1f;
     self.density = 0.5f;
 
@@ -254,11 +254,142 @@
     }    
     return hasMoved;
 }
+//只计算shot path距离是否合适
+- (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end
+{
+    NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+    __block float distance = INFINITY;
+    __block NSNumber *index = nil;
+    __block float endDistance = INFINITY;
+    __block NSNumber *endIndex = nil;
+    [self.grid enumerateKeysAndObjectsUsingBlock:
+     ^(id key, id cell, BOOL *stop) {
+         MazeCell *mazeCell = (MazeCell *)cell;
+         mazeCell.visited = NO;
+         //找到start点
+         //一直循环，找到离start点最近的cell
+         float curDistance = ccpDistance(start, mazeCell.position);
+         if (curDistance < distance) {
+             distance = curDistance;
+             index = [cell index];
+         }
+         //找到end点
+         float curEndDistance = ccpDistance(end, mazeCell.position);
+         if (curEndDistance < endDistance) {
+             endDistance = curEndDistance;
+             endIndex = [cell index];
+         }
+     }
+     ];
+    
+    MazeCell *currentCell = [self.grid objectForKey:index];
+    if (currentCell == nil) {
+        return NO;
+    }
+    MazeCell *endCell = [self.grid objectForKey:endIndex];
+    if (endCell == nil) {
+        return NO;
+    }
+    int cancenCount=0,correctCount=0;
+    BOOL found = NO;
+    BOOL impossible = NO;
+    NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:10];
+    BOOL stackPopped = NO;
+    //这里首先要把currentCell置为visited，否则会重复迭代currentCell
+    currentCell.visited=YES;
+    while (!found && !impossible) {
+        __block MazeCell *neighborCell = nil;
+        // grab each neighbor of our current cell
+        [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
+         ^(id key, id neighbor, BOOL *stop) {
+             // grab a neighbor and add it to the neighbors array
+             if ([neighbor visited] != YES && [currentCell wallForNeighbor:neighbor] == nil) {
+                 neighborCell = neighbor;
+                 *stop = YES;
+             }
+         }
+         ];
+        if (neighborCell) {
+            // this neighbor cell will become the current cell
+            [stack addObject:currentCell];
+            neighborCell.visited = YES;
+            
+            if (stackPopped == NO) {
+                correctCount++;
+            } else {
+                correctCount++;
+            }
+            if (CGPointEqualToPoint(neighborCell.position, endCell.position)) {
+                found = YES;
+                break;
+            }
+            // update our current cell to be the newly selected cell
+            currentCell = neighborCell;
+            stackPopped = NO;
+        } else {
+            stackPopped = YES;
+            if (stack.count == 0) {
+                impossible = YES;
+                break;
+            }
+            cancenCount++;
+            correctCount--;
+            // "pop" the top cell off the stack to resume a previously started trail
+            currentCell = [stack objectAtIndex:stack.count - 1];
+            [stack removeObjectAtIndex:stack.count - 1];
+        }
+    }
+    [stack release];
+    
+    //util很快就找到了path，上面的过程只是在生成action
+    if (correctCount<=MAX_AUTO_STEP) {
+        if (found) {
+            NSLog(@"--ok, the auto path has been shown --");
+            return YES;
+        }else{
+            NSLog(@"OH!, I can't show the Answer! Error !!!");
+        }
+    } else {
+        NSLog(@"you auto step is too long");
+    }
+    
+    return NO;
+    
+    
+    
+    
+    
+}
+- (BOOL)isDesirePosition:(CGPoint)end desirePosition:(CGPoint)desirePosition{
+    __block float endDistance = INFINITY;
+    __block NSNumber *endIndex = nil;
+    [self.grid enumerateKeysAndObjectsUsingBlock:
+     ^(id key, id cell, BOOL *stop) {
+         MazeCell *mazeCell = (MazeCell *)cell;
+         //找到end点
+         float curEndDistance = ccpDistance(end, mazeCell.position);
+         if (curEndDistance < endDistance) {
+             endDistance = curEndDistance;
+             endIndex = [cell index];
+         }
+     }
+     ];
+    MazeCell *endCell = [self.grid objectForKey:endIndex];
+    if (endCell == nil) {
+        return NO;
+    }else if(ccpDistance(endCell.position, desirePosition)==0){
+        NSLog(@"great!!! you win!!!!!");
+    }
 
+    return NO;
+}
+
+
+//只管显示，不管检查距离，而用 showShotPath:endingAt:来检查距离
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
 {
     NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
-//    [entity beginMovement];
+    [entity beginMovement];
     __block float distance = INFINITY;
     __block NSNumber *index = nil;
     __block float endDistance = INFINITY;
@@ -292,8 +423,6 @@
        return NO;
     }
     NSMutableArray *actions = [NSMutableArray arrayWithCapacity:10];
-//    NSMutableArray *cancelledEntity = [NSMutableArray arrayWithCapacity:10];
-//    NSMutableArray *correctedEntitys = [NSMutableArray arrayWithCapacity:10];
      int cancenCount=0,correctCount=0;
     BOOL found = NO;
     BOOL impossible = NO;
@@ -359,7 +488,13 @@
     [stack release];
     [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
     
+    id sequence = [CCSequence actionsWithArray:actions];
+    [entity runAction:sequence];
+    return YES;
+    
     //util很快就找到了path，上面的过程只是在生成action
+    
+    /*
     if (correctCount<=MAX_AUTO_STEP) {
         if (found) {
             NSLog(@"--ok, the auto path has been shown --");
@@ -372,8 +507,9 @@
     } else {
         NSLog(@"you auto step is too long");
     }
+     return NO;
+    */
     
-    return NO;
     
     
     
