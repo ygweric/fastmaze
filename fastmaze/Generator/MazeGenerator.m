@@ -34,8 +34,8 @@
 {
     self = [super init];
     self.batch = batch;
-//    self.size = CGSizeMake(900, 600);
-    self.size = CGSizeMake(300, 200);
+    self.size = CGSizeMake(900, 600);
+//    self.size = CGSizeMake(300, 200);
     self.complexity = 0.1f;
     self.density = 0.5f;
 
@@ -486,7 +486,7 @@
         }
     }
     [stack release];
-    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
+//    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
     
     id sequence = [CCSequence actionsWithArray:actions];
     [entity runAction:sequence];
@@ -609,7 +609,7 @@
     }
     [stack release];
     
-    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
+//    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
     
     //util很快就找到了path，上面的过程只是在生成action
     if (found) {

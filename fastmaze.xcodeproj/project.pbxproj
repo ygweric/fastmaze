@@ -159,6 +159,7 @@
 		0477275016B3DBB7003806EF /* jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0477274216B3DBB7003806EF /* jump.wav */; };
 		0477275116B3DBB7003806EF /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0477274316B3DBB7003806EF /* lose.mp3 */; };
 		0477275316B3DBB7003806EF /* touch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0477274516B3DBB7003806EF /* touch.wav */; };
+		0481E4D216B6BEA00043AC70 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481E4D116B6BEA00043AC70 /* iAd.framework */; };
 		04DE103E16B3EA1B005394E2 /* mode_endless.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DE103C16B3EA1B005394E2 /* mode_endless.png */; };
 		04DE103F16B3EA1B005394E2 /* mode_level.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DE103D16B3EA1B005394E2 /* mode_level.png */; };
 		04DE104216B3F7CE005394E2 /* LevelChooseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE104116B3F7CE005394E2 /* LevelChooseLayer.m */; };
@@ -481,6 +482,7 @@
 		0477274216B3DBB7003806EF /* jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jump.wav; sourceTree = "<group>"; };
 		0477274316B3DBB7003806EF /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
 		0477274516B3DBB7003806EF /* touch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = touch.wav; sourceTree = "<group>"; };
+		0481E4D116B6BEA00043AC70 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		04DE103C16B3EA1B005394E2 /* mode_endless.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_endless.png; sourceTree = "<group>"; };
 		04DE103D16B3EA1B005394E2 /* mode_level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_level.png; sourceTree = "<group>"; };
 		04DE104016B3F7CE005394E2 /* LevelChooseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelChooseLayer.h; path = fastmaze/Scenes/LevelChooseLayer.h; sourceTree = SOURCE_ROOT; };
@@ -528,6 +530,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0481E4D216B6BEA00043AC70 /* iAd.framework in Frameworks */,
 				C2A9F6BB14CB4A2F00F18C13 /* QuartzCore.framework in Frameworks */,
 				C2A9F6BD14CB4A2F00F18C13 /* OpenGLES.framework in Frameworks */,
 				C2A9F6BF14CB4A2F00F18C13 /* OpenAL.framework in Frameworks */,
@@ -1058,6 +1061,7 @@
 		C2A9F6B914CB4A2F00F18C13 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0481E4D116B6BEA00043AC70 /* iAd.framework */,
 				C2A9F6BA14CB4A2F00F18C13 /* QuartzCore.framework */,
 				C2A9F6BC14CB4A2F00F18C13 /* OpenGLES.framework */,
 				C2A9F6BE14CB4A2F00F18C13 /* OpenAL.framework */,
@@ -1364,7 +1368,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/fastmaze/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = fastmaze;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1382,7 +1386,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "$(SRCROOT)/fastmaze/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = fastmaze;
 				TARGETED_DEVICE_FAMILY = 2;

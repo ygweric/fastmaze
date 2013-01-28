@@ -6,12 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "CCLayer.h"
 #import "GameLayer.h"
-#import "CCJoyStick.h"
 
-@interface GuiLayer : CCLayer<CCJoyStickDelegate>
+@interface GuiLayer : CCLayer
 
 @property (assign,nonatomic) GameLayer* gameLayer;
-@property(nonatomic,readonly)CCJoyStick *myjoystick;
+@property (nonatomic,assign) BOOL gameSuspended;
+@property (retain,nonatomic) CCLayer* pauseLayer;
 
 - (id)initWithGameLayer:(GameLayer*)gameLayer;
 @end

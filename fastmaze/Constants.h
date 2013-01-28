@@ -32,10 +32,22 @@ enum{
     zAboveOperation,
     
 };
+
+
 //----tag
 enum{
     tCancalEntity=100,
     tCorrectEntity,
+    tGame,
+    tPause,
+    tAudio,
+    tAudioItem,
+    tMusic,
+    tMusicItem,
+    tResume,
+    tRestart,
+    tPauseLayer,
+    
 };
 
 
