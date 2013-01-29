@@ -17,6 +17,7 @@
 @implementation AppDelegate
 
 @synthesize window;
+@synthesize viewController;
 
 - (void) removeStartupFlicker
 {
@@ -98,6 +99,7 @@
 	
 	// make the View Controller a child of the main window
 	[window addSubview: viewController.view];
+    [viewController viewDidLoad];
 	
 	[window makeKeyAndVisible];
 	

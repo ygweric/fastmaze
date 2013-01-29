@@ -10,6 +10,8 @@
 #import "CGPointExtension.h"
 #import "Constants.h"
 #import "MenuLayer.h"
+#import "AppDelegate.h"
+#import "HelpViewController.h"
 
 @implementation GuiLayer
 @synthesize gameLayer=_gameLayer;
@@ -50,12 +52,13 @@
     showMazeAnswer.position=ccp(winSize.width*2/3, winSize.height-50);
     
 
+    CCMenu* helpButton= [CCMenuUtil createMenuWithImg:@"button_help.png" target:self selector:@selector(help)];
     
+    helpButton.position=ccp(winSize.width*1/3-100, winSize.height-50);
+    [self addChild:helpButton z:zBelowOperation];
     //------------
-    CCSprite* pn= [CCSprite spriteWithFile:@"button_pause.png"];
-    CCSprite* ps= [CCSprite spriteWithFile:@"button_pause.png"];
-    CCMenuItemSprite* p=[CCMenuItemSprite itemFromNormalSprite:pn selectedSprite:ps target:self selector:@selector(pauseGame)];
-    CCMenu* pauseButton= [CCMenu menuWithItems:p, nil];
+
+    CCMenu* pauseButton= [CCMenuUtil createMenuWithImg:@"button_pause.png" target:self selector:@selector(pauseGame)];
     
     pauseButton.position=ccp(winSize.width*2/3+50, winSize.height-50);
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
@@ -231,7 +234,12 @@
     pl.isTouchEnabled=!show;
 }
 
-
+-(void)help{
+    AppDelegate* delegate=(AppDelegate*) [[UIApplication sharedApplication]delegate];
+    HelpViewController* controller= [[[HelpViewController alloc]initWithNibName:@"HelpViewController" bundle:nil]autorelease];
+    [delegate.viewController presentModalViewController:controller animated:YES];
+    
+}
 
 
 @end

@@ -160,6 +160,9 @@
 		0477275116B3DBB7003806EF /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0477274316B3DBB7003806EF /* lose.mp3 */; };
 		0477275316B3DBB7003806EF /* touch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0477274516B3DBB7003806EF /* touch.wav */; };
 		0481E4D216B6BEA00043AC70 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481E4D116B6BEA00043AC70 /* iAd.framework */; };
+		0497BB7016B82A1E00D8B9AE /* CCMenuUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497BB6F16B82A1E00D8B9AE /* CCMenuUtil.m */; };
+		0497BB7516B82B9C00D8B9AE /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497BB7316B82B9C00D8B9AE /* HelpViewController.m */; };
+		0497BB7616B82B9C00D8B9AE /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497BB7416B82B9C00D8B9AE /* HelpViewController.xib */; };
 		04DE103E16B3EA1B005394E2 /* mode_endless.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DE103C16B3EA1B005394E2 /* mode_endless.png */; };
 		04DE103F16B3EA1B005394E2 /* mode_level.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DE103D16B3EA1B005394E2 /* mode_level.png */; };
 		04DE104216B3F7CE005394E2 /* LevelChooseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE104116B3F7CE005394E2 /* LevelChooseLayer.m */; };
@@ -483,6 +486,11 @@
 		0477274316B3DBB7003806EF /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
 		0477274516B3DBB7003806EF /* touch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = touch.wav; sourceTree = "<group>"; };
 		0481E4D116B6BEA00043AC70 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		0497BB6E16B82A1E00D8B9AE /* CCMenuUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMenuUtil.h; sourceTree = "<group>"; };
+		0497BB6F16B82A1E00D8B9AE /* CCMenuUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMenuUtil.m; sourceTree = "<group>"; };
+		0497BB7216B82B9B00D8B9AE /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HelpViewController.h; path = viewcontroller/HelpViewController.h; sourceTree = "<group>"; };
+		0497BB7316B82B9C00D8B9AE /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HelpViewController.m; path = viewcontroller/HelpViewController.m; sourceTree = "<group>"; };
+		0497BB7416B82B9C00D8B9AE /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HelpViewController.xib; path = viewcontroller/HelpViewController.xib; sourceTree = "<group>"; };
 		04DE103C16B3EA1B005394E2 /* mode_endless.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_endless.png; sourceTree = "<group>"; };
 		04DE103D16B3EA1B005394E2 /* mode_level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_level.png; sourceTree = "<group>"; };
 		04DE104016B3F7CE005394E2 /* LevelChooseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelChooseLayer.h; path = fastmaze/Scenes/LevelChooseLayer.h; sourceTree = SOURCE_ROOT; };
@@ -554,6 +562,9 @@
 				0427E31E16B16ABD009A103C /* AppDelegate.m */,
 				0477272716B3D9AC003806EF /* RootViewController.h */,
 				0477272816B3D9AC003806EF /* RootViewController.m */,
+				0497BB7216B82B9B00D8B9AE /* HelpViewController.h */,
+				0497BB7316B82B9C00D8B9AE /* HelpViewController.m */,
+				0497BB7416B82B9C00D8B9AE /* HelpViewController.xib */,
 				0427E31F16B16ABD009A103C /* Constants.h */,
 				0427E32116B16ABD009A103C /* Entity.h */,
 				0427E32216B16ABD009A103C /* Entity.m */,
@@ -1025,6 +1036,8 @@
 				0477271716B3D514003806EF /* MyCustomLayer.m */,
 				0477271816B3D514003806EF /* SlidingMenuGrid.h */,
 				0477271916B3D514003806EF /* SlidingMenuGrid.m */,
+				0497BB6E16B82A1E00D8B9AE /* CCMenuUtil.h */,
+				0497BB6F16B82A1E00D8B9AE /* CCMenuUtil.m */,
 			);
 			path = customView;
 			sourceTree = "<group>";
@@ -1193,6 +1206,7 @@
 				04DE107016B432D3005394E2 /* button_start.png in Resources */,
 				04DE107316B43650005394E2 /* button_new_maze.png in Resources */,
 				04DE107416B43650005394E2 /* button_show_answer.png in Resources */,
+				0497BB7616B82B9C00D8B9AE /* HelpViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,6 +1329,8 @@
 				0477272516B3D697003806EF /* SysConfig.m in Sources */,
 				0477272916B3D9AC003806EF /* RootViewController.m in Sources */,
 				04DE104216B3F7CE005394E2 /* LevelChooseLayer.m in Sources */,
+				0497BB7016B82A1E00D8B9AE /* CCMenuUtil.m in Sources */,
+				0497BB7516B82B9C00D8B9AE /* HelpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
