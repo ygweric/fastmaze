@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface CCMenuUtil : NSObject
-+(CCMenu*)createMenuWithImg:(NSString*)img target:(id)target selector:(SEL)selector;
++(CCMenu*)createMenuWithImg:(NSString*)img pressedColor:(ccColor3B)color target:(id)target selector:(SEL)selector;
 @end

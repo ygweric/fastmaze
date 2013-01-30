@@ -15,6 +15,7 @@ static BOOL sNeedAudio_= YES;
 static BOOL sNeedMusic_= YES;
 static eDifficulty sDifficulty_= dNormal;
 static eOperation sOperation_= oAcceleration;
+static eMazeSize sMazeSize_= oNormal;
 
 +(BOOL) needAudio{
     return sNeedAudio_;
@@ -39,6 +40,13 @@ static eOperation sOperation_= oAcceleration;
 }
 +(void) setOperation:(int)oper{
     sOperation_=oper;
+}
+
++(int) mazeSize{
+    return  sMazeSize_;
+}
++(void) setMazeSize:(int)size{
+    sMazeSize_=size;
 }
 
 //FIXME release

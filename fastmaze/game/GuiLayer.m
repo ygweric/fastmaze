@@ -2,7 +2,7 @@
 // @author Jonny Brannum <jonny.brannum@gmail.com> 
 //         1/22/12
 //
-
+#import <UIKit/UIKit.h>
 #import "GuiLayer.h"
 #import "CCMenuItem.h"
 #import "CCMenu.h"
@@ -10,8 +10,7 @@
 #import "CGPointExtension.h"
 #import "Constants.h"
 #import "MenuLayer.h"
-#import "AppDelegate.h"
-#import "HelpViewController.h"
+#import "HelpLayer.h"
 
 @implementation GuiLayer
 @synthesize gameLayer=_gameLayer;
@@ -24,43 +23,28 @@
 
     CGSize winSize = [[CCDirector sharedDirector] winSize];
 
-    
-    CCSprite* backn= [CCSprite spriteWithFile:@"button_previous.png"];
-    CCSprite* backs= [CCSprite spriteWithFile:@"button_previous.png"];
-    backs.color=ccYELLOW;
-    CCMenuItemSprite* backItem=[CCMenuItemSprite itemFromNormalSprite:backn selectedSprite:backs target:self selector:@selector(goBack)];
-    CCMenu* back= [CCMenu menuWithItems:backItem, nil];
+
+    CCMenu* back= [CCMenuUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)]; 
     [self addChild:back z:zBelowOperation];
     back.position=ccp(winSize.width*1/3, winSize.height-50);
 
-    
-    CCSprite* regenerateMazen= [CCSprite spriteWithFile:@"button_new_maze.png"];
-    CCSprite* regenerateMazes= [CCSprite spriteWithFile:@"button_new_maze.png"];
-    regenerateMazes.color=ccYELLOW;
-    CCMenuItemSprite* regenerateMazeItem=[CCMenuItemSprite itemFromNormalSprite:regenerateMazen selectedSprite:regenerateMazes target:self selector:@selector(regenerateMaze)];
-    CCMenu* regenerateMaze= [CCMenu menuWithItems:regenerateMazeItem, nil];
+    CCMenu* regenerateMaze=[CCMenuUtil createMenuWithImg:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze)];
     [self addChild:regenerateMaze z:zBelowOperation];
     regenerateMaze.position=ccp(winSize.width*1/2, winSize.height-50);
     
-    
-    CCSprite* showMazeAnswern= [CCSprite spriteWithFile:@"button_show_answer.png"];
-    CCSprite* showMazeAnswers= [CCSprite spriteWithFile:@"button_show_answer.png"];
-    showMazeAnswers.color=ccYELLOW;
-    CCMenuItemSprite* showMazeAnswerItem=[CCMenuItemSprite itemFromNormalSprite:showMazeAnswern selectedSprite:showMazeAnswers target:self selector:@selector(showMazeAnswer)];
-    CCMenu* showMazeAnswer= [CCMenu menuWithItems:showMazeAnswerItem, nil];
+
+    CCMenu* showMazeAnswer= [CCMenuUtil createMenuWithImg:@"button_show_answer.png" pressedColor:ccYELLOW target:self selector:@selector(showMazeAnswer)]; 
     [self addChild:showMazeAnswer z:zBelowOperation];
     showMazeAnswer.position=ccp(winSize.width*2/3, winSize.height-50);
     
 
-    CCMenu* helpButton= [CCMenuUtil createMenuWithImg:@"button_help.png" target:self selector:@selector(help)];
-    
-    helpButton.position=ccp(winSize.width*1/3-100, winSize.height-50);
-    [self addChild:helpButton z:zBelowOperation];
+//    CCMenu* helpButton= [CCMenuUtil createMenuWithImg:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];    
+//    helpButton.position=ccp(winSize.width*1/3-100, winSize.height-50);
+//    [self addChild:helpButton z:zBelowOperation];
     //------------
 
-    CCMenu* pauseButton= [CCMenuUtil createMenuWithImg:@"button_pause.png" target:self selector:@selector(pauseGame)];
-    
-    pauseButton.position=ccp(winSize.width*2/3+50, winSize.height-50);
+    CCMenu* pauseButton= [CCMenuUtil createMenuWithImg:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];    
+    pauseButton.position=ccp(winSize.width*2/3+100, winSize.height-50);
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
     
     //暂停layer
@@ -69,71 +53,41 @@
     pauseLayer.visible=NO;
     
     //audio & music
+    
     BOOL isAudioOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_AUDIO];
-    CCSprite* audion,*audios;
+    CCMenu* audioButton=nil;
     if (isAudioOn) {
-        audion= [CCSprite spriteWithFile:@"button_audio.png"];
-        audios= [CCSprite spriteWithFile:@"button_audio.png"];
+        audioButton=[CCMenuUtil createMenuWithImg:@"button_audio.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
     }else{
-        audion= [CCSprite spriteWithFile:@"button_audio_bar.png"];
-        audios= [CCSprite spriteWithFile:@"button_audio_bar.png"];
+        audioButton=[CCMenuUtil createMenuWithImg:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
     }
-    audios.color=ccYELLOW;
-    CCMenuItemSprite* audiosa=[CCMenuItemSprite itemFromNormalSprite:audion selectedSprite:audios target:self selector:@selector(audio:)];
-    audiosa.tag=tAudioItem;
-    CCMenu* audioButton= [CCMenu menuWithItems:audiosa, nil];
     audioButton.position=ccp(winSize.width /2-(IS_IPAD()?100:60), winSize.height*1/3+30);
     [pauseLayer addChild:audioButton z:zAboveOperation tag:tAudio];
     
     BOOL isMusicOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_MUSIC];
-    CCSprite* musicn,*musics;
+    CCMenu* musicButton=nil;
     if (isMusicOn) {
-        musicn= [CCSprite spriteWithFile:@"button_music.png"];
-        musics= [CCSprite spriteWithFile:@"button_music.png"];
+        musicButton=[CCMenuUtil createMenuWithImg:@"button_music.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
     }else{
-        musicn= [CCSprite spriteWithFile:@"button_music_bar.png"];
-        musics= [CCSprite spriteWithFile:@"button_music_bar.png"];
+        musicButton=[CCMenuUtil createMenuWithImg:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
     }
-    musics.color=ccYELLOW;
-    CCMenuItemSprite* musicsa=[CCMenuItemSprite itemFromNormalSprite:musicn selectedSprite:musics target:self selector:@selector(music:)];
-    musicsa.tag=tMusicItem;
-    CCMenu* musicButton= [CCMenu menuWithItems:musicsa, nil];
     musicButton.position=ccp(winSize.width /2+(IS_IPAD()?100:60), winSize.height*1/3+30);
     [pauseLayer addChild:musicButton z:zAboveOperation tag:tMusic];
     
     
     //menu & refresh & start
-    CCSprite* mn= [CCSprite spriteWithFile:@"button_menu.png"];
-    CCSprite* ms= [CCSprite spriteWithFile:@"button_menu.png"];
-    ms.color=ccYELLOW;
-    CCMenuItemSprite* msa=[CCMenuItemSprite itemFromNormalSprite:mn selectedSprite:ms target:self selector:@selector(menu)];
-    CCMenu* menuButton= [CCMenu menuWithItems:msa, nil];
+    CCMenu* menuButton= [CCMenuUtil createMenuWithImg:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)]; 
     menuButton.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
     [pauseLayer addChild:menuButton z:zAboveOperation];
     
-    
-    
-    CCSprite* rsn= [CCSprite spriteWithFile:@"button_refresh.png"];
-    CCSprite* rss= [CCSprite spriteWithFile:@"button_refresh.png"];
-    rss.color=ccYELLOW;
-    CCMenuItemSprite* rsa=[CCMenuItemSprite itemFromNormalSprite:rsn selectedSprite:rss target:self selector:@selector(restartGame)];
-    CCMenu* restartButton= [CCMenu menuWithItems:rsa, nil];
+    CCMenu* restartButton= [CCMenuUtil createMenuWithImg:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
     restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
     [pauseLayer addChild:restartButton z:zAboveOperation];
     
-    
-    
-    CCSprite* rn= [CCSprite spriteWithFile:@"button_start.png"];
-    CCSprite* rs= [CCSprite spriteWithFile:@"button_start.png"];
-    rs.color=ccYELLOW;
-    CCMenuItemSprite* r=[CCMenuItemSprite itemFromNormalSprite:rn selectedSprite:rs target:self selector:@selector(resumeGame)];
-    CCMenu* resumeButton= [CCMenu menuWithItems:r, nil];
+    CCMenu* resumeButton=[CCMenuUtil createMenuWithImg:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
     resumeButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
     [pauseLayer addChild:resumeButton z:zAboveOperation];
     
-
-    
- 
     return self;
 }
 
@@ -235,10 +189,18 @@
 }
 
 -(void)help{
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[HelpLayer scene]]];
+    
+    /*
+    FIXME scene方向会改变，不知道原因
     AppDelegate* delegate=(AppDelegate*) [[UIApplication sharedApplication]delegate];
     HelpViewController* controller= [[[HelpViewController alloc]initWithNibName:@"HelpViewController" bundle:nil]autorelease];
+    NSLog(@"--self.boundingBox.size width:%f,height:%f",self.boundingBox.size.width,self.boundingBox.size.height);
+    NSLog(@"delegate.viewController.view:%@",delegate.viewController);
+
     [delegate.viewController presentModalViewController:controller animated:YES];
-    
+    NSLog(@"--self.boundingBox.size width:%f,height:%f",self.boundingBox.size.width,self.boundingBox.size.height);
+     */
 }
 
 

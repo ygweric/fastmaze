@@ -9,9 +9,10 @@
 #import "CCMenuUtil.h"
 
 @implementation CCMenuUtil
-+(CCMenu*)createMenuWithImg:(NSString*)img target:(id)target selector:(SEL)selector{
++(CCMenu*)createMenuWithImg:(NSString*)img pressedColor:(ccColor3B)color target:(id)target selector:(SEL)selector{
     CCSprite* pn= [CCSprite spriteWithFile:img];
     CCSprite* ps= [CCSprite spriteWithFile:img];
+    ps.color=color;
     CCMenuItemSprite* p=[CCMenuItemSprite itemFromNormalSprite:pn selectedSprite:ps target:target selector:selector];
     return [CCMenu menuWithItems:p, nil];
 }

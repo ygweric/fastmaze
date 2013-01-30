@@ -29,75 +29,29 @@
  }
  
 
-/*
- // Implement loadView to create a view hierarchy programmatically, without using a nib.
- - (void)loadView {
- }
- */
-
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
  - (void)viewDidLoad {
      NSLog(@"RootViewController----viewDidLoad----");
-	[super viewDidLoad];
+	[super viewDidLoad];  
  }
- 
 
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	
-	//
-	// There are 2 ways to support auto-rotation:
-	//  - The OpenGL / cocos2d way
-	//     - Faster, but doesn't rotate the UIKit objects
-	//  - The ViewController way
-	//    - A bit slower, but the UiKit objects are placed in the right place
-	//
-	
-#if GAME_AUTOROTATION==kGameAutorotationNone
-	//
-	// EAGLView won't be autorotated.
-	// Since this method should return YES in at least 1 orientation, 
-	// we return YES only in the Portrait orientation
-	//
-	return ( interfaceOrientation == UIInterfaceOrientationPortrait );
-	
-#elif GAME_AUTOROTATION==kGameAutorotationCCDirector
-	//
-	// EAGLView will be rotated by cocos2d
-	//
-	// Sample: Autorotate only in landscape mode
-	//
-	if( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
-		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeRight];
-	} else if( interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeLeft];
-	}
-	
-	// Since this method should return YES in at least 1 orientation, 
-	// we return YES only in the Portrait orientation
-	return ( interfaceOrientation == UIInterfaceOrientationPortrait );
-	
-#elif GAME_AUTOROTATION == kGameAutorotationUIViewController
-	//
-	// EAGLView will be rotated by the UIViewController
-	//
-	// Sample: Autorotate only in landscpe mode
-	//
-	// return YES for the supported orientations
-	
-	return ( UIInterfaceOrientationIsLandscape( interfaceOrientation ) );
-	
-#else
-#error Unknown value in GAME_AUTOROTATION
-	
-#endif // GAME_AUTOROTATION
-	
-	
-	// Shold not happen
-	return NO;
+-(BOOL)shouldAutorotate{
+    NSLog(@"RootViewController--------shouldAutorotate");
+    NSLog(@"RootViewController-----shouldAutorotate--self.view.bounds.size width:%f,height:%f",self.view.bounds.size.width,self.view.bounds.size.height);
+    return NO;
 }
+- (NSUInteger)supportedInterfaceOrientations {
+     NSLog(@"RootViewController--------supportedInterfaceOrientations");
+    NSLog(@"RootViewController-----supportedInterfaceOrientations--self.view.bounds.size width:%f,height:%f",self.view.bounds.size.width,self.view.bounds.size.height);
+    return UIInterfaceOrientationMaskLandscapeLeft;
+}
+// pre-iOS 6 support
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+     NSLog(@"RootViewController--------shouldAutorotateToInterfaceOrientation");
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 
 //
 // This callback only will be called when GAME_AUTOROTATION == kGameAutorotationUIViewController

@@ -10,6 +10,7 @@
 #import "GameLayer.h"
 #import "SlidingMenuGrid.h"
 #import "HelpLayer.h"
+#import "SettingLayer.h"
 #import "AppDelegate.h"
 #import "GameScene.h"
 
@@ -20,7 +21,10 @@ enum  {
 @implementation MenuLayer
 {
     CCMenu* modelEndless;
-    CCMenu* modeLevel;
+    CCMenu* modelLevel;
+    CCMenu* modelSetting;
+    CCMenu* modelHelp;
+    CCMenu* modelShop;
 }
 enum {
     eMenuButtonPlay =1,
@@ -53,25 +57,34 @@ enum {
             [self setBg:SD_OR_HD(@"bg.jpg")];
         }
         //操作菜单
-        CCSprite* modeLeveln= [CCSprite spriteWithFile:@"mode_level.png"];
-        CCSprite* modeLevels= [CCSprite spriteWithFile:@"mode_level.png"];
-        modeLevels.color=ccYELLOW;
-        CCMenuItemSprite* modeLevelItem=[CCMenuItemSprite itemFromNormalSprite:modeLeveln selectedSprite:modeLevels target:self selector:@selector(showLayerModelLevel)];
-        modeLevel= [CCMenu menuWithItems:modeLevelItem, nil];        
-        [self addChild:modeLevel z:zAboveOperation];
-        modeLevel.position=ccp(-winSize.width*1/3, winSize.height*4/3);
+//        modeLevel= [CCMenuUtil createMenuWithImg:@"mode_level.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelLevel)];
+//        [self addChild:modeLevel z:zAboveOperation];
+//        modeLevel.position=ccp(-winSize.width*1/3, winSize.height*4/3);
         
-        
-        CCSprite* modelEndlessn= [CCSprite spriteWithFile:@"mode_endless.png"];
-        CCSprite* modelEndlesss= [CCSprite spriteWithFile:@"mode_endless.png"];
-        modelEndlesss.color=ccYELLOW;
-        CCMenuItemSprite* modelEndlessItem=[CCMenuItemSprite itemFromNormalSprite:modelEndlessn selectedSprite:modelEndlesss target:self selector:@selector(showLayerModelEndless)];
-        modelEndless= [CCMenu menuWithItems:modelEndlessItem, nil];       
+
+        modelEndless= [CCMenuUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelEndless)];         
         [self addChild:modelEndless z:zAboveOperation];
-         modelEndless.position=ccp(winSize.width/2, -winSize.height*4/3);
+         modelEndless.position=ccp(-100, -100);
         
-        [self performSelector:@selector(showMenuModelLevel) withObject:nil afterDelay:0.5];
-        [self performSelector:@selector(showMenuModelEndless) withObject:nil afterDelay:1];
+        modelSetting= [CCMenuUtil createMenuWithImg:@"mode_setting.png" pressedColor:ccYELLOW target:self selector:@selector(OnSettings:)];
+        [self addChild:modelSetting z:zAboveOperation];
+        modelSetting.position=ccp(winSize.width/2, winSize.height+100);
+        
+        modelHelp= [CCMenuUtil createMenuWithImg:@"mode_help.png" pressedColor:ccYELLOW target:self selector:@selector(onHelp:)];
+        [self addChild:modelHelp z:zAboveOperation];
+        modelHelp.position=ccp(winSize.width+100, -100);
+        
+        modelShop= [CCMenuUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
+        [self addChild:modelShop z:zAboveOperation];
+        modelShop.position=ccp(winSize.width+100, winSize.height+100);
+        
+        
+        
+//        [self performSelector:@selector(showMenuModelLevel) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(showMenuModelEndless) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL];
+        [self performSelector:@selector(showMenuModelSetting) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*2];
+        [self performSelector:@selector(showMenuModelHelp) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*3];
+        [self performSelector:@selector(showMenuModelShop) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*4];
         
 	}
 
@@ -79,11 +92,23 @@ enum {
 }
 
 -(void)showMenuModelLevel{ 
-    [modeLevel runAction:[CCMoveTo actionWithDuration:0.5 position:ccp(winSize.width/2-(IS_IPAD()?150:70), winSize.height*2/3)]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+//    [modelLevel runAction:[CCMoveTo actionWithDuration:0.5 position:ccp(winSize.width/2-(IS_IPAD()?150:70), winSize.height*2/3)]];
+//    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
 }
 -(void)showMenuModelEndless{
-    [modelEndless runAction:[CCMoveTo actionWithDuration:0.5 position:ccp(winSize.width/2+(IS_IPAD()?150:70), winSize.height*2/3)]];
+    [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2-(IS_IPAD()?250:70), winSize.height*2/3)]];
+    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+}
+-(void)showMenuModelSetting{
+    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2, winSize.height*1/3)]];
+    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+}
+-(void)showMenuModelHelp{
+    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2+(IS_IPAD()?250:70), winSize.height*2/3)]];
+    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+}
+-(void)showMenuModelShop{
+    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp((winSize.width/2+(IS_IPAD()?250:70))+100, winSize.height*1/3)]];
     [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
 }
 
@@ -154,38 +179,32 @@ enum {
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[GameScene node]]];
 }
 
+-(void)setting{
+    
+    if ([SysConfig needAudio]){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
+    }
+    CCScene* sc=[SettingLayer node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+}
+
+-(void)about{
+    if ([SysConfig needAudio]){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
+    }
+    CCScene* sc=[HelpLayer node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+}
 
 
 
-- (void ) LaunchLevel: (id) sender
+- (void) OnSettings:(id) sender
 {
     if ([SysConfig needAudio]){
         [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
     }
-    CCMenuItem* item=(CCMenuItem*)sender;
-    NSLog(@"LaunchLevel--%d",item.tag);
-    int levelPassed= [[NSUserDefaults standardUserDefaults]integerForKey:UDF_LEVEL_PASSED];
-    if ((![SysConfig needLockLevel]|| (item.tag<=levelPassed+1)) && (item.tag<=kMAX_LEVEL_REAL)) {
-        NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
-        [def setInteger:item.tag forKey:UDF_LEVEL_SELECTED];
-        
-        CCScene *sc =[GameLayer scene];
-        [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
-    }else if(item.tag==kMAX_LEVEL_REAL+1){
-        UIAlertView* alert=[[ [UIAlertView alloc] initWithTitle:nil message:@"new levels are comming soon !\n follow my twitter :ygweric" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]autorelease];
-        [alert show];
-        
-    }
-    
-}
-
-- (void) OnSettings:(id) sender
-{
-//    if ([SysConfig needAudio]){
-//        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-//    }
-//    CCScene* sc=[SettingLayer node];
-//    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+    CCScene* sc=[SettingLayer node];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 - (void) onHelp:(id) sender
 {
@@ -194,5 +213,13 @@ enum {
     }
     CCScene* sc=[HelpLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+}
+
+-(void)onShop:(id) sender{
+    if ([SysConfig needAudio]){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
+    }
+    UIAlertView* shopAlert=[[[UIAlertView alloc]initWithTitle:nil message:@"remove ad" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil]autorelease];
+    [shopAlert show];
 }
 @end

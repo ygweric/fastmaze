@@ -12,6 +12,10 @@
 @end
 
 @implementation GameLayer
+{
+    BOOL isMove;
+}
+
 @synthesize mazeGenerator = _mazeGenerator;
 @synthesize playerEntity = _playerEntity;
 @synthesize desireEntity=_desireEntity;
@@ -23,6 +27,8 @@
 - (id)init
 {
     self = [super init];
+    isMove=NO;
+    
     self.isTouchEnabled = YES;
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"walls.plist"];
     self.batchNode = [CCSpriteBatchNode batchNodeWithFile:@"walls.png"];
@@ -105,42 +111,59 @@
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [[CCDirector sharedDirector]
-                        convertToGL:[touch locationInView:touch.view]
-                        ];
-    CGPoint endPosition = ccpSub(location, self.position);
-    if (endPosition.x>0
-        && endPosition.y>0
-        && endPosition.x<_mazeGenerator.size.width
-        && endPosition.y<_mazeGenerator.size.height) {
-        if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
-            [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
-            if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
-                 NSLog(@"great!!! you win!!!!!");
-            }
-            
-        }
-    } else {
-        NSLog(@"touch is out of the maze..");
-    }
-    
-   
+    isMove=NO;
 }
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
+    if ([SysConfig mazeSize]>=oLarge) {
+        isMove=YES;
+        
+        // we also handle touches for map movement
+        // simply move the layer around by the diff of this move and the last
+        UITouch *touch = [touches anyObject];
+        // get our GL location
+        CGPoint location = [[CCDirector sharedDirector]
+                            convertToGL:[touch locationInView:touch.view]
+                            ];
+        CGPoint previousLocation = [[CCDirector sharedDirector]
+                                    convertToGL:[touch previousLocationInView:touch.view]
+                                    ];
+        // create the difference
+        CGPoint diff = ccp(location.x - previousLocation.x, location.y - previousLocation.y);
+        // add the diff to the current position
+        [self setPosition:ccp(position_.x + diff.x, position_.y + diff.y)];
 
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [[CCDirector sharedDirector]
-            convertToGL:[touch locationInView:touch.view]
-    ];
-//    [_mazeGenerator movingEntity:_playerEntity position:location];
-}
+    }
+    
+  }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    if (!isMove) {
+        UITouch *touch = [touches anyObject];
+        CGPoint location = [[CCDirector sharedDirector]
+                            convertToGL:[touch locationInView:touch.view]
+                            ];
+        //这里点击有些偏移，因此需要手动修改
+        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
+//        NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
+        if (endPosition.x>0
+            && endPosition.y>0
+            && endPosition.x<_mazeGenerator.size.width
+            && endPosition.y<_mazeGenerator.size.height) {
+            if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
+                [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
+                if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
+                    NSLog(@"great!!! you win!!!!!");
+                }
+                
+            }
+        } else {
+            NSLog(@"touch is out of the maze..");
+        }
+    }
+   
 }
 #endif
 - (void)dealloc {

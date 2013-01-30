@@ -33,9 +33,23 @@
 - (id)initWithBatchNode:(CCSpriteBatchNode *)batch
 {
     self = [super init];
-    self.batch = batch;
-    self.size = CGSizeMake(900, 600);
-//    self.size = CGSizeMake(300, 200);
+    self.batch = batch;    
+    switch ([SysConfig mazeSize]) {
+        case oSmall:
+            self.size = CGSizeMake(450, 300);
+            break;
+        case oNormal:
+            self.size = CGSizeMake(900, 600);
+            break;
+        case oLarge:
+            self.size = CGSizeMake(1350, 900);
+            break;
+        case oHuge:
+            self.size = CGSizeMake(1800, 1200);
+            break;
+
+    }
+
     self.complexity = 0.1f;
     self.density = 0.5f;
 
@@ -342,7 +356,7 @@
     [stack release];
     
     //util很快就找到了path，上面的过程只是在生成action
-    if (correctCount<=MAX_AUTO_STEP) {
+    if (correctCount<=MAX_AUTO_STEP*([SysConfig mazeSize]+1)) {
         if (found) {
             NSLog(@"--ok, the auto path has been shown --");
             return YES;

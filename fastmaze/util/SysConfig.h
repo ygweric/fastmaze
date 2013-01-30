@@ -18,6 +18,13 @@ typedef enum{
     oMix,
 }eOperation;
 
+typedef enum{
+    oSmall,
+    oNormal,
+    oLarge,
+    oHuge,
+}eMazeSize;
+
 @interface SysConfig : NSObject
 +(BOOL) needAudio;
 +(void) setNeedAudio:(BOOL)need;
@@ -27,6 +34,8 @@ typedef enum{
 +(void) setDifficulty:(int)diff;
 +(int) operation;
 +(void) setOperation:(int)oper;
++(int) mazeSize;
++(void) setMazeSize:(int)size;
 
 +(BOOL) needLockLevel;
 @end

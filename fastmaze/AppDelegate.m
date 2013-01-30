@@ -42,6 +42,19 @@
 }
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+    // init app configure
+    NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
+    [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
+    [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
+    [SysConfig setDifficulty:[def integerForKey:UDF_DIFFICULLY]];
+    [SysConfig setOperation:[def integerForKey:UDF_OPERATION]];
+    [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
+    
+    if ([SysConfig needMusic]) {
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gamebg.mp3" loop:YES];
+    }
+    
+    
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	

@@ -8,8 +8,6 @@
 
 #import "WinLayer.h"
 #import "MenuLayer.h"
-#import "BirdSprite.h"
-#import "BonusSprite.h"
 
 #define mPI 3.1415f
 

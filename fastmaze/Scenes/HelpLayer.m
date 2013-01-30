@@ -43,13 +43,19 @@
     CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
     facebook.scale=HD2SD_SCALE;
     
-    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Folllow Me On TWitter" fntFile:@"futura-48.fnt"];
-    CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
-    twitter.scale=HD2SD_SCALE;
+//    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Folllow Me On Twitter" fntFile:@"futura-48.fnt"];
+//    CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
+//    twitter.scale=HD2SD_SCALE;
     
     CCLabelBMFont *gorateLabel = [CCLabelBMFont labelWithString:@"Go Rate" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* rate =[CCMenuItemLabel itemWithLabel:gorateLabel target:self selector:@selector(goRate:)];
     rate.scale=HD2SD_SCALE;
+    
+    CCLabelBMFont *mailMeLabel = [CCLabelBMFont labelWithString:@"Mail Me" fntFile:@"futura-48.fnt"];
+    CCMenuItemLabel* mail =[CCMenuItemLabel itemWithLabel:mailMeLabel target:self selector:@selector(mailMe:)];
+    mail.scale=HD2SD_SCALE;
+    
+
     
     // go back
     CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:@"Go Back" fntFile:@"futura-48.fnt"];
@@ -58,15 +64,15 @@
     
     
     CCMenu *menu = [CCMenu menuWithItems:
-                    facebook,twitter,rate, back, nil];
+                    facebook,rate,mail, back, nil];
     [menu alignItemsInColumns:
      [NSNumber numberWithUnsignedInt:1],
-     [NSNumber numberWithUnsignedInt:1],
      [NSNumber numberWithUnsignedInt:2],
+     [NSNumber numberWithUnsignedInt:1],
      nil
 	 ];
     menu.anchorPoint=CGPointZero;
-    menu.position=ccp(winSize.width/2,(IS_IPAD()? 340:110));
+    menu.position=ccp(winSize.width/2,(IS_IPAD()? 140:110));
 	[self addChild: menu];
     
     
@@ -88,4 +94,8 @@
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=597108795"]];
 }
 
+-(void)mailMe:(id)sender{
+    NSString *url = @"mailto:ygweric@gmail.com?subject=about%20fastmaze";
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+}
 @end
