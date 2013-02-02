@@ -15,9 +15,10 @@
 #import "Entity.h"
 #import "GuiLayer.h"
 
-@interface GameLayer : CCLayer
+@interface GameLayer : MyBaseLayer
 @property (nonatomic, retain) MazeGenerator *mazeGenerator;
 @property (nonatomic, retain) GuiLayer *guiLayer;
+@property (nonatomic, retain) CCLayer *mazeLayer;
 @property (nonatomic, retain) CCSpriteBatchNode *batchNode;
 @property (nonatomic, assign) Entity *playerEntity;//用户观察到的role
 @property (nonatomic, assign) Entity *desireEntity;//暂无用

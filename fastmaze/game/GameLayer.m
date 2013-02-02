@@ -23,17 +23,26 @@
 @synthesize currentEnd = _currentEnd;
 @synthesize batchNode = _batchNode;
 @synthesize guiLayer=_guiLayer;
+@synthesize mazeLayer=_mazeLayer;
 
-
+#pragma mark -
 - (id)init
 {
     self = [super init];
-    isMove=NO;
-    
+    isMove=NO;    
     self.isTouchEnabled = YES;
+    
+    if (IS_IPHONE_5) {
+        [self setBg:@"bg-568h@2x.jpg"];
+    }else{
+        [self setBg:@"bg.png"];
+    }
+    _mazeLayer=[CCLayer node];
+    [self addChild:_mazeLayer];
+    
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"walls.plist"];
     self.batchNode = [CCSpriteBatchNode batchNodeWithFile:@"walls.png"];
-    [self addChild:_batchNode];
+    [_mazeLayer addChild:_batchNode];
     self.mazeGenerator = [[[MazeGenerator alloc] initWithBatchNode:_batchNode] autorelease];
     [self regenerateMaze];
     return self;
@@ -41,9 +50,9 @@
 
 - (void)regenerateMaze
 {
-    [self removeAllChildrenWithCleanup:YES];
+    [_mazeLayer removeAllChildrenWithCleanup:YES];
     [_batchNode removeAllChildrenWithCleanup:YES];
-    [self addChild:_batchNode];
+    [_mazeLayer addChild:_batchNode];
     _currentStart = nil;
     _currentEnd = nil;
     _playerEntity = nil;
@@ -51,6 +60,8 @@
     [self setPosition:ccp(0, 0)];
     [_mazeGenerator createUsingDepthFirstSearch];
     [self loadGeneratedMaze];
+    
+    
 }
 - (void)showMazeAnswer
 {
@@ -71,31 +82,34 @@
     CGPoint rbMaze = ccp((_mazeGenerator.size.width), 0);
     MazeCell* rbCell= [_mazeGenerator cellForPosition:rbMaze];
     [_playerEntity setPosition:rbCell.position];
-    [self addChild:_playerEntity];
+    [_mazeLayer addChild:_playerEntity];
     
     self.desireEntity = [Entity spriteWithFile:@"entity.png"];
     //set player position
     CGPoint ltMaze = ccp(0,(_mazeGenerator.size.height));
     MazeCell* ltCell= [_mazeGenerator cellForPosition:ltMaze];
     [_desireEntity setPosition:ltCell.position];
-    [self addChild:_desireEntity];
+    [_mazeLayer addChild:_desireEntity];
     
     
     
     // determine the window center
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
     CGPoint winCenter = ccp(winSize.width/2, winSize.height/2);
     // determine the difference between the two
     CGPoint diff = ccpSub(winCenter, mazeCenter);
     // add the difference to our current position to center the maze
-    [self setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
+    [_mazeLayer setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
+    
+//    CCSprite* bg=[CCSprite spriteWithFile:@"bg.png"];
+//    bg.position=mazeCenter;
+//    [self addChild:bg z:-1];
     
     
     //创建&放置start点
     if (_currentStart == nil) {
         _currentStart = [Entity spriteWithFile:@"entity.png"];
         [_currentStart setColor:ccRED];
-        [self addChild:_currentStart];
+        [_mazeLayer addChild:_currentStart];
     }
     [_currentStart setPosition:_playerEntity.position];
     
@@ -103,7 +117,7 @@
     if (_currentEnd == nil) {
         _currentEnd = [Entity spriteWithFile:@"entity.png"];
         [_currentEnd setColor:ccGREEN];
-        [self addChild:_currentEnd];
+        [_mazeLayer addChild:_currentEnd];
     }
     [_currentEnd setPosition:_desireEntity.position];
     
@@ -111,7 +125,7 @@
 #if 1
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
-
+//    NSLog(@"--self.position x:%f,y:%f",self.position.x,self.position.y);
     isMove=NO;
 }
 
@@ -133,7 +147,7 @@
         // create the difference
         CGPoint diff = ccp(location.x - previousLocation.x, location.y - previousLocation.y);
         // add the diff to the current position
-        [self setPosition:ccp(position_.x + diff.x, position_.y + diff.y)];
+        [_mazeLayer setPosition:ccp(_mazeLayer.position.x + diff.x, _mazeLayer.position.y + diff.y)];
 
     }
     
@@ -149,7 +163,7 @@
         //这里点击有些偏移，因此需要手动修改
         int diffx=15;int diffy=18;
 //        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
-        CGPoint endPosition = ccpSub(location, self.position);
+        CGPoint endPosition = ccpSub(location, _mazeLayer.position);
         NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
         if (endPosition.x>-diffx
             && endPosition.y>-diffy

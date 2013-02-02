@@ -25,7 +25,7 @@ enum{
     zBonusSpriteSheet,
     zBonus,
     zBonusParticle,
-    zScoreLablel,
+    zTimerLablel,
     zButtonSpriteSheet,
     zBelowOperation,
     zPauseLayer,
@@ -57,6 +57,7 @@ typedef enum{
     tLayerPause=200,
     tLayerWin,
     tLayerLose,
+    tLayerPrepare,
     tLayerNone,
 }LayerType ;
 
@@ -88,5 +89,10 @@ typedef enum{
 
 #define MAX_AUTO_STEP 10
 
-#define kGAME_SCORE_MODEL @"score: %d "
+#define kGAME_TIME_MODEL @"best score:%f s     current score:%f s"
+
+#define kPREPARE_TIME 3
+
+#define UFK_SHOTTTEST_TIMER @"UFK_SHOTTTEST_TIMER"
+
 

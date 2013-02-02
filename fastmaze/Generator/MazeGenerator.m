@@ -71,10 +71,14 @@
 - (void)generateGrid
 {
     self.grid = [[[NSMutableDictionary alloc] initWithCapacity:(NSUInteger) (self.size.width * self.size.height / 32)] autorelease];
+    CGSize winSize=[[CCDirector sharedDirector] winSize];
+    CGPoint mazeCenter=ccp(self.size.width/2, self.size.height/2);
+    CGPoint diff=ccpSub(ccp(winSize.width/2,winSize.height/2), mazeCenter);
     for (NSUInteger x = 0; x < self.size.width; x+=32) {
         for (NSUInteger y = 0; y < self.size.height; y+=32) {
             MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch] autorelease];
-            [cell setPosition:ccp(x, y)];
+//            [cell setPosition:ccpAdd(ccp(x, y), diff) ];
+            [cell setPosition:ccp(x, y) ];
             [self.grid setObject:cell forKey:cell.index];
         }
     }

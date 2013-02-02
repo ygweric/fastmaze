@@ -4,17 +4,17 @@
 //
 
 #import "GameScene.h"
-#import "MazeGenerator.h"
 #import "GameLayer.h"
-#import "GuiLayer.h"
+
 
 @implementation GameScene
+@synthesize guiLayer;
 - (id)init
 {
     self = [super init];
     GameLayer* gameLayer=[[[GameLayer alloc] init] autorelease];
     [self addChild:gameLayer];
-    GuiLayer* guiLayer=[[[GuiLayer alloc] initWithGameLayer:gameLayer] autorelease];
+    guiLayer=[[[GuiLayer alloc] initWithGameLayer:gameLayer] autorelease];
     gameLayer.guiLayer=guiLayer;
     [self addChild:guiLayer];
     return self;

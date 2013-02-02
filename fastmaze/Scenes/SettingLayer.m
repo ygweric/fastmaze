@@ -25,7 +25,7 @@
     if (IS_IPHONE_5) {
         [self setBg:@"bg-568h@2x.jpg"];
     }else{
-        [self setBg:SD_OR_HD(@"bg.jpg")];
+        [self setBg:@"bg.png"];
     }
     CCMenuItemFont *title1 =[CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"Sound Effect" fntFile:@"futura-48.fnt"]];
     [title1 setDisabledColor:title1.color];
@@ -80,8 +80,7 @@
     
     
     
-    CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_SCORE_MODEL,0] fntFile:@"futura-48.fnt"];
-    [gobackLabel setString:@"Go Back"];
+    CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"Go Back",0] fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* back =[CCMenuItemLabel itemWithLabel:gobackLabel target:self selector:@selector(backCallback:)];
     back.scale=HD2SD_SCALE;
     

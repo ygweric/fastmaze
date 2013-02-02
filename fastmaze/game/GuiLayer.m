@@ -19,6 +19,10 @@
     CCProgressTimer* progressTimer;
     CCLabelBMFont *timerLable;
     BOOL isPause;
+    float shortestTime;
+    float takedTime;
+    int prepareTime;
+    CCLabelBMFont *prepareLable;
 }
 
 
@@ -28,44 +32,39 @@
 - (id)init
 {
     self = [super init];
-    isPause=NO;
-
     winSize = [[CCDirector sharedDirector] winSize];
     
     progressTimer=[CCProgressTimer progressWithFile:@"progress_bar.png"];
     progressTimer.position=ccp( winSize.width*1/2 , winSize.height-30);
     progressTimer.anchorPoint=ccp(0.5, 1);
-    progressTimer.percentage=70;
     progressTimer.type=kCCProgressTimerTypeHorizontalBarRL;  
     CCSprite* progressTimerBg=[CCSprite spriteWithFile:@"progress_bar_bg.png"];
     progressTimerBg.position=progressTimer.position;
     progressTimerBg.anchorPoint=ccp(0.5, 1);
     [self addChild:progressTimerBg z:zBelowOperation];
     [self addChild:progressTimer z:zBelowOperation];
-
+    
+    timerLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_TIME_MODEL,0.0f,0.0f] fntFile:@"futura-48.fnt"];
+	[self addChild:timerLable z:zBelowOperation];
+	timerLable.position = ccp(winSize.width/2-20,winSize.height-(IS_IPAD()?100:40));
+    timerLable.scale=0.3;
 
     CCMenu* back= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
     [self addChild:back z:zBelowOperation];
     back.position=ccp(winSize.width*1/3-200, winSize.height-50);
 
-  
-    
-
-//    CCMenu* helpButton= [CCMenuUtil createMenuWithImg:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];    
-//    helpButton.position=ccp(winSize.width*1/3-100, winSize.height-50);
-//    [self addChild:helpButton z:zBelowOperation];
-    //------------
 
     CCMenu* pauseButton= [SpriteUtil createMenuWithImg:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];    
     pauseButton.position=ccp(winSize.width*2/3+200, winSize.height-50);
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
     
-    [self scheduleUpdate];
+    
     
     return self;
 }
 -(void) update:(ccTime)delta{
-    progressTimer.percentage += delta * 10;
+//    NSLog(@"update--");
+    progressTimer.percentage += delta * 100/shortestTime;
     if (progressTimer.percentage >= 100)
     {
         progressTimer.percentage = 0;
@@ -74,7 +73,10 @@
 
 
 -(void)goBack{
-    [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
+    if (!isPause) {
+         [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
+    }
+   
 }
 - (id)initWithGameLayer:(GameLayer*)gameLayer
 {
@@ -85,11 +87,13 @@
 
 - (void)regenerateMaze
 {
-    [_gameLayer regenerateMaze];
+    [self nextLevel];
 }
 - (void)showMazeAnswer
 {
     [_gameLayer showMazeAnswer];
+    [self scheduleUpdate];
+    [self showOperationLayer:NO];
 }
 
 #pragma mark menu
@@ -101,8 +105,8 @@
         }
         [self showOperationLayer:YES type:tLayerPause];
     }
-    
-    
+    isPause=YES;
+    [self unscheduleUpdate];
 }
 -(void)audio:(id)sender{
     CCMenuItemSprite* i=(CCMenuItemSprite*)sender;
@@ -153,10 +157,22 @@
         [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
     }
     [self showOperationLayer:NO];
+    [self showPrepareLayer];
+    
 }
+-(void)nextLevel{
+    if ([SysConfig needAudio]){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
+    }
+    [self regenerateMaze];
+    [self gameInit];
+    [self showOperationLayer:NO];
+    [self showPrepareLayer];
+    
+}
+
 -(void)restartGame{
-    
-    
+    [self gameInit];
     [self showOperationLayer:NO];
 }
 -(void) menu
@@ -168,50 +184,51 @@
 -(void)showOperationLayer:(BOOL)show{
     [self showOperationLayer:show type:tLayerNone];    
 }
+- (void)initBaseOperationLayer:(CCLayer *)operationLayer {
+    //---same for all kind of layer
+    //audio & music
+    BOOL isAudioOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_AUDIO];
+    CCMenu* audioButton=nil;
+    if (isAudioOn) {
+        audioButton=[SpriteUtil createMenuWithImg:@"button_audio.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
+    }else{
+        audioButton=[SpriteUtil createMenuWithImg:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
+    }
+    audioButton.position=ccp(winSize.width /2-(IS_IPAD()?100:60), winSize.height*1/3+30);
+    [operationLayer addChild:audioButton z:zAboveOperation tag:tAudio];
+    
+    BOOL isMusicOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_MUSIC];
+    CCMenu* musicButton=nil;
+    if (isMusicOn) {
+        musicButton=[SpriteUtil createMenuWithImg:@"button_music.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
+    }else{
+        musicButton=[SpriteUtil createMenuWithImg:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
+    }
+    musicButton.position=ccp(winSize.width /2+(IS_IPAD()?100:60), winSize.height*1/3+30);
+    [operationLayer addChild:musicButton z:zAboveOperation tag:tMusic];
+    
+    //menu & refresh & start
+    CCMenu* menuButton= [SpriteUtil createMenuWithImg:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)];
+    menuButton.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
+    [operationLayer addChild:menuButton z:zAboveOperation];
+    
+    CCMenu* restartButton= [SpriteUtil createMenuWithImg:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
+    restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
+    [operationLayer addChild:restartButton z:zAboveOperation];
+}
+
 -(void)showOperationLayer:(BOOL)show type:(LayerType)layerType{
-    isPause=show;
     if (show) {
         //暂停layer
         CCLayer* operationLayer =[CCLayerColor layerWithColor:ccc4(166,166,166,122) ];
         [self addChild:operationLayer z:zPauseLayer tag:tOperationLayer];
-       operationLayer.isTouchEnabled=NO;
+        operationLayer.isTouchEnabled=NO;
         self.isTouchEnabled=NO;
-        
-        //---same for all kind of layer
-        //audio & music
-        BOOL isAudioOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_AUDIO];
-        CCMenu* audioButton=nil;
-        if (isAudioOn) {
-            audioButton=[SpriteUtil createMenuWithImg:@"button_audio.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
-        }else{
-            audioButton=[SpriteUtil createMenuWithImg:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
-        }
-        audioButton.position=ccp(winSize.width /2-(IS_IPAD()?100:60), winSize.height*1/3+30);
-        [operationLayer addChild:audioButton z:zAboveOperation tag:tAudio];
-        
-        BOOL isMusicOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_MUSIC];
-        CCMenu* musicButton=nil;
-        if (isMusicOn) {
-            musicButton=[SpriteUtil createMenuWithImg:@"button_music.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
-        }else{
-            musicButton=[SpriteUtil createMenuWithImg:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
-        }
-        musicButton.position=ccp(winSize.width /2+(IS_IPAD()?100:60), winSize.height*1/3+30);
-        [operationLayer addChild:musicButton z:zAboveOperation tag:tMusic];
-        
-        //menu & refresh & start
-        CCMenu* menuButton= [SpriteUtil createMenuWithImg:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)];
-        menuButton.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
-        [operationLayer addChild:menuButton z:zAboveOperation];
-        
-        CCMenu* restartButton= [SpriteUtil createMenuWithImg:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
-        restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
-        [operationLayer addChild:restartButton z:zAboveOperation];
-        
-        
         switch (layerType) {
             case tLayerPause:
             {
+                [self initBaseOperationLayer:operationLayer];
+                
                 CCMenu* regenerateMaze=[SpriteUtil createMenuWithImg:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze)];
                 [operationLayer addChild:regenerateMaze z:zBelowOperation];
                 regenerateMaze.position=ccp(winSize.width*1/3, winSize.height*1/3+160);
@@ -221,7 +238,7 @@
                 [operationLayer addChild:showMazeAnswer z:zBelowOperation];
                 showMazeAnswer.position=ccp(winSize.width*2/3, winSize.height*1/3+160);
                 
-                CCMenu* resumeButton=[SpriteUtil createMenuWithImg:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
+                CCMenu* resumeButton=[SpriteUtil createMenuWithImg:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(resumeGame)];
                 resumeButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
                 [operationLayer addChild:resumeButton z:zAboveOperation];
             }
@@ -229,7 +246,9 @@
                 break;
             case tLayerWin:
             {
-                CCMenu* nextLevelButton=[SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
+                [self initBaseOperationLayer:operationLayer];
+                
+                CCMenu* nextLevelButton=[SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
                 nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
                 [operationLayer addChild:nextLevelButton z:zAboveOperation];
                 
@@ -243,6 +262,14 @@
             {
                 
             }
+            case tLayerPrepare:
+            {
+                prepareLable = [CCLabelBMFont labelWithString:@"" fntFile:@"futura-48.fnt"];
+                [operationLayer addChild:prepareLable z:zBelowOperation];
+                prepareLable.position = ccp(winSize.width/2,winSize.height/2);
+                prepareLable.scale=2;
+                [self updatePrepareTimer];
+            }
                 break;
             case tLayerNone:
             {
@@ -252,8 +279,31 @@
         }
     } else {
         CCLayer* pl=(CCLayer*)[self getChildByTag:tOperationLayer];
+        [pl removeAllChildrenWithCleanup:YES];
         [pl removeFromParentAndCleanup:YES];
     }    
+}
+//显示倒计时
+-(void)updatePrepareTimer{
+    if (prepareTime>0) {        
+        [prepareLable setString:[NSString stringWithFormat:@"%d",prepareTime]];
+        [self performSelector:@selector(updatePrepareTimer) withObject:nil afterDelay:1];
+        prepareTime--;
+    }else{
+        isPause=NO;
+        [self scheduleUpdate];
+        [self showOperationLayer:NO];
+    }
+}
+-(void)gameInit{
+    isPause=NO;
+    progressTimer.percentage=100;
+    shortestTime=[[NSUserDefaults standardUserDefaults]integerForKey:UFK_SHOTTTEST_TIMER];
+    [self showPrepareLayer];
+}
+-(void)showPrepareLayer{
+    prepareTime=kPREPARE_TIME;
+    [self showOperationLayer:YES type:tLayerPrepare];
 }
 
 -(void)help{

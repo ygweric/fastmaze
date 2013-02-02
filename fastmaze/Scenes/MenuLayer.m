@@ -54,7 +54,7 @@ enum {
         if (IS_IPHONE_5) {
             [self setBg:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:SD_OR_HD(@"bg.jpg")];
+            [self setBg:@"bg.png"];
         }
         //操作菜单
 //        modeLevel= [CCMenuUtil createMenuWithImg:@"mode_level.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelLevel)];
@@ -176,7 +176,9 @@ enum {
 }
 
 -(void)showLayerModelEndless{
-    [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[GameScene node]]];
+    GameScene* scene= [GameScene node];
+    [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:scene]];
+    [scene.guiLayer gameInit];
 }
 
 -(void)setting{

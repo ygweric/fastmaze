@@ -6,7 +6,8 @@
 
 #import <Foundation/Foundation.h>
 #import "CCScene.h"
-
+#import "GuiLayer.h"
 @interface GameScene : CCScene
+@property (nonatomic,assign) GuiLayer* guiLayer;
 
 @end
