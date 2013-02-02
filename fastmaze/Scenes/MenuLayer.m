@@ -62,19 +62,19 @@ enum {
 //        modeLevel.position=ccp(-winSize.width*1/3, winSize.height*4/3);
         
 
-        modelEndless= [CCMenuUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelEndless)];         
+        modelEndless= [SpriteUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelEndless)];         
         [self addChild:modelEndless z:zAboveOperation];
          modelEndless.position=ccp(-100, -100);
         
-        modelSetting= [CCMenuUtil createMenuWithImg:@"mode_setting.png" pressedColor:ccYELLOW target:self selector:@selector(OnSettings:)];
+        modelSetting= [SpriteUtil createMenuWithImg:@"mode_setting.png" pressedColor:ccYELLOW target:self selector:@selector(OnSettings:)];
         [self addChild:modelSetting z:zAboveOperation];
         modelSetting.position=ccp(winSize.width/2, winSize.height+100);
         
-        modelHelp= [CCMenuUtil createMenuWithImg:@"mode_help.png" pressedColor:ccYELLOW target:self selector:@selector(onHelp:)];
+        modelHelp= [SpriteUtil createMenuWithImg:@"mode_help.png" pressedColor:ccYELLOW target:self selector:@selector(onHelp:)];
         [self addChild:modelHelp z:zAboveOperation];
         modelHelp.position=ccp(winSize.width+100, -100);
         
-        modelShop= [CCMenuUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
+        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
         [self addChild:modelShop z:zAboveOperation];
         modelShop.position=ccp(winSize.width+100, winSize.height+100);
         

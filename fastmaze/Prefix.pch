@@ -20,6 +20,6 @@
 #import "MyCustomLayer.h"
 #import "MyCustomButton.h"
 #import "DeviceSettings.h"
-#import "CCMenuUtil.h"
+#import "SpriteUtil.h"
 
 #endif

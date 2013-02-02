@@ -10,7 +10,6 @@
 @interface GuiLayer : CCLayer
 
 @property (assign,nonatomic) GameLayer* gameLayer;
-@property (nonatomic,assign) BOOL gameSuspended;
 
 
 

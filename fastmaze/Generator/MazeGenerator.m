@@ -363,7 +363,7 @@
             NSLog(@"--ok, the auto path has been shown --");
             return YES;
         }else{
-            NSLog(@"OH!, I can't show the Answer! Error !!!");
+            NSLog(@"OH!,--1- I can't show the Answer! Error !!!");
         }
     } else {
         NSLog(@"you auto step is too long");
@@ -509,28 +509,6 @@
     [entity runAction:sequence];
     return YES;
     
-    //util很快就找到了path，上面的过程只是在生成action
-    
-    /*
-    if (correctCount<=MAX_AUTO_STEP) {
-        if (found) {
-            NSLog(@"--ok, the auto path has been shown --");
-            id sequence = [CCSequence actionsWithArray:actions];
-            [entity runAction:sequence];
-            return YES;
-        }else{
-            NSLog(@"OH!, I can't show the Answer! Error !!!");
-        }
-    } else {
-        NSLog(@"you auto step is too long");
-    }
-     return NO;
-    */
-    
-    
-    
-    
-    
     
 }
 
@@ -635,33 +613,15 @@
         [entity runAction:sequence];
         
     }else{
-        NSLog(@"OH!, I can't show the Answer! Error !!!");
+        NSLog(@"OH!,--2- I can't show the Answer! Error !!!");
     }
-    
-    
-    
-    
-    
+  
 }
 -(void)handlerActionFinished{
     NSLog(@"handlerActionFinished---_playerEntity.currentEntities.count:%d",_playerEntity.currentEntities.count);
     for (Entity* e in _playerEntity.currentEntities) {
         NSLog(@"handlerActionFinished-----e-- x:%f,y:%f",e.position.x,e.position.y);
     }
-    
-//    CCArray* allEntity=_playerEntity.parent.children;
-//    int cancenCount=0,correctCount=0;
-//    for (Entity* e in allEntity) {
-//        switch (e.tag) {
-//            case tCancalEntity:
-//                cancenCount++;
-//                break;
-//            case tCorrectEntity:
-//                correctCount++;
-//                break;
-//        }
-//    }
-//    NSLog(@"cancenCount:%d,correctCount:%d",cancenCount,correctCount);
 }
 - (void)dealloc
 {

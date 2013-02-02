@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CCMenuUtil : NSObject
+@interface SpriteUtil : NSObject
 +(CCMenu*)createMenuWithImg:(NSString*)img pressedColor:(ccColor3B)color target:(id)target selector:(SEL)selector;
 @end

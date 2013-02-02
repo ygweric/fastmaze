@@ -155,13 +155,13 @@
             && endPosition.y>-diffy
             && endPosition.x<_mazeGenerator.size.width+diffx
             && endPosition.y<_mazeGenerator.size.height+diffy) {
-            if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
-                [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
-                if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
-                    NSLog(@"GameLayer--great!!! you win!!!!!");
-                    [_guiLayer showOperationLayer:YES type:tLayerWin];
+            if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
+                NSLog(@"GameLayer--great!!! you win!!!!!");
+                [_guiLayer showOperationLayer:YES type:tLayerWin];
+            }else{
+                if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
+                    [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
                 }
-                
             }
         } else {
             NSLog(@"touch is out of the maze..");
