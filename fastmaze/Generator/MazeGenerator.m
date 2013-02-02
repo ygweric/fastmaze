@@ -33,19 +33,21 @@
 - (id)initWithBatchNode:(CCSpriteBatchNode *)batch
 {
     self = [super init];
-    self.batch = batch;    
+    self.batch = batch;
+    int baseWidth=480;
+    int baseHeight=320;
     switch ([SysConfig mazeSize]) {
         case oSmall:
-            self.size = CGSizeMake(450, 300);
+            self.size = CGSizeMake(baseWidth, baseHeight);
             break;
         case oNormal:
-            self.size = CGSizeMake(900, 600);
+            self.size = CGSizeMake(baseWidth*2, baseHeight*2);
             break;
         case oLarge:
-            self.size = CGSizeMake(1350, 900);
+            self.size = CGSizeMake(baseWidth*3, baseHeight*3);
             break;
         case oHuge:
-            self.size = CGSizeMake(1800, 1200);
+            self.size = CGSizeMake(baseWidth*4, baseHeight*4);
             break;
 
     }
@@ -69,15 +71,15 @@
 - (void)generateGrid
 {
     self.grid = [[[NSMutableDictionary alloc] initWithCapacity:(NSUInteger) (self.size.width * self.size.height / 32)] autorelease];
-    for (NSUInteger x = 0; x <= self.size.width; x+=32) {
-        for (NSUInteger y = 0; y <= self.size.height; y+=32) {
+    for (NSUInteger x = 0; x < self.size.width; x+=32) {
+        for (NSUInteger y = 0; y < self.size.height; y+=32) {
             MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch] autorelease];
             [cell setPosition:ccp(x, y)];
             [self.grid setObject:cell forKey:cell.index];
         }
     }
-    for (NSUInteger x = 0; x <= self.size.width; x+=32) {
-        for (NSUInteger y = 0; y <= self.size.height; y+=32) {
+    for (NSUInteger x = 0; x < self.size.width; x+=32) {
+        for (NSUInteger y = 0; y < self.size.height; y+=32) {
             [self addToNeighbors:[self.grid objectForKey:[self createIndex:ccp(x, y)]]];
         }
     }
@@ -271,7 +273,7 @@
 //只计算shot path距离是否合适
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end
 {
-    NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+    NSLog(@"-1-showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
     __block float distance = INFINITY;
     __block NSNumber *index = nil;
     __block float endDistance = INFINITY;
@@ -295,7 +297,7 @@
          }
      }
      ];
-    
+    NSLog(@"showShotPath--currentCell.index:%d, endCell.index:%d",index.intValue,endIndex.intValue);
     MazeCell *currentCell = [self.grid objectForKey:index];
     if (currentCell == nil) {
         return NO;
@@ -391,8 +393,9 @@
     MazeCell *endCell = [self.grid objectForKey:endIndex];
     if (endCell == nil) {
         return NO;
-    }else if(ccpDistance(endCell.position, desirePosition)==0){
-        NSLog(@"great!!! you win!!!!!");
+    }else if(ccpDistance(endCell.position, desirePosition)==0){        
+        NSLog(@"MazeGenerator---great!!! you win!!!!!");
+        return YES;
     }
 
     return NO;
@@ -402,7 +405,7 @@
 //只管显示，不管检查距离，而用 showShotPath:endingAt:来检查距离
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
 {
-    NSLog(@"--showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+    NSLog(@"-2-showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
     [entity beginMovement];
     __block float distance = INFINITY;
     __block NSNumber *index = nil;

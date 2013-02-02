@@ -13,9 +13,11 @@
 #import "CGPointExtension.h"
 #import "MazeCell.h"
 #import "Entity.h"
+#import "GuiLayer.h"
 
 @interface GameLayer : CCLayer
 @property (nonatomic, retain) MazeGenerator *mazeGenerator;
+@property (nonatomic, retain) GuiLayer *guiLayer;
 @property (nonatomic, retain) CCSpriteBatchNode *batchNode;
 @property (nonatomic, assign) Entity *playerEntity;//用户观察到的role
 @property (nonatomic, assign) Entity *desireEntity;//暂无用

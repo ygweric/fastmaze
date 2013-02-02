@@ -5,13 +5,18 @@
 
 #import <Foundation/Foundation.h>
 #import "CCLayer.h"
-#import "GameLayer.h"
 
+@class GameLayer;
 @interface GuiLayer : CCLayer
 
 @property (assign,nonatomic) GameLayer* gameLayer;
 @property (nonatomic,assign) BOOL gameSuspended;
-@property (retain,nonatomic) CCLayer* pauseLayer;
+
+
 
 - (id)initWithGameLayer:(GameLayer*)gameLayer;
+
+-(void)showOperationLayer:(BOOL)show;
+-(void)showOperationLayer:(BOOL)show type:(LayerType)layerType;
+
 @end

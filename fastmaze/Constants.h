@@ -47,10 +47,19 @@ enum{
     tResume,
     tRestart,
     tPauseLayer,
+    tOperationLayer,
     
     tMazeSize,
     
 };
+
+typedef enum{
+    tLayerPause=200,
+    tLayerWin,
+    tLayerLose,
+    tLayerNone,
+}LayerType ;
+
 
 
 #define kNotiRegenerateMaze  @"__kNotiRegenerateMaze"

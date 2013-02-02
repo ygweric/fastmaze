@@ -22,6 +22,7 @@
 @synthesize currentStart = _currentStart;
 @synthesize currentEnd = _currentEnd;
 @synthesize batchNode = _batchNode;
+@synthesize guiLayer=_guiLayer;
 
 
 - (id)init
@@ -146,16 +147,19 @@
                             convertToGL:[touch locationInView:touch.view]
                             ];
         //这里点击有些偏移，因此需要手动修改
-        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
-//        NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
-        if (endPosition.x>0
-            && endPosition.y>0
-            && endPosition.x<_mazeGenerator.size.width
-            && endPosition.y<_mazeGenerator.size.height) {
+        int diffx=15;int diffy=18;
+//        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
+        CGPoint endPosition = ccpSub(location, self.position);
+        NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
+        if (endPosition.x>-diffx
+            && endPosition.y>-diffy
+            && endPosition.x<_mazeGenerator.size.width+diffx
+            && endPosition.y<_mazeGenerator.size.height+diffy) {
             if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
                 [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
                 if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
-                    NSLog(@"great!!! you win!!!!!");
+                    NSLog(@"GameLayer--great!!! you win!!!!!");
+                    [_guiLayer showOperationLayer:YES type:tLayerWin];
                 }
                 
             }
