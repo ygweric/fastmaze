@@ -1,9 +1,3 @@
-//
-// @author Jonny Brannum <jonny.brannum@gmail.com> 
-//         1/22/12
-//
-
-#import <Foundation/Foundation.h>
 
 typedef enum{
     kUP=1,
@@ -66,8 +60,7 @@ typedef enum{
 
 
 
-#define kNotiRegenerateMaze  @"__kNotiRegenerateMaze"
-#define kNotiShowMazeAnswer  @"__kNotiShowMazeAnswer"
+#define _MY_AD_WHIRL_APPLICATION_KEY  @"9ad68ef5767447baa1dd37f4d7ae7766"
 
 
 #define MIN_DISTANCE 10.0f

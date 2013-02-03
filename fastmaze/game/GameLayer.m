@@ -164,26 +164,36 @@
                             ];
         //这里点击有些偏移，因此需要手动修改
         int diffx=15;int diffy=18;
-//        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
+        //        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
         CGPoint endPosition = ccpSub(location, _mazeLayer.position);
         NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
         if (endPosition.x>-diffx
             && endPosition.y>-diffy
             && endPosition.x<_mazeGenerator.size.width+diffx
-            && endPosition.y<_mazeGenerator.size.height+diffy) {            
+            && endPosition.y<_mazeGenerator.size.height+diffy) {
             if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
+                if ([SysConfig needAudio]){
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"put_role.wav"];
+                }
                 [_mazeGenerator showShotPath:_currentStart.position endingAt:endPosition movingEntity:_playerEntity];
                 if ([_mazeGenerator isDesirePosition:endPosition desirePosition:_currentEnd.position]) {
                     NSLog(@"GameLayer--great!!! you win!!!!!");
                     [_guiLayer showOperationLayer:YES type:tLayerWin];
                 }
+            }else{
+                if ([SysConfig needAudio]){
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"not_available.wav"];
+                }
             }
             
         } else {
+            if ([SysConfig needAudio]){
+                [[SimpleAudioEngine sharedEngine] playEffect:@"not_available.wav"];
+            }
             NSLog(@"touch is out of the maze..");
         }
     }
-   
+    
 }
 #endif
 - (void)dealloc {

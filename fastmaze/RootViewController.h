@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AdWhirlDelegateProtocol.h"
+#import "AdWhirlView.h"
+enum GameStatePP {
+    kGameStatePlaying,
+    kGameStatePaused
+};
 
-
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController<AdWhirlDelegate> {
 
 }
-
+@property(nonatomic,retain) AdWhirlView *adWhirlView;
+@property(nonatomic) enum GameStatePP state;
 @end
