@@ -133,7 +133,7 @@
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
-    if ([SysConfig mazeSize]>=oLarge && !_guiLayer.isPause) {
+    if ([SysConfig mazeSize]>=oLarge && !_guiLayer.isOver && !_guiLayer.isPause) {
         isMove=YES;
         
         // we also handle touches for map movement
@@ -157,7 +157,7 @@
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!isMove && !_guiLayer.isOver) {
+    if (!isMove && !_guiLayer.isOver && !_guiLayer.isPause) {
         UITouch *touch = [touches anyObject];
         CGPoint location = [[CCDirector sharedDirector]
                             convertToGL:[touch locationInView:touch.view]
