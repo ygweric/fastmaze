@@ -54,7 +54,7 @@ enum {
         if (IS_IPHONE_5) {
             [self setBg:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:@"bg.png"];
+            [self setBg:@"main_bg.png"];
         }
         //操作菜单
 //        modeLevel= [CCMenuUtil createMenuWithImg:@"mode_level.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelLevel)];
