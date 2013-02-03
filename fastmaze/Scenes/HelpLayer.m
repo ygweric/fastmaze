@@ -80,9 +80,8 @@
 }
 -(void) backCallback: (id) sender
 {
-	CCScene *sc = [CCScene node];
-	[sc addChild:[MenuLayer node]];	
-	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+	[AudioUtil displayAudioButtonClick];	
+	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
 }
 -(void)goFacebook:(id)sender{
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/ygweric"]];

@@ -140,6 +140,7 @@
 		042E1BDE16BE347700990110 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 042E1BDD16BE347700990110 /* Default-Landscape@2x~ipad.png */; };
 		042E1BE116BE4B7800990110 /* AudioUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E1BE016BE4B7800990110 /* AudioUtil.m */; };
 		042E1BE316BE4D7D00990110 /* gamebg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 042E1BE216BE4D7D00990110 /* gamebg.mp3 */; };
+		042E1BE516BE565F00990110 /* result_win_good.png in Resources */ = {isa = PBXBuildFile; fileRef = 042E1BE416BE565F00990110 /* result_win_good.png */; };
 		043E644C16BCF655000315FE /* progress_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 043E644B16BCF655000315FE /* progress_bar.png */; };
 		043E645416BCFDD0000315FE /* progress_bar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 043E645316BCFDD0000315FE /* progress_bar_bg.png */; };
 		0477271A16B3D514003806EF /* MyCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477271316B3D514003806EF /* MyCustomButton.m */; };
@@ -449,6 +450,7 @@
 		042E1BDF16BE4B7800990110 /* AudioUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioUtil.h; path = fastmaze/util/AudioUtil.h; sourceTree = SOURCE_ROOT; };
 		042E1BE016BE4B7800990110 /* AudioUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioUtil.m; path = fastmaze/util/AudioUtil.m; sourceTree = SOURCE_ROOT; };
 		042E1BE216BE4D7D00990110 /* gamebg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gamebg.mp3; sourceTree = "<group>"; };
+		042E1BE416BE565F00990110 /* result_win_good.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = result_win_good.png; sourceTree = "<group>"; };
 		043E644B16BCF655000315FE /* progress_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress_bar.png; sourceTree = "<group>"; };
 		043E645316BCFDD0000315FE /* progress_bar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progress_bar_bg.png; sourceTree = "<group>"; };
 		0477271216B3D514003806EF /* MyCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCustomButton.h; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 				04DE105416B432D3005394E2 /* button_menu.png */,
 				04DE105516B432D3005394E2 /* button_music_bar.png */,
 				04DE105616B432D3005394E2 /* button_music.png */,
+				042E1BE416BE565F00990110 /* result_win_good.png */,
 				04DE105716B432D3005394E2 /* button_next_level.png */,
 				04DE105816B432D3005394E2 /* button_no.png */,
 				04DE105916B432D3005394E2 /* button_ok.png */,
@@ -1158,6 +1161,7 @@
 				042E1BDC16BE344D00990110 /* Default-Landscape~ipad.png in Resources */,
 				042E1BDE16BE347700990110 /* Default-Landscape@2x~ipad.png in Resources */,
 				042E1BE316BE4D7D00990110 /* gamebg.mp3 in Resources */,
+				042E1BE516BE565F00990110 /* result_win_good.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

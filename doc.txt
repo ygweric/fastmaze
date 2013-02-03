@@ -1,0 +1,3 @@
+上传前修改：
+kPREPARE_TIME 准备时间-》3
+#define kDEFAULT_SHORTEST_TIME 1*60.0f  上次时间-》3*60.0f 

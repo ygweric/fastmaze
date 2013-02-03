@@ -17,7 +17,8 @@
 {
     CGSize winSize;
     CCProgressTimer* progressTimer;
-    CCLabelBMFont *timerLable;
+    CCLabelBMFont *shortestTimeLable;
+    CCLabelBMFont *currentTimeLable;
     float shortestTime;
     float takedTime;
     int prepareTime;
@@ -45,10 +46,17 @@
     [self addChild:progressTimerBg z:zBelowOperation];
     [self addChild:progressTimer z:zBelowOperation];
     
-    timerLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_TIME_MODEL,0.0f,0.0f] fntFile:@"futura-48.fnt"];
-	[self addChild:timerLable z:zBelowOperation];
-	timerLable.position = ccp(winSize.width/2-20,winSize.height-(IS_IPAD()?100:40));
-    timerLable.scale=0.3;
+    shortestTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_SHORTEST_TIME,0.0f] fntFile:@"futura-48.fnt"];
+	[self addChild:shortestTimeLable z:zBelowOperation tag:tShortestTime];
+	shortestTimeLable.position = ccp(winSize.width/2-120,winSize.height-(IS_IPAD()?70:40));
+    shortestTimeLable.scale=0.5;
+    
+    currentTimeLable=[CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,0.0f] fntFile:@"futura-48.fnt"];
+    [self addChild:currentTimeLable z:zBelowOperation tag:tCurrentTime];
+	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(IS_IPAD()?70:40));
+    currentTimeLable.scale=0.5;
+    
+    
 
 //    CCMenu* back= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
 //    [self addChild:back z:zBelowOperation];
@@ -67,12 +75,14 @@
     return self;
 }
 -(void) update:(ccTime)delta{
-    NSLog(@"update--");
+//    NSLog(@"update--");
     progressTimer.percentage += delta * 100/shortestTime;
     if (progressTimer.percentage >= 100)
     {
         progressTimer.percentage = 0;
     }
+    takedTime+=delta;
+    [currentTimeLable setString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,takedTime]];
 }
 
 
@@ -216,7 +226,12 @@
     isPause=NO;
     isOver=NO;
     progressTimer.percentage=100;
-    shortestTime=[[NSUserDefaults standardUserDefaults]integerForKey:UFK_SHOTTTEST_TIMER];
+    takedTime=0;
+    shortestTime=[[NSUserDefaults standardUserDefaults]floatForKey:UFK_SHOTTTEST_TIMER];
+    if (shortestTime<=0) {
+        shortestTime=kDEFAULT_SHORTEST_TIME;
+    }
+    [shortestTimeLable setString:[NSString stringWithFormat:kGAME_INFO_SHORTEST_TIME,shortestTime]];
     [self showPrepareLayer];
 }
 -(void)showPauseButton:(BOOL)show{
@@ -307,6 +322,8 @@
                 CCSprite* winGoodSprite=[CCSprite spriteWithFile:@"result_win_good.png"];
                 winGoodSprite.position=ccp(winSize.width/2, winSize.height*2/3);
                 [operationLayer addChild:winGoodSprite z:zAboveOperation];
+                
+                [[NSUserDefaults standardUserDefaults] setFloat:takedTime forKey:UFK_SHOTTTEST_TIMER];
             }
                 
                 break;

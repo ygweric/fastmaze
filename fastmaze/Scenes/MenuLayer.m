@@ -90,137 +90,59 @@ enum {
 
 	return self;
 }
-
--(void)showMenuModelLevel{ 
-//    [modelLevel runAction:[CCMoveTo actionWithDuration:0.5 position:ccp(winSize.width/2-(IS_IPAD()?150:70), winSize.height*2/3)]];
-//    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+#pragma mark menu
+-(void)displayMenuCommingAudio{
+    if ([SysConfig needAudio]){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+        
+    }
 }
+#pragma mark -
 -(void)showMenuModelEndless{
-    [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2-(IS_IPAD()?250:70), winSize.height*2/3)]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
-}
+    [self displayMenuCommingAudio];
+    [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*1/8+50, winSize.height*2/3)]];
+    }
 -(void)showMenuModelSetting{
-    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2, winSize.height*1/3)]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+    [self displayMenuCommingAudio];
+    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*3/8, winSize.height*1/3)]];
 }
 -(void)showMenuModelHelp{
-    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width/2+(IS_IPAD()?250:70), winSize.height*2/3)]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
+    [self displayMenuCommingAudio];
+    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*5/8, winSize.height*2/3)]];
 }
 -(void)showMenuModelShop{
-    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp((winSize.width/2+(IS_IPAD()?250:70))+100, winSize.height*1/3)]];
-    [[SimpleAudioEngine sharedEngine] playEffect:@"showmenuitme.wav"];
-}
-
-- (void) showGameLevelList:(id) sender
-{
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
-    SlidingMenuGrid* menuGrid=(SlidingMenuGrid*)[self getChildByTag:tMenuGrid];
-    if (menuGrid==nil) {
-        NSMutableArray* allItems = [NSMutableArray arrayWithCapacity:kMAX_LEVEL_IDEAL+1];
-        //最后一个提示“more is comming soon !!! \n follow my twitter”
-        for (int i = 1; i <= kMAX_LEVEL_IDEAL+1; ++i)
-        {
-            // create a menu item for each character
-            CCSprite* normalSprite = [CCSprite spriteWithFile:SD_OR_HD(@"menu_item_bg.png") ];
-            CCSprite* selectedSprite = [CCSprite spriteWithFile:SD_OR_HD(@"menu_item_bg.png")];
-            ccColor3B color= ccBLUE;
-            selectedSprite.color= color;
-            CCMenuItemSprite* item =[CCMenuItemSprite itemFromNormalSprite:normalSprite selectedSprite:selectedSprite target:self selector:@selector(LaunchLevel:)];
-            item.tag=i;
-            int levelPassed= [[NSUserDefaults standardUserDefaults]integerForKey:UDF_LEVEL_PASSED];
-            CCNode* levelInfo=nil;
-            if ((![SysConfig needLockLevel]|| (i<=levelPassed+1)) && (i<=kMAX_LEVEL_REAL)) {
-                levelInfo=[[CCLabelBMFont alloc]initWithString:[NSString stringWithFormat:@"%d",i] fntFile:@"futura-48.fnt"];
-                levelInfo.scale=HD2SD_SCALE;
-            }else if(i==kMAX_LEVEL_REAL+1){
-                levelInfo=[CCMenuItemImage itemFromNormalImage:SD_OR_HD(@"level_what.png") selectedImage:SD_OR_HD(@"level_what.png")];
-            }else{
-                levelInfo=[CCMenuItemImage itemFromNormalImage:SD_OR_HD(@"level_lock.png") selectedImage:SD_OR_HD(@"level_lock.png")];
-            }
-            
-            levelInfo. position=ccp(item.contentSize.width/2, item.contentSize.height/2);
-            [item addChild:levelInfo];
-            /* //--for test
-             item.contentSize 64*72
-             item.rect.size.width 64*72
-             item.boundingBox.size.width 64*72
-             NSLog(@"%@,%@,%@",item.contentSize,item.rect,item.boundingBox);
-             */
-            
-            
-            [allItems addObject:item];
-        }
-        
-        //从position开始向右下角排列
-        if (IS_IPAD()) {
-            menuGrid = [SlidingMenuGrid menuWithArray:allItems cols:8 rows:3 position:ccp(70.f, 0.0f) padding:CGPointMake(90.f, 90.f) verticalPages:NO];
-        } else {
-            menuGrid = [SlidingMenuGrid menuWithArray:allItems cols:6 rows:3 position:ccp(45.f, 0.0f) padding:CGPointMake(45.f, 45.f) verticalPages:NO];
-        }
-        
-        [self addChild:menuGrid z:-1 tag:tMenuGrid];
-        
-        
-        //只有layer才有透明动画，menu没有
-        CGPoint p=IS_IPAD()? ccp(70, 280):ccp(45, 150);
-        [menuGrid runAction:[CCMoveTo actionWithDuration:0.5 position:p]];
-        menuGrid.menuOrigin=p;
-    }
-}
-
--(void)showLayerModelLevel{
-    
+    [self displayMenuCommingAudio];
+    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*7/8-50, winSize.height*1/3)]];
 }
 
 -(void)showLayerModelEndless{
+    [AudioUtil displayAudioButtonClick];
     GameScene* scene= [GameScene node];
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:scene]];
     [scene.guiLayer gameInit];
 }
 
 -(void)setting{
-    
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
+    [AudioUtil displayAudioButtonClick];
     CCScene* sc=[SettingLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 
--(void)about{
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
-    CCScene* sc=[HelpLayer node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
-}
-
-
-
 - (void) OnSettings:(id) sender
 {
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
+    [AudioUtil displayAudioButtonClick];
     CCScene* sc=[SettingLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 - (void) onHelp:(id) sender
 {
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
+    [AudioUtil displayAudioButtonClick];
     CCScene* sc=[HelpLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 
 -(void)onShop:(id) sender{
-    if ([SysConfig needAudio]){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"button_select.mp3"];
-    }
+    [AudioUtil displayAudioButtonClick];
     UIAlertView* shopAlert=[[[UIAlertView alloc]initWithTitle:nil message:@"remove ad" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil]autorelease];
     [shopAlert show];
 }

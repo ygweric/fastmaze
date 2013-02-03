@@ -49,6 +49,8 @@ enum{
     tRestart,
     tPauseLayer,
     tOperationLayer,
+    tShortestTime,
+    tCurrentTime,
     
     tMazeSize,
     
@@ -90,9 +92,11 @@ typedef enum{
 
 #define MAX_AUTO_STEP 10
 
-#define kGAME_TIME_MODEL @"best score:%f s     current score:%f s"
-
+#define kGAME_INFO_SHORTEST_TIME @"shortest time: %0.2f s  "
+#define kGAME_INFO_CURRENT_TIME @"current time: %0.2f s"
 #define kPREPARE_TIME 1
+
+#define kDEFAULT_SHORTEST_TIME 1*60.0f
 
 #define UFK_SHOTTTEST_TIMER @"UFK_SHOTTTEST_TIMER"
 
