@@ -111,7 +111,7 @@
 - (void)regenerateMaze
 {
     isOver=YES;
-    isPause=NO;
+    isPause=YES;
     [self showOperationLayer:NO];
     [self showPauseButton:YES];
     [_gameLayer regenerateMaze];
@@ -208,23 +208,11 @@
 	[sc addChild:[MenuLayer node]];
 	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
-//显示倒计时
--(void)updatePrepareTimer{
-    if (prepareTime>0) {
-        [prepareLable setString:[NSString stringWithFormat:@"%d",prepareTime]];
-        [self performSelector:@selector(updatePrepareTimer) withObject:nil afterDelay:1];
-        prepareTime--;
-    }else{
-        isPause=NO;
-        isOver=NO;
-        [self scheduleUpdate];
-        [self showOperationLayer:NO];
-    }
-}
+
 #pragma mark -
 -(void)gameInit{
-    isPause=NO;
-    isOver=NO;
+    isPause=YES;
+    isOver=YES;
     progressTimer.percentage=100;
     takedTime=0;
     shortestTime=[[NSUserDefaults standardUserDefaults]floatForKey:UFK_SHOTTTEST_TIMER];
@@ -357,6 +345,18 @@
     prepareTime=kPREPARE_TIME;
     [self showOperationLayer:YES type:tLayerPrepare];
 }
-
+//显示准备倒计时
+-(void)updatePrepareTimer{
+    if (prepareTime>0) {
+        [prepareLable setString:[NSString stringWithFormat:@"%d",prepareTime]];
+        [self performSelector:@selector(updatePrepareTimer) withObject:nil afterDelay:1];
+        prepareTime--;
+    }else{
+        isPause=NO;
+        isOver=NO;
+        [self scheduleUpdate];
+        [self showOperationLayer:NO];
+    }
+}
 
 @end
