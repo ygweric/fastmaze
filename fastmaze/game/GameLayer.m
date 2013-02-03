@@ -59,9 +59,11 @@
     _desireEntity=nil;
     [self setPosition:ccp(0, 0)];
     [_mazeGenerator createUsingDepthFirstSearch];
-    [self loadGeneratedMaze];
-    
-    
+    [self loadGeneratedMaze];  
+}
+-(void)restartGame{
+    [_mazeGenerator cleanAllTrack:_playerEntity];
+    _playerEntity.position=_currentStart.position;
 }
 - (void)showMazeAnswer
 {
@@ -131,7 +133,7 @@
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
-    if ([SysConfig mazeSize]>=oLarge) {
+    if ([SysConfig mazeSize]>=oLarge && !_guiLayer.isPause) {
         isMove=YES;
         
         // we also handle touches for map movement
@@ -155,7 +157,7 @@
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!isMove) {
+    if (!isMove && !_guiLayer.isOver) {
         UITouch *touch = [touches anyObject];
         CGPoint location = [[CCDirector sharedDirector]
                             convertToGL:[touch locationInView:touch.view]

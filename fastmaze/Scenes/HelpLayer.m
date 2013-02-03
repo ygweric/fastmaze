@@ -21,7 +21,7 @@
     if (IS_IPHONE_5) {
         [self setBg:@"bg-568h@2x.jpg"];
     }else{
-        [self setBg:SD_OR_HD(@"bg.jpg")];
+        [self setBg:@"main_bg.png"];
     }
     //help content
     

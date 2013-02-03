@@ -28,6 +28,6 @@
 
 - (void)regenerateMaze;
 - (void)showMazeAnswer;
-
+-(void)restartGame;
 - (void)loadGeneratedMaze;
 @end

@@ -22,7 +22,7 @@
 - (void)addToNeighbors:(MazeCell *)cell;
 
 - (void)createUsingDepthFirstSearch;
-
+-(void)cleanAllTrack:(Entity *)entity;
 - (BOOL)isPositionInMaze:(CGPoint)position;
 
 - (MazeCell *)cellForPosition:(CGPoint)position;

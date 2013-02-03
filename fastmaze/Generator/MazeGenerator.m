@@ -405,7 +405,9 @@
     return NO;
 }
 
-
+-(void)cleanAllTrack:(Entity *)entity{
+    [entity beginMovement];
+}
 //只管显示，不管检查距离，而用 showShotPath:endingAt:来检查距离
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end movingEntity:(Entity *)entity
 {
@@ -607,8 +609,7 @@
         }
     }
     [stack release];
-    
-//    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
+
     
     //util很快就找到了path，上面的过程只是在生成action
     if (found) {

@@ -40,6 +40,7 @@ enum{
     tCorrectEntity,
     tGame,
     tPause,
+    tNextLevel,
     tAudio,
     tAudioItem,
     tMusic,
@@ -91,7 +92,7 @@ typedef enum{
 
 #define kGAME_TIME_MODEL @"best score:%f s     current score:%f s"
 
-#define kPREPARE_TIME 3
+#define kPREPARE_TIME 1
 
 #define UFK_SHOTTTEST_TIMER @"UFK_SHOTTTEST_TIMER"
 

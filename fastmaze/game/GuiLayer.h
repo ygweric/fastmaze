@@ -11,7 +11,8 @@
 
 @property (assign,nonatomic) GameLayer* gameLayer;
 
-
+@property (assign,nonatomic) BOOL isPause;
+@property (assign,nonatomic) BOOL isOver;
 
 - (id)initWithGameLayer:(GameLayer*)gameLayer;
 
