@@ -76,7 +76,14 @@
     return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    [[CCDirector sharedDirector]startAnimation];
+//    [CCDirector sharedDirector]st
+}
+-(void)viewWillDisappear:(BOOL)animated{
+//    [[CCDirector sharedDirector]stopAnimation];
+    
+}
 //
 // This callback only will be called when GAME_AUTOROTATION == kGameAutorotationUIViewController
 //

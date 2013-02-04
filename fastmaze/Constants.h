@@ -68,6 +68,7 @@ typedef enum{
 
 #define MENU_ANIM_SHOW_INTERVAL 0.5f
 
+#define HAVE_SETTED @"HAVE_SETTED"
 
 #define UDF_AUDIO @"UDF_AUDIO"
 #define UDF_MUSIC @"UDF_MUSIC"
@@ -85,12 +86,16 @@ typedef enum{
 
 #define MAX_AUTO_STEP 10
 
-#define kGAME_INFO_SHORTEST_TIME @"shortest time: %0.2f s  "
+#define kGAME_INFO_LAST_TIME @"last time: %0.2f s  "
 #define kGAME_INFO_CURRENT_TIME @"current time: %0.2f s"
+
+#define kGAME_INFO_RESULT_WIN @"great! you are faster than last time"
+#define kGAME_INFO_RESULT_LOSE @"ooh! you are slowwer than last time"
+
 #define kPREPARE_TIME 1
 
-#define kDEFAULT_SHORTEST_TIME 1*60.0f
+#define kDEFAULT_LAST_TIME 1*60.0f
 
-#define UFK_SHOTTTEST_TIMER @"UFK_SHOTTTEST_TIMER"
+#define UFK_LAST_TIME @"UFK_LAST_TIME"
 
 

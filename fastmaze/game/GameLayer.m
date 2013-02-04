@@ -133,7 +133,7 @@
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
-    if ([SysConfig mazeSize]>=oLarge && !_guiLayer.isOver && !_guiLayer.isPause) {
+    if ([SysConfig mazeSize]>=oLarge ) {
         isMove=YES;
         
         // we also handle touches for map movement

@@ -44,12 +44,17 @@
 {
     // init app configure
     NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
-    [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
-    [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
-    [SysConfig setDifficulty:[def integerForKey:UDF_DIFFICULLY]];
-    [SysConfig setOperation:[def integerForKey:UDF_OPERATION]];
-    [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
-    
+    if (![def boolForKey:HAVE_SETTED]) {
+        //首次游戏的初始化
+        [def setBool:YES forKey:HAVE_SETTED];
+        [def setBool:YES forKey:UDF_AUDIO];
+        [def setBool:YES forKey:UDF_MUSIC];
+        [def setInteger:1 forKey:UDF_MAZESIZE];
+    }else{
+        [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
+        [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
+        [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
+    }
     if ([SysConfig needMusic]) {
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gamebg.mp3" loop:YES];
     }
@@ -104,15 +109,16 @@
 #endif
 	
 	[director setAnimationInterval:1.0/60];
-	[director setDisplayFPS:YES];
+	[director setDisplayFPS:NO];
 	
 	
 	// make the OpenGLView a child of the view controller
 	[viewController setView:glView];
 	
 	// make the View Controller a child of the main window
-	[window addSubview: viewController.view];
-    [viewController viewDidLoad];
+//	[window addSubview: viewController.view];
+    window.rootViewController=viewController;
+//    [viewController viewDidLoad];
 	
 	[window makeKeyAndVisible];
 	

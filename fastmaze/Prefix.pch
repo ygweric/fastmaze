@@ -22,4 +22,5 @@
 #import "DeviceSettings.h"
 #import "SpriteUtil.h"
 #import "AudioUtil.h"
+#import "DialogUtil.h"
 #endif

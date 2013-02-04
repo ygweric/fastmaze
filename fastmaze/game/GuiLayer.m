@@ -17,9 +17,9 @@
 {
     CGSize winSize;
     CCProgressTimer* progressTimer;
-    CCLabelBMFont *shortestTimeLable;
+    CCLabelBMFont *lastTimeLable;
     CCLabelBMFont *currentTimeLable;
-    float shortestTime;
+    float lastTime;
     float takedTime;
     int prepareTime;
     CCLabelBMFont *prepareLable;
@@ -46,10 +46,10 @@
     [self addChild:progressTimerBg z:zBelowOperation];
     [self addChild:progressTimer z:zBelowOperation];
     
-    shortestTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_SHORTEST_TIME,0.0f] fntFile:@"futura-48.fnt"];
-	[self addChild:shortestTimeLable z:zBelowOperation tag:tShortestTime];
-	shortestTimeLable.position = ccp(winSize.width/2-120,winSize.height-(IS_IPAD()?70:40));
-    shortestTimeLable.scale=0.5;
+    lastTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,0.0f] fntFile:@"futura-48.fnt"];
+	[self addChild:lastTimeLable z:zBelowOperation tag:tShortestTime];
+	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(IS_IPAD()?70:40));
+    lastTimeLable.scale=0.5;
     
     currentTimeLable=[CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,0.0f] fntFile:@"futura-48.fnt"];
     [self addChild:currentTimeLable z:zBelowOperation tag:tCurrentTime];
@@ -76,7 +76,7 @@
 }
 -(void) update:(ccTime)delta{
 //    NSLog(@"update--");
-    progressTimer.percentage += delta * 100/shortestTime;
+    progressTimer.percentage += delta * 100/lastTime;
     if (progressTimer.percentage >= 100)
     {
         progressTimer.percentage = 0;
@@ -215,11 +215,11 @@
     isOver=YES;
     progressTimer.percentage=100;
     takedTime=0;
-    shortestTime=[[NSUserDefaults standardUserDefaults]floatForKey:UFK_SHOTTTEST_TIMER];
-    if (shortestTime<=0) {
-        shortestTime=kDEFAULT_SHORTEST_TIME;
+    lastTime=[[NSUserDefaults standardUserDefaults]floatForKey:UFK_LAST_TIME];
+    if (lastTime<=0) {
+        lastTime=kDEFAULT_LAST_TIME;
     }
-    [shortestTimeLable setString:[NSString stringWithFormat:kGAME_INFO_SHORTEST_TIME,shortestTime]];
+    [lastTimeLable setString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,lastTime]];
     [self showPrepareLayer];
 }
 -(void)showPauseButton:(BOOL)show{
@@ -269,7 +269,48 @@
     restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
     [operationLayer addChild:restartButton z:zAboveOperation];
 }
-
+-(void)showOverLayer:(CCLayer *)operationLayer isWin:(BOOL)isWin{
+    {
+        if ([SysConfig needAudio]){
+            if (isWin) {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"win.mp3"];
+            } else {
+                [[SimpleAudioEngine sharedEngine] playEffect:@"lose.mp3"];
+            }
+        
+        }
+        isOver=YES;
+        [self unscheduleUpdate];
+        [self initBaseOperationLayer:operationLayer];
+        
+        CCMenu* nextLevelButton=[SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
+        nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
+        [operationLayer addChild:nextLevelButton z:zAboveOperation];
+        
+        CCLabelBMFont* resultLable =nil;
+        if (isWin) {
+            resultLable = [CCLabelBMFont labelWithString:kGAME_INFO_RESULT_WIN fntFile:@"futura-48.fnt"];
+        } else {
+            resultLable = [CCLabelBMFont labelWithString:kGAME_INFO_RESULT_LOSE fntFile:@"futura-48.fnt"];
+        }
+        [operationLayer addChild:resultLable z:zBelowOperation tag:tShortestTime];
+        resultLable.position = ccp(winSize.width/2, winSize.height*2/3-100);
+        
+        
+        
+        CCSprite* winGoodSprite=nil;
+        if (isWin) {
+            winGoodSprite=[CCSprite spriteWithFile:@"result_win_good.png"];
+        } else {
+            winGoodSprite=[CCSprite spriteWithFile:@"result_lose.png"];
+        }
+        
+        winGoodSprite.position=ccp(winSize.width/2, winSize.height*2/3+100);
+        [operationLayer addChild:winGoodSprite z:zAboveOperation];
+        
+        [[NSUserDefaults standardUserDefaults] setFloat:takedTime forKey:UFK_LAST_TIME];
+    }
+}
 -(void)showOperationLayer:(BOOL)show type:(LayerType)layerType{
     if (show) {
         //暂停layer
@@ -299,19 +340,7 @@
                 break;
             case tLayerWin:
             {
-                isOver=YES;
-                [self unscheduleUpdate];
-                [self initBaseOperationLayer:operationLayer];
-                
-                CCMenu* nextLevelButton=[SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
-                nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
-                [operationLayer addChild:nextLevelButton z:zAboveOperation];
-                
-                CCSprite* winGoodSprite=[CCSprite spriteWithFile:@"result_win_good.png"];
-                winGoodSprite.position=ccp(winSize.width/2, winSize.height*2/3);
-                [operationLayer addChild:winGoodSprite z:zAboveOperation];
-                
-                [[NSUserDefaults standardUserDefaults] setFloat:takedTime forKey:UFK_SHOTTTEST_TIMER];
+                [self showOverLayer:operationLayer isWin:(takedTime<lastTime)];
             }
                 
                 break;
@@ -319,6 +348,7 @@
             {
                 
             }
+                break;
             case tLayerPrepare:
             {
                 prepareLable = [CCLabelBMFont labelWithString:@"" fntFile:@"futura-48.fnt"];

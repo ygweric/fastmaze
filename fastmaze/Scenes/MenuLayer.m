@@ -13,6 +13,7 @@
 #import "SettingLayer.h"
 #import "AppDelegate.h"
 #import "GameScene.h"
+#import "HelpViewController.h"
 
 enum  {
     tMenuGrid ,
@@ -130,8 +131,10 @@ enum {
 -(void)showLayerModelEndless{
     [AudioUtil displayAudioButtonClick];
     GameScene* scene= [GameScene node];
+    CCLabelBMFont* spinner= [DialogUtil showWaitLable:self];
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:scene]];
     [scene.guiLayer gameInit];
+    [DialogUtil unshowWaitLable:spinner];
 }
 
 -(void)setting{
@@ -148,9 +151,16 @@ enum {
 }
 - (void) onHelp:(id) sender
 {
+    //*/
     [AudioUtil displayAudioButtonClick];
     CCScene* sc=[HelpLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
+    
+/*/
+    AppDelegate* delegate= [[UIApplication sharedApplication]delegate];
+    HelpViewController* cont=[[[HelpViewController alloc]initWithNibName:@"HelpViewController" bundle:nil]autorelease];
+    [delegate.viewController presentViewController:cont animated:YES completion:nil];
+ //*/
 }
 
 -(void)onShop:(id) sender{

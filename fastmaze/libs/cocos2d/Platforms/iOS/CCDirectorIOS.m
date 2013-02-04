@@ -699,6 +699,8 @@ CGFloat	__ccContentScaleFactor = 1;
 
 - (void) startAnimation
 {
+    if(isAnimating_)
+        return;
 	NSAssert( displayLink == nil, @"displayLink must be nil. Calling startAnimation twice?");
 
 	if ( gettimeofday( &lastUpdate_, NULL) != 0 ) {
@@ -714,6 +716,7 @@ CGFloat	__ccContentScaleFactor = 1;
 	displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(mainLoop:)];
 	[displayLink setFrameInterval:frameInterval];
 	[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    isAnimating_ = YES;
 }
 
 -(void) mainLoop:(id)sender
@@ -723,8 +726,11 @@ CGFloat	__ccContentScaleFactor = 1;
 
 - (void) stopAnimation
 {
+    if(!isAnimating_)
+        return;
 	[displayLink invalidate];
 	displayLink = nil;
+    isAnimating_ = NO;
 }
 
 -(void) dealloc
