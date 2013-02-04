@@ -8,6 +8,7 @@
 
 #import "HelpLayer.h"
 #import "MenuLayer.h"
+#import "MobClick.h"
 @implementation HelpLayer
 +(CCScene*)scene{
     CCScene* sc=[CCScene node];
@@ -39,13 +40,13 @@
     
     
     //-----
-    CCLabelBMFont *facebookLabel = [CCLabelBMFont labelWithString:@"Folllow Me On FaceBook" fntFile:@"futura-48.fnt"];
-    CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
-    facebook.scale=HD2SD_SCALE;
+//    CCLabelBMFont *facebookLabel = [CCLabelBMFont labelWithString:@"Folllow Me On FaceBook" fntFile:@"futura-48.fnt"];
+//    CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
+//    facebook.scale=HD2SD_SCALE;
     
-//    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Folllow Me On Twitter" fntFile:@"futura-48.fnt"];
-//    CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
-//    twitter.scale=HD2SD_SCALE;
+    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Folllow Me On Twitter" fntFile:@"futura-48.fnt"];
+    CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
+    twitter.scale=HD2SD_SCALE;
     
     CCLabelBMFont *gorateLabel = [CCLabelBMFont labelWithString:@"Go Rate" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* rate =[CCMenuItemLabel itemWithLabel:gorateLabel target:self selector:@selector(goRate:)];
@@ -64,7 +65,7 @@
     
     
     CCMenu *menu = [CCMenu menuWithItems:
-                    facebook,rate,mail, back, nil];
+                    twitter,rate,mail, back, nil];
     [menu alignItemsInColumns:
      [NSNumber numberWithUnsignedInt:1],
      [NSNumber numberWithUnsignedInt:2],
@@ -84,17 +85,21 @@
 	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
 }
 -(void)goFacebook:(id)sender{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/ygweric"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/playbastudio"]];
+    [MobClick event:@"facebook"];
 }
 -(void)goTwitter:(id)sender{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://twitter.com/ygweric"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"https://twitter.com/playbastudio"]];
+    [MobClick event:@"twitter"];
 }
 -(void)goRate:(id)sender{
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=597108795"]];
+    [MobClick event:@"rateme"];
 }
 
 -(void)mailMe:(id)sender{
     NSString *url = @"mailto:ygweric@gmail.com?subject=about%20fastmaze";
     [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+    [MobClick event:@"mailme"];
 }
 @end

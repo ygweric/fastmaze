@@ -126,6 +126,7 @@
     [_gameLayer showMazeAnswer];
     [self showOperationLayer:NO];
     [self showPauseButton:NO];
+    [MobClick event:@"showmazepath" label:[NSString stringWithFormat:@"%d",[SysConfig mazeSize]]];
 }
 -(void)pauseGame{
     if (!isPause) {

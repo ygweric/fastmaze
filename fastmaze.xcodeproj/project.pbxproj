@@ -152,9 +152,10 @@
 		0481E4D216B6BEA00043AC70 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0481E4D116B6BEA00043AC70 /* iAd.framework */; };
 		0491CEC916BACCBF007A5010 /* fps_images-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 0491CEC816BACCBF007A5010 /* fps_images-hd.png */; };
 		0497BB7016B82A1E00D8B9AE /* SpriteUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497BB6F16B82A1E00D8B9AE /* SpriteUtil.m */; };
-		04B693E116C00EB300F24884 /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B693E016C00EB300F24884 /* lose.mp3 */; };
 		04B693E316C00F0D00F24884 /* result_lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B693E216C00F0D00F24884 /* result_lose.png */; };
 		04B693E616C0157900F24884 /* DialogUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B693E516C0157900F24884 /* DialogUtil.m */; };
+		04B693EA16C0257100F24884 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B693E816C0257100F24884 /* libMobClickLibrary.a */; };
+		04B693EC16C028F100F24884 /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04B693EB16C028F100F24884 /* lose.mp3 */; };
 		04C52AFC16BE972300A4746F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C52AFB16BE972300A4746F /* AddressBook.framework */; };
 		04C52AFE16BE973900A4746F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C52AFD16BE973900A4746F /* CoreLocation.framework */; };
 		04C52B0016BE974300A4746F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C52AFF16BE974300A4746F /* libsqlite3.dylib */; };
@@ -506,10 +507,12 @@
 		0491CEC816BACCBF007A5010 /* fps_images-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fps_images-hd.png"; sourceTree = "<group>"; };
 		0497BB6E16B82A1E00D8B9AE /* SpriteUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteUtil.h; path = ../customView/SpriteUtil.h; sourceTree = "<group>"; };
 		0497BB6F16B82A1E00D8B9AE /* SpriteUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpriteUtil.m; path = ../customView/SpriteUtil.m; sourceTree = "<group>"; };
-		04B693E016C00EB300F24884 /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = lose.mp3; path = ../../../../../Users/Mac/Downloads/lose.mp3; sourceTree = "<group>"; };
 		04B693E216C00F0D00F24884 /* result_lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = result_lose.png; sourceTree = "<group>"; };
 		04B693E416C0157900F24884 /* DialogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogUtil.h; sourceTree = "<group>"; };
 		04B693E516C0157900F24884 /* DialogUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogUtil.m; sourceTree = "<group>"; };
+		04B693E816C0257100F24884 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		04B693E916C0257100F24884 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		04B693EB16C028F100F24884 /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
 		04C52AFB16BE972300A4746F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		04C52AFD16BE973900A4746F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04C52AFF16BE974300A4746F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -640,6 +643,7 @@
 				C2A9F6C514CB4A2F00F18C13 /* UIKit.framework in Frameworks */,
 				C2A9F6C714CB4A2F00F18C13 /* Foundation.framework in Frameworks */,
 				04C52B4916BE9ABE00A4746F /* libGoogleAdMobAds.a in Frameworks */,
+				04B693EA16C0257100F24884 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +696,7 @@
 				0427E32316B16ABD009A103C /* GameConfig.h */,
 				04C52B0D16BE9ABE00A4746F /* Admob */,
 				04C52B1816BE9ABE00A4746F /* AdWhirl */,
+				04B693E716C0257100F24884 /* umeng */,
 				04F56FC416B3A247003F1C23 /* customView */,
 				0427E32416B16ABD009A103C /* Generator */,
 				0477272116B3D65E003806EF /* util */,
@@ -1105,12 +1110,21 @@
 				0477273B16B3DBB7003806EF /* button_select.mp3 */,
 				042E1BE216BE4D7D00990110 /* gamebg.mp3 */,
 				04C52B5F16BEAC6300A4746F /* not_available.wav */,
-				04B693E016C00EB300F24884 /* lose.mp3 */,
 				0459DD7816C00AA700DF77D1 /* win.mp3 */,
+				04B693EB16C028F100F24884 /* lose.mp3 */,
 				04C52B6016BEAC6300A4746F /* put_role.wav */,
 				04DE104316B4198D005394E2 /* showmenuitme.wav */,
 			);
 			path = music;
+			sourceTree = "<group>";
+		};
+		04B693E716C0257100F24884 /* umeng */ = {
+			isa = PBXGroup;
+			children = (
+				04B693E816C0257100F24884 /* libMobClickLibrary.a */,
+				04B693E916C0257100F24884 /* MobClick.h */,
+			);
+			path = umeng;
 			sourceTree = "<group>";
 		};
 		04C52B0D16BE9ABE00A4746F /* Admob */ = {
@@ -1388,8 +1402,8 @@
 				04C52B6C16BEC95200A4746F /* HelpViewController.xib in Resources */,
 				0459DD7016BFFA3E00DF77D1 /* Icon-72@2x.png in Resources */,
 				0459DD7A16C00AA700DF77D1 /* win.mp3 in Resources */,
-				04B693E116C00EB300F24884 /* lose.mp3 in Resources */,
 				04B693E316C00F0D00F24884 /* result_lose.png in Resources */,
+				04B693EC16C028F100F24884 /* lose.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1594,6 +1608,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/fastmaze/Admob\"",
+					"\"$(SRCROOT)/fastmaze/umeng\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = fastmaze;
@@ -1616,6 +1631,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/fastmaze/Admob\"",
+					"\"$(SRCROOT)/fastmaze/umeng\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = fastmaze;

@@ -13,8 +13,9 @@
 #import "RootViewController.h"
 #import "GameScene.h"
 #import "MenuLayer.h"
-
+#import "MobClick.h"
 @implementation AppDelegate
+
 
 @synthesize window;
 @synthesize viewController;
@@ -42,6 +43,8 @@
 }
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+    [MobClick startWithAppkey:@"510b959c5270154d4700000a"];
+    
     // init app configure
     NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
     if (![def boolForKey:HAVE_SETTED]) {

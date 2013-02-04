@@ -80,7 +80,7 @@
     
     
     
-    CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"Go Back",0] fntFile:@"futura-48.fnt"];
+    CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:@"Go Back" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* back =[CCMenuItemLabel itemWithLabel:gobackLabel target:self selector:@selector(backCallback:)];
     back.scale=HD2SD_SCALE;
     

@@ -99,6 +99,8 @@
 
 - (void)createUsingDepthFirstSearch
 {
+     [MobClick event:@"generatemaze" label:[NSString stringWithFormat:@"%d",[SysConfig mazeSize]]];
+    
     [self generateGrid];
 //    return;
     // we are going to iterate till every cell has been visited

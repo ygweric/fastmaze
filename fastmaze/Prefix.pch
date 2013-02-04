@@ -23,4 +23,5 @@
 #import "SpriteUtil.h"
 #import "AudioUtil.h"
 #import "DialogUtil.h"
+#import "MobClick.h"
 #endif
