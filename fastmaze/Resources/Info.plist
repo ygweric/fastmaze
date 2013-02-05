@@ -12,8 +12,12 @@
 	<string></string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon-72.png</string>
-		<string>Icon-72@2x.png</string>
+		<string>Default-Landscape~ipad.png</string>
+		<string>Icon-72@2x 副本.png</string>
+		<string>logo57.png</string>
+		<string>logo114.png</string>
+		<string>logo72.png</string>
+		<string>logo144.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -21,8 +25,12 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Icon-72.png</string>
-				<string>Icon-72@2x.png</string>
+				<string>Default-Landscape~ipad.png</string>
+				<string>Icon-72@2x 副本.png</string>
+				<string>logo57.png</string>
+				<string>logo114.png</string>
+				<string>logo72.png</string>
+				<string>logo144.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -55,6 +63,10 @@
 	</dict>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

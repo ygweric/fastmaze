@@ -120,6 +120,7 @@
     NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:32];
     NSMutableArray *neighbors = [[NSMutableArray alloc] initWithCapacity:4];
     // iterate till every cell has been visited
+    NSTimeInterval start=[[NSDate date]timeIntervalSince1970];
     while (visited < count) {
         // grab each neighbor of our current cell
         [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
@@ -150,7 +151,8 @@
         // cleanup
         [neighbors removeAllObjects];
     }
-
+    NSTimeInterval end=[[NSDate date]timeIntervalSince1970];
+    NSLog(@"------timerinterval is :%f",end-start);
     // final cleanup
     [neighbors release];
     [stack release];
