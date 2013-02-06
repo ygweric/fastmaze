@@ -40,11 +40,11 @@
     
     
     //-----
-//    CCLabelBMFont *facebookLabel = [CCLabelBMFont labelWithString:@"Folllow Me On FaceBook" fntFile:@"futura-48.fnt"];
-//    CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
-//    facebook.scale=HD2SD_SCALE;
+    CCLabelBMFont *facebookLabel = [CCLabelBMFont labelWithString:@"FaceBook" fntFile:@"futura-48.fnt"];
+    CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
+    facebook.scale=HD2SD_SCALE;
     
-    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Folllow Me On Twitter" fntFile:@"futura-48.fnt"];
+    CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Twitter" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
     twitter.scale=HD2SD_SCALE;
     
@@ -65,9 +65,9 @@
     
     
     CCMenu *menu = [CCMenu menuWithItems:
-                    twitter,rate,mail, back, nil];
+                    facebook,twitter,rate,mail, back, nil];
     [menu alignItemsInColumns:
-     [NSNumber numberWithUnsignedInt:1],
+     [NSNumber numberWithUnsignedInt:2],
      [NSNumber numberWithUnsignedInt:2],
      [NSNumber numberWithUnsignedInt:1],
      nil

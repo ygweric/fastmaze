@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Fast Maze</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -13,9 +13,6 @@
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Default-Landscape~ipad.png</string>
-		<string>Icon-72@2x 副本.png</string>
-		<string>logo57.png</string>
-		<string>logo114.png</string>
 		<string>logo72.png</string>
 		<string>logo144.png</string>
 	</array>
@@ -26,9 +23,6 @@
 			<key>CFBundleIconFiles</key>
 			<array>
 				<string>Default-Landscape~ipad.png</string>
-				<string>Icon-72@2x 副本.png</string>
-				<string>logo57.png</string>
-				<string>logo114.png</string>
 				<string>logo72.png</string>
 				<string>logo144.png</string>
 			</array>

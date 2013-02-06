@@ -20,13 +20,26 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "fastmaze/Scenes/MenuLayer.m"
-         timestampString = "381687548.286715"
+         filePath = "fastmaze/Generator/MazeGenerator.m"
+         timestampString = "381762818.677904"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
-         landmarkName = "-showLayerModelEndless"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
+         landmarkName = "-generateGrid"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "fastmaze/game/GuiLayer.m"
+         timestampString = "381762851.184169"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "79"
+         endingLineNumber = "79"
+         landmarkName = "-update:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

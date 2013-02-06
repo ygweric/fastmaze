@@ -75,9 +75,9 @@ enum {
         [self addChild:modelHelp z:zAboveOperation];
         modelHelp.position=ccp(winSize.width+100, -100);
         
-        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
-        [self addChild:modelShop z:zAboveOperation];
-        modelShop.position=ccp(winSize.width+100, winSize.height+100);
+//        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
+//        [self addChild:modelShop z:zAboveOperation];
+//        modelShop.position=ccp(winSize.width+100, winSize.height+100);
         
         
         
@@ -105,9 +105,9 @@ enum {
 -(void)showAllMenu{
     [self displayMenuCommingAudio];
     [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*1/8+50, winSize.height*2/3)]];
-    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*3/8, winSize.height*1/3)]];
-    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*5/8, winSize.height*2/3)]];
-    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*7/8-50, winSize.height*1/3)]];
+    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*4/8, winSize.height*1/3)]];
+    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*6/8, winSize.height*2/3)]];
+//    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*7/8-50, winSize.height*1/3)]];
 }
 
 -(void)showMenuModelEndless{

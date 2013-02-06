@@ -102,7 +102,7 @@ NSString *ccRemoveHDSuffixFromFile( NSString *path )
 {
 #if CC_IS_RETINA_DISPLAY_SUPPORTED
 
-	if( CC_CONTENT_SCALE_FACTOR() == 2 || (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad))
+	if( CC_CONTENT_SCALE_FACTOR() == 2 )
 	{
 		
 		NSString *pathWithoutExtension = [path stringByDeletingPathExtension];

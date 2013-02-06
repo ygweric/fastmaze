@@ -71,7 +71,6 @@
                                [CCMenuItemLabel itemWithLabel:[[CCLabelBMFont alloc]initWithString:@"Small" fntFile:@"futura-48.fnt"]],
                                [CCMenuItemLabel itemWithLabel:[[CCLabelBMFont alloc]initWithString:@"Normal" fntFile:@"futura-48.fnt"]],
                                [CCMenuItemLabel itemWithLabel:[[CCLabelBMFont alloc]initWithString:@"Large" fntFile:@"futura-48.fnt"]],
-                               [CCMenuItemLabel itemWithLabel:[[CCLabelBMFont alloc]initWithString:@"Huge" fntFile:@"futura-48.fnt"]],
                                nil];
 	item5.tag=tMazeSize;
     item5.scale=HD2SD_SCALE;

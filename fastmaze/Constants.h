@@ -84,7 +84,7 @@ typedef enum{
 #define kMAX_LEVEL_IDEAL 13
 #define kMAX_LEVEL_REAL 13
 
-#define MAX_AUTO_STEP 10
+#define MAX_AUTO_STEP 7
 
 #define kGAME_INFO_LAST_TIME @"last time: %0.2f s  "
 #define kGAME_INFO_CURRENT_TIME @"current time: %0.2f s"

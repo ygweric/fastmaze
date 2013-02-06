@@ -44,7 +44,7 @@
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
     [MobClick startWithAppkey:@"510b959c5270154d4700000a"];
-    
+    [ [ UIApplication sharedApplication ] setIdleTimerDisabled:YES ] ;
     // init app configure
     NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
     if (![def boolForKey:HAVE_SETTED]) {
@@ -93,8 +93,8 @@
 	[director setOpenGLView:glView];
 	
 //	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-	if( ! [director enableRetinaDisplay:YES] )
-		CCLOG(@"Retina Display Not supported");
+//	if( ! [director enableRetinaDisplay:YES] )
+//		CCLOG(@"Retina Display Not supported");
 	
 	//
 	// VERY IMPORTANT:

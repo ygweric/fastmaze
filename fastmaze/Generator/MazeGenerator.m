@@ -34,8 +34,8 @@
 {
     self = [super init];
     self.batch = batch;
-    int baseWidth=480;
-    int baseHeight=320;
+    int baseWidth=360;
+    int baseHeight=240;
     switch ([SysConfig mazeSize]) {
         case oSmall:
             self.size = CGSizeMake(baseWidth, baseHeight);
@@ -71,13 +71,9 @@
 - (void)generateGrid
 {
     self.grid = [[[NSMutableDictionary alloc] initWithCapacity:(NSUInteger) (self.size.width * self.size.height / 32)] autorelease];
-    CGSize winSize=[[CCDirector sharedDirector] winSize];
-    CGPoint mazeCenter=ccp(self.size.width/2, self.size.height/2);
-    CGPoint diff=ccpSub(ccp(winSize.width/2,winSize.height/2), mazeCenter);
     for (NSUInteger x = 0; x < self.size.width; x+=32) {
         for (NSUInteger y = 0; y < self.size.height; y+=32) {
             MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch] autorelease];
-//            [cell setPosition:ccpAdd(ccp(x, y), diff) ];
             [cell setPosition:ccp(x, y) ];
             [self.grid setObject:cell forKey:cell.index];
         }
@@ -99,9 +95,12 @@
 
 - (void)createUsingDepthFirstSearch
 {
+//    NSLog(@"createUsingDepthFirstSearch--- start");
      [MobClick event:@"generatemaze" label:[NSString stringWithFormat:@"%d",[SysConfig mazeSize]]];
+//    NSTimeInterval start=[[NSDate date]timeIntervalSince1970];
     
     [self generateGrid];
+//    NSLog(@"-1-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
 //    return;
     // we are going to iterate till every cell has been visited
     NSUInteger count = [self.grid count];
@@ -114,13 +113,15 @@
         currentCell = [cellEnumerator nextObject];
         randomCell--;
     } while(randomCell > 0);
+//    NSLog(@"-2-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
     visited++;
     currentCell.visited = YES;
     // save some allocations
     NSMutableArray *stack = [[NSMutableArray alloc] initWithCapacity:32];
     NSMutableArray *neighbors = [[NSMutableArray alloc] initWithCapacity:4];
     // iterate till every cell has been visited
-    NSTimeInterval start=[[NSDate date]timeIntervalSince1970];
+    
+    
     while (visited < count) {
         // grab each neighbor of our current cell
         [currentCell.neighbors enumerateKeysAndObjectsUsingBlock:
@@ -151,11 +152,11 @@
         // cleanup
         [neighbors removeAllObjects];
     }
-    NSTimeInterval end=[[NSDate date]timeIntervalSince1970];
-    NSLog(@"------timerinterval is :%f",end-start);
+//    NSLog(@"--3----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
     // final cleanup
     [neighbors release];
     [stack release];
+//    NSLog(@"createUsingDepthFirstSearch--- end");
 }
 
 - (void)searchUsingAStar:(CGPoint)start endingAt:(CGPoint)end movingEntity:(CCSprite *)entity

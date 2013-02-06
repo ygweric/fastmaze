@@ -46,6 +46,8 @@
 
 - (void)setupWalls
 {
+//    static int count=0;
+//    NSLog(@"setupWalls------count:%d",count++);
     _northWall = [CCSprite spriteWithTexture:[_batch texture] rect:_horiz.textureRect];
     [_northWall setPosition:ccp(position_.x, position_.y + 16)];
     [_northWall setColor:ccc3(130, 130, 130)];

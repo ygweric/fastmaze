@@ -17,7 +17,7 @@
 #import "GameConfig.h"
 
 @implementation RootViewController
-@synthesize state = _state, adWhirlView;
+@synthesize state = _state;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
  - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -36,7 +36,7 @@
  - (void)viewDidLoad {
      NSLog(@"RootViewController----viewDidLoad----");
      //1
-
+/*
      //2
      self.adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
      //3
@@ -57,36 +57,26 @@
      //10
      [self.view bringSubviewToFront:adWhirlView];
      //11
+ */
 	[super viewDidLoad];  
  }
 
 -(BOOL)shouldAutorotate{
-    NSLog(@"RootViewController--------shouldAutorotate");
-    NSLog(@"RootViewController-----shouldAutorotate--self.view.bounds.size width:%f,height:%f",self.view.bounds.size.width,self.view.bounds.size.height);
     return NO;
 }
 - (NSUInteger)supportedInterfaceOrientations {
-     NSLog(@"RootViewController--------supportedInterfaceOrientations");
-    NSLog(@"RootViewController-----supportedInterfaceOrientations--self.view.bounds.size width:%f,height:%f",self.view.bounds.size.width,self.view.bounds.size.height);
     return UIInterfaceOrientationMaskLandscapeLeft;
 }
 // pre-iOS 6 support
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-     NSLog(@"RootViewController--------shouldAutorotateToInterfaceOrientation");
     return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [[CCDirector sharedDirector]startAnimation];
-//    [CCDirector sharedDirector]st
 }
 -(void)viewWillDisappear:(BOOL)animated{
-//    [[CCDirector sharedDirector]stopAnimation];
-    
 }
-//
-// This callback only will be called when GAME_AUTOROTATION == kGameAutorotationUIViewController
-//
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
@@ -96,7 +86,8 @@
 }
 
 - (void)viewDidUnload {
-    NSLog(@"RootViewController-------viewDidUnload----");
+//    NSLog(@"RootViewController-------viewDidUnload----");
+    /*
     if (adWhirlView) {
         [adWhirlView removeFromSuperview];
         [adWhirlView replaceBannerViewWith:nil];
@@ -104,6 +95,7 @@
         [adWhirlView setDelegate:nil];
         self.adWhirlView = nil;
     }
+     */
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -111,13 +103,13 @@
 
 
 - (void)dealloc {
-    self.adWhirlView.delegate = nil;
-    self.adWhirlView = nil;
+//    self.adWhirlView.delegate = nil;
+//    self.adWhirlView = nil;
     
     [super dealloc];
 }
 #pragma mark adwhirl
-
+/*
 - (NSString *)adWhirlApplicationKey {
     return _MY_AD_WHIRL_APPLICATION_KEY;
 }
@@ -178,5 +170,6 @@
         [[CCDirector sharedDirector] resume];   
     }
 }
+ */
 @end
 
