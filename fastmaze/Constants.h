@@ -92,7 +92,7 @@ typedef enum{
 #define kGAME_INFO_RESULT_WIN @"great! you are faster than last time"
 #define kGAME_INFO_RESULT_LOSE @"ooh! you are slower than last time"
 
-#define kPREPARE_TIME 1
+#define kPREPARE_TIME 2
 
 #define kDEFAULT_LAST_TIME 1*60.0f
 
