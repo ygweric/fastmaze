@@ -19,6 +19,11 @@
 		0406606816B96252003AF99D /* mode_help.png in Resources */ = {isa = PBXBuildFile; fileRef = 0406606716B96252003AF99D /* mode_help.png */; };
 		0406606A16B9638C003AF99D /* help in Resources */ = {isa = PBXBuildFile; fileRef = 0406606916B9638C003AF99D /* help */; };
 		0406606C16B96B76003AF99D /* mode_shop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0406606B16B96B76003AF99D /* mode_shop.png */; };
+		0416295B16D270E600DDCB8A /* GuideLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0416295A16D270E600DDCB8A /* GuideLayer.m */; };
+		0416295F16D274E500DDCB8A /* guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0416295C16D274E500DDCB8A /* guide1.png */; };
+		0416296016D274E500DDCB8A /* guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0416295D16D274E500DDCB8A /* guide2.png */; };
+		0416296116D274E500DDCB8A /* guide3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0416295E16D274E500DDCB8A /* guide3.png */; };
+		0416296316D281C800DDCB8A /* guide4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0416296216D281C800DDCB8A /* guide4.png */; };
 		0427E42616B16ABE009A103C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E31E16B16ABD009A103C /* AppDelegate.m */; };
 		0427E42816B16ABE009A103C /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32216B16ABD009A103C /* Entity.m */; };
 		0427E42916B16ABE009A103C /* MazeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427E32616B16ABD009A103C /* MazeCell.m */; };
@@ -220,6 +225,12 @@
 		0406606716B96252003AF99D /* mode_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_help.png; sourceTree = "<group>"; };
 		0406606916B9638C003AF99D /* help */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = help; sourceTree = "<group>"; };
 		0406606B16B96B76003AF99D /* mode_shop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mode_shop.png; sourceTree = "<group>"; };
+		0416295916D270E600DDCB8A /* GuideLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideLayer.h; sourceTree = "<group>"; };
+		0416295A16D270E600DDCB8A /* GuideLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideLayer.m; sourceTree = "<group>"; };
+		0416295C16D274E500DDCB8A /* guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide1.png; sourceTree = "<group>"; };
+		0416295D16D274E500DDCB8A /* guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide2.png; sourceTree = "<group>"; };
+		0416295E16D274E500DDCB8A /* guide3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide3.png; sourceTree = "<group>"; };
+		0416296216D281C800DDCB8A /* guide4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide4.png; sourceTree = "<group>"; };
 		0427E31D16B16ABD009A103C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0427E31E16B16ABD009A103C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0427E31F16B16ABD009A103C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -572,6 +583,8 @@
 				0406604C16B95E6C003AF99D /* GameLayer.m */,
 				0406604F16B95E6C003AF99D /* GuiLayer.h */,
 				0406605016B95E6C003AF99D /* GuiLayer.m */,
+				0416295916D270E600DDCB8A /* GuideLayer.h */,
+				0416295A16D270E600DDCB8A /* GuideLayer.m */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -939,6 +952,10 @@
 				0477272A16B3DAD2003806EF /* Fonts */,
 				04DE103C16B3EA1B005394E2 /* mode_endless.png */,
 				0406606916B9638C003AF99D /* help */,
+				0416295C16D274E500DDCB8A /* guide1.png */,
+				0416295D16D274E500DDCB8A /* guide2.png */,
+				0416295E16D274E500DDCB8A /* guide3.png */,
+				0416296216D281C800DDCB8A /* guide4.png */,
 				0406606B16B96B76003AF99D /* mode_shop.png */,
 				043E644B16BCF655000315FE /* progress_bar.png */,
 				0405464E16BD3B3A003631C1 /* bg.png */,
@@ -1220,6 +1237,10 @@
 				04B693EC16C028F100F24884 /* lose.mp3 in Resources */,
 				044050E016C12FE800A021CF /* logo72.png in Resources */,
 				044050E216C12FEE00A021CF /* logo144.png in Resources */,
+				0416295F16D274E500DDCB8A /* guide1.png in Resources */,
+				0416296016D274E500DDCB8A /* guide2.png in Resources */,
+				0416296116D274E500DDCB8A /* guide3.png in Resources */,
+				0416296316D281C800DDCB8A /* guide4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1347,6 +1368,7 @@
 				042E1BE116BE4B7800990110 /* AudioUtil.m in Sources */,
 				04C52B6B16BEC95200A4746F /* HelpViewController.m in Sources */,
 				04B693E616C0157900F24884 /* DialogUtil.m in Sources */,
+				0416295B16D270E600DDCB8A /* GuideLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

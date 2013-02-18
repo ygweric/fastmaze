@@ -19,5 +19,7 @@
 -(void)showOperationLayer:(BOOL)show;
 -(void)showOperationLayer:(BOOL)show type:(LayerType)layerType;
 -(void)gameInit;
+-(void)showPrepareLayer;
+-(void)showGuideLayer;
 
 @end

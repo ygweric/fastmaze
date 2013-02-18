@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "GameScene.h"
 #import "HelpViewController.h"
+#import "GuideLayer.h"
 
 enum  {
     tMenuGrid ,
@@ -82,13 +83,24 @@ enum {
         
         
         //*/
-        [self performSelector:@selector(showAllMenu) withObject:nil afterDelay:0.5];
+//        [self performSelector:@selector(showAllMenu) withObject:nil afterDelay:0.5];
          /*/
         [self performSelector:@selector(showMenuModelEndless) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL];
         [self performSelector:@selector(showMenuModelSetting) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*2];
         [self performSelector:@selector(showMenuModelHelp) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*3];
         [self performSelector:@selector(showMenuModelShop) withObject:nil afterDelay:MENU_ANIM_SHOW_INTERVAL*4];
         //*/
+        
+        NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
+        if (![def boolForKey:IS_FAMILY_PLAY]) {
+//          if(1){
+            [def setBool:YES forKey:IS_FAMILY_PLAY];
+            GuideLayer* layer= [GuideLayer node];
+            layer.position=ccp(winSize.width/2, winSize.height/2);
+            [self addChild:layer z:50];
+          }else{
+              [self performSelector:@selector(showAllMenu) withObject:nil afterDelay:0.5];
+          }
         
 	}
 
@@ -134,6 +146,7 @@ enum {
     CCLabelBMFont* spinner= [DialogUtil showWaitLable:self];
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:scene]];
     [scene.guiLayer gameInit];
+    
     [DialogUtil unshowWaitLable:spinner];
 }
 

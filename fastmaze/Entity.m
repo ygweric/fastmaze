@@ -23,7 +23,7 @@
     CCSprite *glow = [CCSprite spriteWithFile:@"entity.png"];
     [glow setBlendFunc: (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE }];
     id sequence = [CCSequence actions:
-        [CCFadeTo actionWithDuration:0.5f opacity:100],
+        [CCFadeTo actionWithDuration:0.5f opacity:180],
         [CCFadeTo actionWithDuration:0.5f opacity:255],
         nil
     ];
@@ -74,7 +74,7 @@
         //否则，置蓝点
         CCSprite *current = [CCSprite spriteWithFile:@"entity.png"];
         current.tag=tCorrectEntity;
-        [current setColor:ccBLUE];
+        [current setColor:ccc3(64, 215, 96)];
         [current setPosition:position_];
         [_currentEntities addObject:current];
         [self.parent addChild:current];
@@ -160,7 +160,7 @@
     //暂时不显示cancel点
     /*
     CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
-    [cancelled setColor:ccc3(100, 100, 100)];
+    [cancelled setColor:ccc3(200, 200, 200)];
     cancelled.tag=tCancalEntity;
     [cancelled setPosition:pos];
     [_cancelledEntities addObject:cancelled];
@@ -172,7 +172,7 @@
 -(void)justDropCancelled:(CGPoint)pos{
 //    NSLog(@"---justDropCancelled-----");
     CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
-    [cancelled setColor:ccc3(100, 100, 100)];
+    [cancelled setColor:ccc3(200, 200, 200)];
     cancelled.tag=tCancalEntity;
     [cancelled setPosition:pos];
     [_cancelledEntities addObject:cancelled];

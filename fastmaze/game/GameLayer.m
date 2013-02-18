@@ -80,6 +80,9 @@
     CGPoint mazeCenter = ccp((_mazeGenerator.size.width)/2, (_mazeGenerator.size.height)/2);
     // find our center cell
     self.playerEntity = [Entity spriteWithFile:@"entity.png"];
+//    [_playerEntity setColor:ccc3(255, 255, 100)];
+    [_playerEntity setColor:ccc3(248, 248, 173)];
+    _playerEntity.scale=1.5;
     //set player position
     CGPoint rbMaze = ccp((_mazeGenerator.size.width), 0);
     MazeCell* rbCell= [_mazeGenerator cellForPosition:rbMaze];
@@ -110,7 +113,8 @@
     //创建&放置start点
     if (_currentStart == nil) {
         _currentStart = [Entity spriteWithFile:@"entity.png"];
-        [_currentStart setColor:ccRED];
+        [_currentStart setColor:ccGREEN];
+        _currentStart.scale=2;
         [_mazeLayer addChild:_currentStart];
     }
     [_currentStart setPosition:_playerEntity.position];
@@ -118,7 +122,8 @@
     //创建&放置end点
     if (_currentEnd == nil) {
         _currentEnd = [Entity spriteWithFile:@"entity.png"];
-        [_currentEnd setColor:ccGREEN];
+        [_currentEnd setColor:ccRED];
+        _currentEnd.scale=2;
         [_mazeLayer addChild:_currentEnd];
     }
     [_currentEnd setPosition:_desireEntity.position];

@@ -12,6 +12,7 @@
 #import "MenuLayer.h"
 #import "HelpLayer.h"
 #import "GameLayer.h"
+#import "GuideLayer.h"
 
 @implementation GuiLayer
 {
@@ -56,12 +57,6 @@
 	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(IS_IPAD()?70:40));
     currentTimeLable.scale=0.5;
     
-    
-
-//    CCMenu* back= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
-//    [self addChild:back z:zBelowOperation];
-//    back.position=ccp(winSize.width*1/3-200, winSize.height-50);
-
 
     CCMenu* pauseButton= [SpriteUtil createMenuWithImg:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];    
     pauseButton.position=ccp(winSize.width*2/3+200, winSize.height-50);
@@ -71,7 +66,6 @@
     nextLevelButton.position=ccp(winSize.width*2/3+200, winSize.height-50);
     [self addChild:nextLevelButton z:zBelowOperation tag:tNextLevel];
     nextLevelButton.visible=NO;
-
     return self;
 }
 -(void) update:(ccTime)delta{
@@ -209,7 +203,16 @@
 	[sc addChild:[MenuLayer node]];
 	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
-
+-(void)help{
+    [AudioUtil displayAudioButtonClick];
+    [self showOperationLayer:NO];
+    [self showGuideLayer];
+}
+-(void)showGuideLayer{
+    GuideLayer* layer= [GuideLayer node];
+    layer.position=ccp(winSize.width/2, winSize.height/2);
+    [self addChild:layer z:50];
+}
 #pragma mark -
 -(void)gameInit{
     isPause=YES;
@@ -236,6 +239,7 @@
 }
 - (void)initBaseOperationLayer:(CCLayer *)operationLayer {
     //---same for all kind of layer
+    
     //audio & music
     BOOL isAudioOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_AUDIO];
     CCMenu* audioButton=nil;
@@ -263,7 +267,7 @@
 //    [operationLayer addChild:menuButton z:zAboveOperation];
     
     CCMenu* back= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
-    [operationLayer addChild:back z:zBelowOperation];
+    [operationLayer addChild:back z:zAboveOperation];
     back.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
     
     CCMenu* restartButton= [SpriteUtil createMenuWithImg:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
@@ -323,19 +327,23 @@
             case tLayerPause:
             {
                 [self initBaseOperationLayer:operationLayer];
-                
+
                 CCMenu* regenerateMaze=[SpriteUtil createMenuWithImg:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze:)];
                 [operationLayer addChild:regenerateMaze z:zBelowOperation];
-                regenerateMaze.position=ccp(winSize.width*1/3, winSize.height*1/3+160);
+                regenerateMaze.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3+160);
                 
                 
                 CCMenu* showMazeAnswer= [SpriteUtil createMenuWithImg:@"button_show_answer.png" pressedColor:ccYELLOW target:self selector:@selector(showMazeAnswer)];
                 [operationLayer addChild:showMazeAnswer z:zBelowOperation];
-                showMazeAnswer.position=ccp(winSize.width*2/3, winSize.height*1/3+160);
+                showMazeAnswer.position=ccp(winSize.width*1/2, winSize.height*1/3+160);
                 
                 CCMenu* resumeButton=[SpriteUtil createMenuWithImg:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(resumeGame)];
                 resumeButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
                 [operationLayer addChild:resumeButton z:zAboveOperation];
+                
+                CCMenu* help= [SpriteUtil createMenuWithImg:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];
+                [operationLayer addChild:help z:zAboveOperation];
+                help.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3+160);
             }
                 
                 break;
@@ -371,7 +379,7 @@
         [pl removeFromParentAndCleanup:YES];
     }    
 }
-
+//也就是开始游戏
 -(void)showPrepareLayer{
     prepareTime=kPREPARE_TIME;
     [self showOperationLayer:YES type:tLayerPrepare];

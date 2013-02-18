@@ -10,4 +10,5 @@
 
 @interface MenuLayer : MyBaseLayer
 +(id) scene;
+-(void)showAllMenu;
 @end

@@ -69,6 +69,7 @@ typedef enum{
 #define MENU_ANIM_SHOW_INTERVAL 0.5f
 
 #define HAVE_SETTED @"HAVE_SETTED"
+#define IS_FAMILY_PLAY @"IS_FAMILY_PLAY"
 
 #define UDF_AUDIO @"UDF_AUDIO"
 #define UDF_MUSIC @"UDF_MUSIC"
@@ -92,7 +93,8 @@ typedef enum{
 #define kGAME_INFO_RESULT_WIN @"great! you are faster than last time"
 #define kGAME_INFO_RESULT_LOSE @"ooh! you are slower than last time"
 
-#define kPREPARE_TIME 2
+#define kPREPARE_TIME 1
+#define kGUIDE_PAGE_COUNT 4
 
 #define kDEFAULT_LAST_TIME 1*60.0f
 
