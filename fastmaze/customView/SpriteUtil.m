@@ -13,7 +13,7 @@
     CCSprite* pn= [CCSprite spriteWithFile:img];
     CCSprite* ps= [CCSprite spriteWithFile:img];
     ps.color=color;
-    CCMenuItemSprite* p=[CCMenuItemSprite itemFromNormalSprite:pn selectedSprite:ps target:target selector:selector];
+    CCMenuItemSprite* p=[CCMenuItemSprite itemWithNormalSprite:pn selectedSprite:ps target:target selector:selector];
     return [CCMenu menuWithItems:p, nil];
 }
 

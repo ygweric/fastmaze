@@ -43,7 +43,9 @@
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"walls.plist"];
     self.batchNode = [CCSpriteBatchNode batchNodeWithFile:@"walls.png"];
     [_mazeLayer addChild:_batchNode];
-    self.mazeGenerator = [[[MazeGenerator alloc] initWithBatchNode:_batchNode] autorelease];
+    self.mazeGenerator = [[[MazeGenerator alloc] initWithBatchNode:_batchNode layer:_mazeLayer] autorelease];
+
+    
     [self regenerateMaze];
     return self;
 }

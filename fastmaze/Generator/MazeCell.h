@@ -13,7 +13,7 @@ static const CGPoint kWest = {-32, 0};
 static const CGPoint kEast = {32, 0};
 
 @interface MazeCell : CCSprite
-- (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch;
+- (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch layer:(CCLayer*)layer;
 - (void)addNeighbor:(MazeCell *)neighbor;
 - (void)removeWall:(MazeCell *)neighbor;
 
@@ -27,4 +27,5 @@ static const CGPoint kEast = {32, 0};
 @property (nonatomic, assign) BOOL visited;
 @property (nonatomic, retain) NSMutableDictionary *neighbors;
 @property (nonatomic, retain) NSMutableDictionary *walls;
+@property (nonatomic,assign) CCLayer* mazeLayer;
 @end

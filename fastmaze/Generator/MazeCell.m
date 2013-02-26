@@ -27,13 +27,15 @@
 @synthesize batch = _batch;
 @synthesize horiz = _horiz;
 @synthesize vert = _vert;
+@synthesize mazeLayer=_mazeLayer;
 #pragma mark -
 
-- (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch
+- (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch layer:(CCLayer*)layer
 {
     self = [super init];
     self.batch = batch;
-    [self useBatchNode:batch];
+    self.mazeLayer=layer;
+//    [self setBatchNode:batch];
     self.index = index;
     self.visited = NO;
     self.neighbors = [[[NSMutableDictionary alloc] initWithCapacity:4] autorelease];
@@ -41,6 +43,7 @@
     self.horiz = [CCSprite spriteWithSpriteFrameName:@"horiz.png"];
     self.vert = [CCSprite spriteWithSpriteFrameName:@"vert.png"];
     [self setupWalls];
+    [_mazeLayer addChild:self];
     return self;
 }
 

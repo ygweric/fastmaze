@@ -37,10 +37,12 @@
     self = [super init];
     winSize = [[CCDirector sharedDirector] winSize];
     
-    progressTimer=[CCProgressTimer progressWithFile:@"progress_bar.png"];
+    progressTimer=[CCProgressTimer progressWithSprite:[CCSprite spriteWithFile:@"progress_bar.png"]];
     progressTimer.position=ccp( winSize.width*1/2 , winSize.height-30);
     progressTimer.anchorPoint=ccp(0.5, 1);
-    progressTimer.type=kCCProgressTimerTypeHorizontalBarRL;  
+    progressTimer.type=kCCProgressTimerTypeBar;
+    progressTimer.midpoint=ccp(1, 0.5);
+    progressTimer.barChangeRate=ccp(1,0);
     CCSprite* progressTimerBg=[CCSprite spriteWithFile:@"progress_bar_bg.png"];
     progressTimerBg.position=progressTimer.position;
     progressTimerBg.anchorPoint=ccp(0.5, 1);

@@ -1,9 +1,9 @@
 //
 //  main.m
-//  toddlermaze
+//  fastmaze
 //
-//  Created by Jonny Brannum on 1/21/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Created by Eric on 13-2-24.
+//  Copyright __MyCompanyName__ 2013年. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
+    int retVal = UIApplicationMain(argc, argv, nil, @"AppController");
     [pool release];
     return retVal;
 }

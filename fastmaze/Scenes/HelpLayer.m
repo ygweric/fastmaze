@@ -25,10 +25,9 @@
         [self setBg:@"main_bg.png"];
     }
     //help content
-    
     CCLabelTTF *label = [CCLabelTTF labelWithString: [NSString stringWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"help" ofType:nil] encoding:NSUTF8StringEncoding error:NULL]
                                         dimensions: CGSizeMake(winSize.width -20, winSize.height)
-                                         alignment: UITextAlignmentCenter
+                                         hAlignment: UITextAlignmentCenter
                                           fontName:@"Arial" fontSize: (IS_IPAD()?32:15)];
     
     

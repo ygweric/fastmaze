@@ -14,8 +14,9 @@
 @property (nonatomic, retain) NSMutableDictionary *grid;
 @property (nonatomic, assign) CGSize size;
 @property (nonatomic, assign) Entity* playerEntity;
+@property (nonatomic,assign) CCLayer* mazeLayer;
 
-- (id)initWithBatchNode:(CCSpriteBatchNode *)batch;
+- (id)initWithBatchNode:(CCSpriteBatchNode *)batch layer:(CCLayer*)layer;
 
 - (void)generateGrid;
 

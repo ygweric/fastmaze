@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>fastmaze.xcscheme_^#shared#^_</key>
+		<key>fastmaze.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>C2A9F6B514CB4A2F00F18C13</key>
+		<key>04D65C6D16D9223500A26F3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

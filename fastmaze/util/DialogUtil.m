@@ -17,7 +17,7 @@
     [spinner startAnimating];
     CGSize winsize=[[CCDirector sharedDirector] winSize];
     spinner.center=ccp(winsize.width/2, winsize.height/2);
-    [[[CCDirector sharedDirector] openGLView] addSubview:spinner ];
+//    [[[CCDirector sharedDirector] openGLView] addSubview:spinner ];
     return spinner;
 }
 +(void)unshowWaitDialog:(UIActivityIndicatorView*)spinner{

@@ -17,9 +17,9 @@
 @synthesize cancelledEntities = _cancelledEntities;
 
 #pragma mark -
-- (id)init
+-(id) initWithTexture:(CCTexture2D*)texture rect:(CGRect)rect rotated:(BOOL)rotated
 {
-    self = [super init];
+    self = [super initWithTexture:texture rect:rect rotated:rotated];
     CCSprite *glow = [CCSprite spriteWithFile:@"entity.png"];
     [glow setBlendFunc: (ccBlendFunc) { GL_SRC_ALPHA, GL_ONE }];
     id sequence = [CCSequence actions:
@@ -64,7 +64,6 @@
             break;
         }
     }
-//    if (0) {
     if (destIndex>0) {
         //如果有，则置为灰色
         [self.parent removeChild:[_currentEntities objectAtIndex:destIndex] cleanup:YES];
@@ -79,12 +78,49 @@
         [_currentEntities addObject:current];
         [self.parent addChild:current];
     }
+}
+
+- (void)dropCancelled:(CCSprite *)node
+{
+//    NSLog(@"---dropCancelled-----");
+    CGPoint pos = position_;
+    __block CCSprite *current = nil;
+    __block NSUInteger currentKey = 0;
+    [_currentEntities enumerateObjectsUsingBlock:
+     ^(id sprite, NSUInteger key, BOOL *stop) {
+         if (CGPointEqualToPoint(((Entity*) sprite).position, pos)) {
+             current = sprite;
+             currentKey = key;
+             *stop = YES;
+         }
+     }
+     ];
+    [self.parent removeChild:current cleanup:YES];
+    [_currentEntities removeObjectAtIndex:currentKey];
     
+    //暂时不显示cancel点
+    /*
+     CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
+     [cancelled setColor:ccc3(200, 200, 200)];
+     cancelled.tag=tCancalEntity;
+     [cancelled setPosition:pos];
+     [_cancelledEntities addObject:cancelled];
+     [self.parent addChild:cancelled];
+     */
     
-    
-   
-    
-   }
+}
+
+
+//仅仅放置cancel点，并在cancel数组中记录，不做其他操作
+-(void)justDropCancelled:(CGPoint)pos{
+    NSLog(@"---justDropCancelled-----");
+    CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
+    [cancelled setColor:ccc3(200, 200, 200)];
+    cancelled.tag=tCancalEntity;
+    [cancelled setPosition:pos];
+    [_cancelledEntities addObject:cancelled];
+    [self.parent addChild:cancelled];
+}
 /*
  撤销蓝点到指定position，走过的点置灰
  return YES撤销成功
@@ -139,45 +175,6 @@
   
 }
 
-- (void)dropCancelled:(CCSprite *)node
-{
-//    NSLog(@"---dropCancelled-----");
-    CGPoint pos = position_;
-    __block CCSprite *current = nil;
-    __block NSUInteger currentKey = 0;
-    [_currentEntities enumerateObjectsUsingBlock:
-        ^(id sprite, NSUInteger key, BOOL *stop) {
-            if (CGPointEqualToPoint(((Entity*) sprite).position, pos)) {
-                current = sprite;
-                currentKey = key;
-                *stop = YES;
-            }
-        }
-    ];
-    [self.parent removeChild:current cleanup:YES];
-    [_currentEntities removeObjectAtIndex:currentKey];
-    
-    //暂时不显示cancel点
-    /*
-    CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
-    [cancelled setColor:ccc3(200, 200, 200)];
-    cancelled.tag=tCancalEntity;
-    [cancelled setPosition:pos];
-    [_cancelledEntities addObject:cancelled];
-    [self.parent addChild:cancelled];
-     */
-   
-}
-//仅仅放置cancel点，并在cancel数组中记录，不做其他操作
--(void)justDropCancelled:(CGPoint)pos{
-//    NSLog(@"---justDropCancelled-----");
-    CCSprite *cancelled = [CCSprite spriteWithFile:@"entity.png"];
-    [cancelled setColor:ccc3(200, 200, 200)];
-    cancelled.tag=tCancalEntity;
-    [cancelled setPosition:pos];
-    [_cancelledEntities addObject:cancelled];
-    [self.parent addChild:cancelled];
-}
 - (void)dealloc {
     [_currentEntities release];
     [_cancelledEntities release];

@@ -28,12 +28,14 @@
 @synthesize playerEntity=_playerEntity;
 @synthesize cancelEntitys=_cancelEntitys;
 @synthesize correctEntitys=_correctEntitys;
+@synthesize mazeLayer=_mazeLayer;
 
 #pragma mark -
-- (id)initWithBatchNode:(CCSpriteBatchNode *)batch
+- (id)initWithBatchNode:(CCSpriteBatchNode *)batch layer:(CCLayer*)layer
 {
     self = [super init];
     self.batch = batch;
+    self.mazeLayer=layer;
     int baseWidth=360;
     int baseHeight=240;
     switch ([SysConfig mazeSize]) {
@@ -73,7 +75,7 @@
     self.grid = [[[NSMutableDictionary alloc] initWithCapacity:(NSUInteger) (self.size.width * self.size.height / 32)] autorelease];
     for (NSUInteger x = 0; x < self.size.width; x+=32) {
         for (NSUInteger y = 0; y < self.size.height; y+=32) {
-            MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch] autorelease];
+            MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch layer:_mazeLayer] autorelease];
             [cell setPosition:ccp(x, y) ];
             [self.grid setObject:cell forKey:cell.index];
         }
@@ -516,7 +518,7 @@
     [stack release];
 //    [actions addObject:[CCCallFuncN actionWithTarget:self selector:@selector(handlerActionFinished) ]];
     
-    id sequence = [CCSequence actionsWithArray:actions];
+    id sequence = [CCSequence actionWithArray:actions];
     [entity runAction:sequence];
     return YES;
     
@@ -619,7 +621,7 @@
     //util很快就找到了path，上面的过程只是在生成action
     if (found) {
         NSLog(@"--ok, the answer has been shown --");
-        id sequence = [CCSequence actionsWithArray:actions];
+        id sequence = [CCSequence actionWithArray:actions];
         [entity runAction:sequence];
         
     }else{
