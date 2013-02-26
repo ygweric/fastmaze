@@ -164,15 +164,14 @@ enum {
 }
 - (void) onHelp:(id) sender
 {
-    //*/
+    /*/
     [AudioUtil displayAudioButtonClick];
     CCScene* sc=[HelpLayer node];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
     
 /*/
-    AppDelegate* delegate= [[UIApplication sharedApplication]delegate];
     HelpViewController* cont=[[[HelpViewController alloc]initWithNibName:@"HelpViewController" bundle:nil]autorelease];
-    [delegate.viewController presentViewController:cont animated:YES completion:nil];
+    [[CCDirector sharedDirector] presentViewController:cont animated:YES completion:nil];
  //*/
 }
 

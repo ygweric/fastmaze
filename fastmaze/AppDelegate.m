@@ -15,9 +15,19 @@
 
 @synthesize window=window_, navController=navController_, director=director_;
 
+- (NSString *)adWhirlApplicationKey {
+    return @"9ad68ef5767447baa1dd37f4d7ae7766";
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return [CCDirector sharedDirector];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifndef DEBUG
+#ifdef DEBUG
+    [MobClick startWithAppkey:@"xxx"];
+#else
     [MobClick startWithAppkey:@"510b959c5270154d4700000a"];
 #endif
     [ [ UIApplication sharedApplication ] setIdleTimerDisabled:YES ] ;
@@ -108,7 +118,28 @@
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [MenuLayer scene]];
 
+    //请求广告
+    AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+    [[CCDirector sharedDirector].view addSubview:adWhirlView];
+    
 	return YES;
+}
+//设置广告条宽度
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adView {
+    [UIView beginAnimations:@"AdWhirlDelegate.adWhirlDidReceiveAd:"
+                    context:nil];
+    
+    [UIView setAnimationDuration:0.7];
+    
+    CGSize adSize = [adView actualAdSize];
+    CGRect newFrame = adView.frame;
+    CGSize winsize=[CCDirector sharedDirector].winSize;
+    newFrame.size = adSize;
+    newFrame.origin.x = (winsize.width - adSize.width)/ 2;
+    
+    adView.frame = newFrame;
+    
+    [UIView commitAnimations];
 }
 
 // Supported orientations: Landscape. Customize it for your own needs
