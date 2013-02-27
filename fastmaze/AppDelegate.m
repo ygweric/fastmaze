@@ -16,19 +16,40 @@
 @synthesize window=window_, navController=navController_, director=director_;
 
 - (NSString *)adWhirlApplicationKey {
-    return @"9ad68ef5767447baa1dd37f4d7ae7766";
+    return KEY_AD_ADWHIRL;
 }
 
 - (UIViewController *)viewControllerForPresentingModalView {
     return [CCDirector sharedDirector];
 }
 
+-(void)showRateAlert{
+    UIAlertView* alert=[[[UIAlertView alloc]initWithTitle:@"Rate Fast Maze" message:@"If you enjoy playing Fast Maze, would you mind taking a moment to rate it? It won't take more than a minute.\n Thanks for your support!" delegate:self cancelButtonTitle:@"No,Thanks" otherButtonTitles:@"Rate It Now",@"Remind Me Later", nil]autorelease];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [MobClick event:@"notRate"];
+            break;
+        case 1:
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=597108795"]];
+            [MobClick event:@"rateByAlert"];
+            break;
+        case 2:
+            [MobClick event:@"rateLater"];
+            break;
+    }
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef DEBUG
     [MobClick startWithAppkey:@"xxx"];
 #else
-    [MobClick startWithAppkey:@"510b959c5270154d4700000a"];
+    [MobClick startWithAppkey:KEY_UMENG];
 #endif
     [ [ UIApplication sharedApplication ] setIdleTimerDisabled:YES ] ;
     // init app configure
@@ -39,6 +60,9 @@
         [def setBool:YES forKey:UDF_AUDIO];
         [def setBool:YES forKey:UDF_MUSIC];
         [def setInteger:1 forKey:UDF_MAZESIZE];
+        
+        [def setInteger:0 forKey:UFK_TOTAL_LAUNCH_COUNT];
+        [def setDouble:([[NSDate date]timeIntervalSince1970]+kRATE_DAYS) forKey:UFK_NEXT_ALERT_RATE_TIME];
     }else{
         [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
         [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
@@ -48,6 +72,28 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gamebg.mp3" loop:YES];
     }
 
+    /*
+    //提醒评分
+     第三次启动提醒，以后每隔5天提醒一次
+     以后不再提醒为5*2天不在提醒
+    */
+    NSLog(@"rate---launchCount:%d,next:%f,curr:%f",[def integerForKey:UFK_TOTAL_LAUNCH_COUNT],[def doubleForKey:UFK_NEXT_ALERT_RATE_TIME],[[NSDate date]timeIntervalSince1970]);
+    if ([def objectForKey:UFK_TOTAL_LAUNCH_COUNT] ) {
+        [def setInteger:([def integerForKey:UFK_TOTAL_LAUNCH_COUNT]+1) forKey:UFK_TOTAL_LAUNCH_COUNT];
+        if ([def integerForKey:UFK_TOTAL_LAUNCH_COUNT]>kRATE_FIRST_TIME) {
+            [self showRateAlert];
+            [def removeObjectForKey:UFK_TOTAL_LAUNCH_COUNT];
+        }
+    }else{
+        double nextAlert= [def doubleForKey:UFK_NEXT_ALERT_RATE_TIME];
+        if (nextAlert<[[NSDate date]timeIntervalSince1970]) {
+            [self showRateAlert];
+            [def setDouble:([[NSDate date]timeIntervalSince1970]+kRATE_DAYS) forKey:UFK_NEXT_ALERT_RATE_TIME];
+        }
+    }
+    
+   
+    
     
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

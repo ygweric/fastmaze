@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "AdWhirlView.h"
 
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate,AdWhirlDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate,AdWhirlDelegate,UIAlertViewDelegate>
 {
 	UIWindow *window_;
 	UINavigationController *navController_;

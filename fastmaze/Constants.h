@@ -60,8 +60,8 @@ typedef enum{
 
 
 
-#define _MY_AD_WHIRL_APPLICATION_KEY  @"9ad68ef5767447baa1dd37f4d7ae7766"
-
+#define KEY_AD_ADWHIRL @"9ad68ef5767447baa1dd37f4d7ae7766"
+#define KEY_UMENG @"510b959c5270154d4700000a"
 
 #define MIN_DISTANCE 10.0f
 #define MIN_DISTANCE_PERCENT 0.5f
@@ -81,6 +81,11 @@ typedef enum{
 #define UDF_LEVEL_CURRENT @"UDF_LEVELCURRENT" //当前正玩或刚刚结束level，先不用，以后或许会需要
 #define UDF_TOTAL_SCORE @"UDF_TOTAL_SCORE" //用户积分
 
+#define UFK_LAST_TIME @"UFK_LAST_TIME"
+#define UFK_NEXT_ALERT_RATE_TIME @"UFK_NEXT_ALERT_RATE_TIME"
+#define UFK_TOTAL_LAUNCH_COUNT @"UFK_TOTAL_LAUNCH_COUNT"
+
+
 //FIXME release
 #define kMAX_LEVEL_IDEAL 13
 #define kMAX_LEVEL_REAL 13
@@ -98,6 +103,11 @@ typedef enum{
 
 #define kDEFAULT_LAST_TIME 1*60.0f
 
-#define UFK_LAST_TIME @"UFK_LAST_TIME"
+//FIXME release
+#define kRATE_FIRST_TIME 2 //首次运行n次后提醒评分 5
+#define kRATE_DAYS 10*60    //距离上次评分n天后再次提醒评分 5*24*60*60
+#define kRATE_MAX_DAYS kRATE_DAYS*2  //“不再提醒”后提醒的时间间隔
+
+
 
 
