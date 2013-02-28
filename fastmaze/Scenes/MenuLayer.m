@@ -15,6 +15,7 @@
 #import "GameScene.h"
 #import "HelpViewController.h"
 #import "GuideLayer.h"
+#import "ShopLayer.h"
 
 enum  {
     tMenuGrid ,
@@ -76,9 +77,9 @@ enum {
         [self addChild:modelHelp z:zAboveOperation];
         modelHelp.position=ccp(winSize.width+100, -100);
         
-//        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
-//        [self addChild:modelShop z:zAboveOperation];
-//        modelShop.position=ccp(winSize.width+100, winSize.height+100);
+        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
+        [self addChild:modelShop z:zAboveOperation];
+        modelShop.position=ccp(winSize.width+100, winSize.height+100);
         
         
         
@@ -93,7 +94,6 @@ enum {
         
         NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
         if (![def boolForKey:IS_FAMILY_PLAY]) {
-//          if(1){
             [def setBool:YES forKey:IS_FAMILY_PLAY];
             GuideLayer* layer= [GuideLayer node];
             layer.position=ccp(winSize.width/2, winSize.height/2);
@@ -116,10 +116,10 @@ enum {
 #pragma mark -
 -(void)showAllMenu{
     [self displayMenuCommingAudio];
-    [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*1/8+50, winSize.height*2/3)]];
-    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*4/8, winSize.height*1/3)]];
-    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*6/8, winSize.height*2/3)]];
-//    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*7/8-50, winSize.height*1/3)]];
+    [modelEndless runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*1/5, winSize.height*2/3)]];
+    [modelSetting runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*2/5, winSize.height*1/3)]];
+    [modelHelp runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*3/5, winSize.height*2/3)]];
+    [modelShop runAction:[CCMoveTo actionWithDuration:MENU_ANIM_SHOW_INTERVAL position:ccp(winSize.width*4/5, winSize.height*1/3)]];
 }
 
 -(void)showMenuModelEndless{
@@ -150,23 +150,19 @@ enum {
     [DialogUtil unshowWaitLable:spinner];
 }
 
--(void)setting{
-    [AudioUtil displayAudioButtonClick];
-    CCScene* sc=[SettingLayer node];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
-}
+
 
 - (void) OnSettings:(id) sender
 {
     [AudioUtil displayAudioButtonClick];
-    CCScene* sc=[SettingLayer node];
+    CCScene* sc=[SettingLayer scene];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 - (void) onHelp:(id) sender
 {
-    /*/
+    //*/
     [AudioUtil displayAudioButtonClick];
-    CCScene* sc=[HelpLayer node];
+    CCScene* sc=[HelpLayer scene];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
     
 /*/
@@ -177,7 +173,7 @@ enum {
 
 -(void)onShop:(id) sender{
     [AudioUtil displayAudioButtonClick];
-    UIAlertView* shopAlert=[[[UIAlertView alloc]initWithTitle:nil message:@"remove ad" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil]autorelease];
-    [shopAlert show];
+    CCScene* sc=[ShopLayer scene];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSplitRows transitionWithDuration:1.0f scene:sc]];
 }
 @end

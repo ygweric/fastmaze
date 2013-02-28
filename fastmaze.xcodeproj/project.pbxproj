@@ -11,6 +11,7 @@
 		0411088E16D9CCA5007A1CDE /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411088C16D9CCA5007A1CDE /* Default-Landscape~ipad.png */; };
 		0411089116D9CCBD007A1CDE /* logo144.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411088F16D9CCBD007A1CDE /* logo144.png */; };
 		0411089216D9CCBD007A1CDE /* logo72.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411089016D9CCBD007A1CDE /* logo72.png */; };
+		04230E1116DE4DF000DF48BB /* ShopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04230E1016DE4DF000DF48BB /* ShopLayer.m */; };
 		045624D216DCFA820097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456242B16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m */; };
 		045624D316DCFA820097D6E9 /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456243116DCFA810097D6E9 /* AdWhirlAdapterCustom.m */; };
 		045624D416DCFA820097D6E9 /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456243316DCFA810097D6E9 /* AdWhirlAdapterEvent.m */; };
@@ -265,6 +266,8 @@
 		0411088C16D9CCA5007A1CDE /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		0411088F16D9CCBD007A1CDE /* logo144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo144.png; sourceTree = "<group>"; };
 		0411089016D9CCBD007A1CDE /* logo72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo72.png; sourceTree = "<group>"; };
+		04230E0F16DE4DF000DF48BB /* ShopLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopLayer.h; sourceTree = "<group>"; };
+		04230E1016DE4DF000DF48BB /* ShopLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopLayer.m; sourceTree = "<group>"; };
 		0456242A16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterGoogleAdMobAds.h; sourceTree = "<group>"; };
 		0456242B16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterGoogleAdMobAds.m; sourceTree = "<group>"; };
 		0456242C16DCFA810097D6E9 /* AdWhirlAdNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdNetworkAdapter.h; sourceTree = "<group>"; };
@@ -1423,6 +1426,8 @@
 		04D65E2516D924C800A26F3A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				04230E0F16DE4DF000DF48BB /* ShopLayer.h */,
+				04230E1016DE4DF000DF48BB /* ShopLayer.m */,
 				04D65E2616D924C800A26F3A /* HelpLayer.h */,
 				04D65E2716D924C800A26F3A /* HelpLayer.m */,
 				04D65E2816D924C800A26F3A /* LevelChooseLayer.h */,
@@ -1811,6 +1816,7 @@
 				0456251F16DCFA820097D6E9 /* CJSONSerializer.m in Sources */,
 				0456252016DCFA820097D6E9 /* CSerializedJSONData.m in Sources */,
 				0456253816DD06460097D6E9 /* AdWhirlAdapterIAd.m in Sources */,
+				04230E1116DE4DF000DF48BB /* ShopLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

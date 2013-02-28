@@ -85,6 +85,9 @@ typedef enum{
 #define UFK_NEXT_ALERT_RATE_TIME @"UFK_NEXT_ALERT_RATE_TIME"
 #define UFK_TOTAL_LAUNCH_COUNT @"UFK_TOTAL_LAUNCH_COUNT"
 
+#define UFK_SHOW_AD @"UFK_SHOW_AD"
+
+#define UFK_CURRENT_VERSION @"UFK_CURRENT_VERSION"
 
 //FIXME release
 #define kMAX_LEVEL_IDEAL 13
@@ -104,10 +107,10 @@ typedef enum{
 #define kDEFAULT_LAST_TIME 1*60.0f
 
 //FIXME release
-#define kRATE_FIRST_TIME 2 //首次运行n次后提醒评分 5
-#define kRATE_DAYS 10*60    //距离上次评分n天后再次提醒评分 5*24*60*60
+#define kRATE_FIRST_TIME 5 //首次运行n次后提醒评分 5
+#define kRATE_DAYS 5*24*60*60    //距离上次评分n天后再次提醒评分 5*24*60*60
 #define kRATE_MAX_DAYS kRATE_DAYS*2  //“不再提醒”后提醒的时间间隔
 
-
+#define kTAG_Ad_VIEW 1101
 
 

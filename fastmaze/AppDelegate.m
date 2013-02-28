@@ -54,16 +54,33 @@
     [ [ UIApplication sharedApplication ] setIdleTimerDisabled:YES ] ;
     // init app configure
     NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
-    if (![def boolForKey:HAVE_SETTED]) {
-        //首次游戏的初始化
-        [def setBool:YES forKey:HAVE_SETTED];
-        [def setBool:YES forKey:UDF_AUDIO];
-        [def setBool:YES forKey:UDF_MUSIC];
-        [def setInteger:1 forKey:UDF_MAZESIZE];
-        
-        [def setInteger:0 forKey:UFK_TOTAL_LAUNCH_COUNT];
-        [def setDouble:([[NSDate date]timeIntervalSince1970]+kRATE_DAYS) forKey:UFK_NEXT_ALERT_RATE_TIME];
-    }else{
+    
+    /*
+     升级须知
+     每次app生新版本，
+     1、appVersion加一
+     2、然后在case中做对应修改
+     */
+    int appVersion=1;
+    int currentVersion=[def integerForKey:UFK_CURRENT_VERSION];
+    if (appVersion!=currentVersion) { //未升级
+        switch (currentVersion) {
+            case 0:
+                //首次游戏的初始化
+                [def removeObjectForKey:HAVE_SETTED];
+                [def setBool:YES forKey:UDF_AUDIO];
+                [def setBool:YES forKey:UDF_MUSIC];
+                [def setInteger:1 forKey:UDF_MAZESIZE];
+                
+                [def setInteger:0 forKey:UFK_TOTAL_LAUNCH_COUNT];
+                [def setDouble:([[NSDate date]timeIntervalSince1970]+kRATE_DAYS) forKey:UFK_NEXT_ALERT_RATE_TIME];
+                
+                [def setBool:YES forKey:UFK_SHOW_AD];
+            case 1:
+                break;
+        }
+        [def setInteger:appVersion forKey:UFK_CURRENT_VERSION];
+    }else{//已经做过升级
         [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
         [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
         [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
@@ -165,8 +182,12 @@
 	[director_ pushScene: [MenuLayer scene]];
 
     //请求广告
-    AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
-    [[CCDirector sharedDirector].view addSubview:adWhirlView];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:UFK_SHOW_AD]) {
+        AdWhirlView *adWhirlView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+        adWhirlView.tag=kTAG_Ad_VIEW;
+        [[CCDirector sharedDirector].view addSubview:adWhirlView];
+    }
+   
     
 	return YES;
 }
