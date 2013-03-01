@@ -32,7 +32,7 @@
         CCMenu* menuRemoveAd= [SpriteUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
         [self addChild:menuRemoveAd];
         menuRemoveAd.position=ccp(winSize.width/2,winSize.height/2);
-        //----监听购买结果
+        //----observer transaction
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
@@ -42,41 +42,38 @@
     if ([SKPaymentQueue canMakePayments]) {
         //[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
         [self RequestProductData];
-        NSLog(@"---允许程序内付费购买");
+        NSLog(@"---allow In-App Purchase");
     }
     else
     {
-        NSLog(@"--不允许程序内付费购买");
-        UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:nil message:@"You can‘t purchase in app store" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil] autorelease];
+        NSLog(@"--not allow In-App Purchas");
+        UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:nil message:@"Your device doesn't allow  In-App Purchase" delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil] autorelease];
         [alerView show];
         
     }
 }
+#pragma mark request product
 -(void)RequestProductData
 {
-    CCLOG(@"---------请求对应的产品信息------------");
-
-    NSSet *nsset = [NSSet setWithObject:iapId];
-    SKProductsRequest *request=[[SKProductsRequest alloc] initWithProductIdentifiers: nsset];
+    CCLOG(@"---------RequestProductData");
+    SKProductsRequest *request=[[SKProductsRequest alloc] initWithProductIdentifiers: [NSSet setWithObject:iapId]];
     request.delegate=self;
     [request start];
 }
-//<SKProductsRequestDelegate> 请求协议
-//收到的产品信息
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     
-    NSLog(@"-----------收到产品反馈信息--------------");
+    NSLog(@"-----------productsRequest:didReceiveResponse");
     NSArray *myProduct = response.products;
-    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
-    NSLog(@"产品付费数量: %d", [myProduct count]);
+    NSLog(@"Product ID:%@",response.invalidProductIdentifiers);
+    NSLog(@"Product count: %d", [myProduct count]);
     // populate UI
     SKProduct* productToBuy=nil;
     for(SKProduct *product in myProduct){
-        NSLog(@"product info");
-        NSLog(@"SKProduct 描述信息%@", [product description]);
-        NSLog(@"产品标题 %@" , product.localizedTitle);
-        NSLog(@"产品描述信息: %@" , product.localizedDescription);
-        NSLog(@"价格: %@" , product.price);
+        NSLog(@"---product info-------");
+        NSLog(@"SKProduct description%@", [product description]);
+        NSLog(@"title %@" , product.localizedTitle);
+        NSLog(@"localizedDescription: %@" , product.localizedDescription);
+        NSLog(@"price: %@" , product.price);
         NSLog(@"Product id: %@" , product.productIdentifier);
         if ([product.productIdentifier isEqualToString:iapId]) {
             productToBuy=product;
@@ -85,7 +82,6 @@
     SKPayment *payment = [SKPayment paymentWithProduct:productToBuy];
      CCLOG(@"---------发送购买请求------------");
     [[SKPaymentQueue defaultQueue] addPayment:payment];
-    [request autorelease];
     
 }
 - (void)requestProUpgradeProductData
@@ -100,7 +96,7 @@
 //弹出错误信息
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     CCLOG(@"-------弹出错误信息----------");
-    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert",NULL) message:[error localizedDescription]
+    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription]
                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil];
     [alerView show];
     [alerView release];
@@ -117,9 +113,10 @@
     [self paymentQueue:[SKPaymentQueue defaultQueue] updatedTransactions:transactions];
     [transactions release];
 }
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions//交易结果
+#pragma mark observer transaction
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-    CCLOG(@"-----paymentQueue--------transactions:%@",transactions);
+    CCLOG(@"-----paymentQueue:updatedTransactions---transactions:%@",transactions);
     for (SKPaymentTransaction *transaction in transactions)
     {
         switch (transaction.transactionState)
@@ -127,25 +124,12 @@
             case SKPaymentTransactionStatePurchased://交易完成
                 [self completeTransaction:transaction];
                 CCLOG(@"Purchase Success --------");
-                UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:@"Alert"
-                                                                    message:@"Purchase Succesfully"
-                                                                   delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
-                
-                [alerView show];
-
-                //移除广告
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
-                [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
+               
                 break;
             case SKPaymentTransactionStateFailed://交易失败
                 [self failedTransaction:transaction];
                 CCLOG(@"Purchase Failed --------");
-                UIAlertView *alerView2 =  [[[UIAlertView alloc] initWithTitle:nil
-                                                                     message:@"Purchase Failed"
-                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
-                
-                [alerView2 show];
-                break;
+               break;
             case SKPaymentTransactionStateRestored://已经购买过该商品
                 [self restoreTransaction:transaction];
                 CCLOG(@"-----已经购买过该商品 --------");
@@ -161,52 +145,61 @@
 
 {
     CCLOG(@"completeTransaction--------");
-    // Your application should implement these two methods.
-    NSString *product = transaction.payment.productIdentifier;
-    if ([product length] > 0) {
-        
-        NSArray *tt = [product componentsSeparatedByString:@"."];
-        NSString *bookid = [tt lastObject];
-        if ([bookid length] > 0) {
-            [self recordTransaction:bookid];
-            [self provideContent:bookid];
-        }
-    }
+    UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:nil
+                                                         message:@"Purchase Succesfully"
+                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
     
+    [alerView show];
+    
+    //移除广告
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
+    [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
+    
+    // Your application should implement these two methods.
+
+    [self recordTransaction:transaction];
+     [self provideContent:transaction.payment.productIdentifier];
+
     // Remove the transaction from the payment queue.
     
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
-//记录交易
--(void)recordTransaction:(NSString *)product{
-    CCLOG(@"recordTransaction-----product:%@",product);
-}
-
-//处理下载内容
--(void)provideContent:(NSString *)product{
-    CCLOG(@"provideContent--------product:%@",product);
-}
-
 - (void) failedTransaction: (SKPaymentTransaction *)transaction{
     NSLog(@"failedTransaction------!!! error.code:%d",transaction.error.code);
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
+        UIAlertView *alerView2 =  [[[UIAlertView alloc] initWithTitle:nil
+                                                              message:@"Purchase Failed"
+                                                             delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
+        
+        [alerView2 show];
+        
     }
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
+}
+- (void) restoreTransaction: (SKPaymentTransaction *)transaction
+{
+    NSLog(@"-------restoreTransaction");
+    [self recordTransaction: transaction];
+    [self provideContent: transaction.originalTransaction.payment.productIdentifier];
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    
+}
+-(void)recordTransaction:(SKPaymentTransaction *)product{
+    CCLOG(@"recordTransaction-----product:%@",product);
+}
+
+-(void)provideContent:(NSString *)product{
+    CCLOG(@"provideContent--------product:%@",product);
 }
 -(void) paymentQueueRestoreCompletedTransactionsFinished: (SKPaymentTransaction *)transaction{
     
 }
 
-- (void) restoreTransaction: (SKPaymentTransaction *)transaction
 
-{
-    NSLog(@"restoreTransaction-------");
-    
-}
 
 -(void) paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
     CCLOG(@"-------paymentQueue----");
