@@ -55,10 +55,10 @@
 		0456253516DCFD410097D6E9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0456253416DCFD410097D6E9 /* AdSupport.framework */; };
 		0456253816DD06460097D6E9 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456253716DD06460097D6E9 /* AdWhirlAdapterIAd.m */; };
 		0456253A16DD066E0097D6E9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0456253916DD066E0097D6E9 /* iAd.framework */; };
-		04BECA8916E21B700008CEB3 /* removead_bg-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8516E21B700008CEB3 /* removead_bg-ipad.png */; };
-		04BECA8A16E21B700008CEB3 /* removead_bg-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8616E21B700008CEB3 /* removead_bg-ipadhd.png */; };
 		04BECA8B16E21B700008CEB3 /* removead_bt-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8716E21B700008CEB3 /* removead_bt-ipad.png */; };
 		04BECA8C16E21B700008CEB3 /* removead_bt-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8816E21B700008CEB3 /* removead_bt-ipadhd.png */; };
+		04BECA8F16E22CFB0008CEB3 /* removead_icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8D16E22CFB0008CEB3 /* removead_icon-ipad.png */; };
+		04BECA9016E22CFB0008CEB3 /* removead_icon-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BECA8E16E22CFB0008CEB3 /* removead_icon-ipadhd.png */; };
 		04D65C7216D9223500A26F3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7116D9223500A26F3A /* QuartzCore.framework */; };
 		04D65C7416D9223500A26F3A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7316D9223500A26F3A /* OpenGLES.framework */; };
 		04D65C7616D9223500A26F3A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7516D9223500A26F3A /* OpenAL.framework */; };
@@ -358,10 +358,10 @@
 		0456253616DD06460097D6E9 /* AdWhirlAdapterIAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterIAd.h; sourceTree = "<group>"; };
 		0456253716DD06460097D6E9 /* AdWhirlAdapterIAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterIAd.m; sourceTree = "<group>"; };
 		0456253916DD066E0097D6E9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		04BECA8516E21B700008CEB3 /* removead_bg-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_bg-ipad.png"; path = "Resources/removead_bg-ipad.png"; sourceTree = "<group>"; };
-		04BECA8616E21B700008CEB3 /* removead_bg-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_bg-ipadhd.png"; path = "Resources/removead_bg-ipadhd.png"; sourceTree = "<group>"; };
 		04BECA8716E21B700008CEB3 /* removead_bt-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_bt-ipad.png"; path = "Resources/removead_bt-ipad.png"; sourceTree = "<group>"; };
 		04BECA8816E21B700008CEB3 /* removead_bt-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_bt-ipadhd.png"; path = "Resources/removead_bt-ipadhd.png"; sourceTree = "<group>"; };
+		04BECA8D16E22CFB0008CEB3 /* removead_icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_icon-ipad.png"; path = "Resources/removead_icon-ipad.png"; sourceTree = "<group>"; };
+		04BECA8E16E22CFB0008CEB3 /* removead_icon-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "removead_icon-ipadhd.png"; path = "Resources/removead_icon-ipadhd.png"; sourceTree = "<group>"; };
 		04D65C6E16D9223500A26F3A /* fastmaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fastmaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D65C7116D9223500A26F3A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		04D65C7316D9223500A26F3A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -994,6 +994,8 @@
 				04D65E6016D9251500A26F3A /* button_music_bar.png */,
 				04D65E6116D9251500A26F3A /* button_music.png */,
 				04D65E6216D9251500A26F3A /* button_new_maze.png */,
+				04BECA8D16E22CFB0008CEB3 /* removead_icon-ipad.png */,
+				04BECA8E16E22CFB0008CEB3 /* removead_icon-ipadhd.png */,
 				04D65E6316D9251500A26F3A /* button_next_level.png */,
 				04D65E6416D9251500A26F3A /* button_no.png */,
 				04D65E6516D9251500A26F3A /* button_ok.png */,
@@ -1013,8 +1015,6 @@
 				04D65E7516D9251500A26F3A /* joystick */,
 				04D65E7B16D9251500A26F3A /* launch-320.png */,
 				04D65E7C16D9251500A26F3A /* launch-640.png */,
-				04BECA8516E21B700008CEB3 /* removead_bg-ipad.png */,
-				04BECA8616E21B700008CEB3 /* removead_bg-ipadhd.png */,
 				04BECA8716E21B700008CEB3 /* removead_bt-ipad.png */,
 				04BECA8816E21B700008CEB3 /* removead_bt-ipadhd.png */,
 				04D65E7D16D9251500A26F3A /* logo57.png */,
@@ -1664,10 +1664,10 @@
 				0411089216D9CCBD007A1CDE /* logo72.png in Resources */,
 				045624E116DCFA820097D6E9 /* AdWhirlWebBrowser.xib in Resources */,
 				0456251616DCFA820097D6E9 /* README.txt in Resources */,
-				04BECA8916E21B700008CEB3 /* removead_bg-ipad.png in Resources */,
-				04BECA8A16E21B700008CEB3 /* removead_bg-ipadhd.png in Resources */,
 				04BECA8B16E21B700008CEB3 /* removead_bt-ipad.png in Resources */,
 				04BECA8C16E21B700008CEB3 /* removead_bt-ipadhd.png in Resources */,
+				04BECA8F16E22CFB0008CEB3 /* removead_icon-ipad.png in Resources */,
+				04BECA9016E22CFB0008CEB3 /* removead_icon-ipadhd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

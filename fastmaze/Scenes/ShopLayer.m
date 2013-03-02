@@ -27,12 +27,33 @@
         if (IS_IPHONE_5) {
             [self setBg:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:@"removead_bg.png"];
+            [self setBg:@"bg.png"];
         }
 
-        CCMenu* menuRemoveAd= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
-        [self addChild:menuRemoveAd];
-        menuRemoveAd.position=ccp(600,350);
+        CCSprite* removeAdIcon=[CCSprite spriteWithFile:@"removead_icon.png"];
+        removeAdIcon.position=ccp(250,400);
+        [self addChild:removeAdIcon];
+        
+        CCLabelTTF *removeAdTitle = [CCLabelTTF labelWithString: @"Remove Ad"
+                                                     dimensions: CGSizeMake(900, 200)
+                                                     hAlignment: UITextAlignmentCenter
+                                                       fontName:@"Arial" fontSize:40];
+        removeAdTitle.position=CGPointMake(550,450);
+        removeAdTitle.color=ccBLACK;
+        [self addChild:removeAdTitle];
+        
+        CCLabelTTF *removeAdLable = [CCLabelTTF labelWithString: @"Remove All Banner Ad Permanently"
+                                                     dimensions: CGSizeMake(900, 200)
+                                                     hAlignment: UITextAlignmentCenter
+                                                       fontName:@"Arial" fontSize:28];
+        removeAdLable.position=CGPointMake(580,400);
+        removeAdLable.color=ccBLACK;
+        [self addChild:removeAdLable];
+        
+        
+        CCMenu* menuRemoveAdBt= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
+        [self addChild:menuRemoveAdBt];
+        menuRemoveAdBt.position=ccp(550,400);
         
         CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
         [self addChild:menuBack];
