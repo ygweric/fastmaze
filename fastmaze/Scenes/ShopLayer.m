@@ -7,6 +7,7 @@
 //
 
 #import "ShopLayer.h"
+#import "MenuLayer.h"
 
 #define IAP_REMOVE_AD @"fastmaze.removead"
 
@@ -26,17 +27,27 @@
         if (IS_IPHONE_5) {
             [self setBg:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:@"main_bg.png"];
+            [self setBg:@"removead_bg.png"];
         }
 
-        CCMenu* menuRemoveAd= [SpriteUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
+        CCMenu* menuRemoveAd= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
         [self addChild:menuRemoveAd];
-        menuRemoveAd.position=ccp(winSize.width/2,winSize.height/2);
+        menuRemoveAd.position=ccp(600,350);
+        
+        CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
+        [self addChild:menuBack];
+        menuBack.position=ccp(150,winSize.height-100);
         //----observer transaction
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
 }
+-(void) backCallback: (id) sender
+{
+	[AudioUtil displayAudioButtonClick];
+	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
+}
+
 -(void)removeAd{
     iapId=IAP_REMOVE_AD;
     if ([SKPaymentQueue canMakePayments]) {
