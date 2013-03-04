@@ -97,13 +97,12 @@
 
 - (void)createUsingDepthFirstSearch
 {
-//    NSLog(@"createUsingDepthFirstSearch--- start");
+    NSLog(@"createUsingDepthFirstSearch--- start");
      [MobClick event:@"generatemaze" label:[NSString stringWithFormat:@"%d",[SysConfig mazeSize]]];
-//    NSTimeInterval start=[[NSDate date]timeIntervalSince1970];
+    NSTimeInterval start=[[NSDate date]timeIntervalSince1970];
     
     [self generateGrid];
-//    NSLog(@"-1-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
-//    return;
+    NSLog(@"-1-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
     // we are going to iterate till every cell has been visited
     NSUInteger count = [self.grid count];
     NSUInteger visited = 0;
@@ -115,7 +114,7 @@
         currentCell = [cellEnumerator nextObject];
         randomCell--;
     } while(randomCell > 0);
-//    NSLog(@"-2-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
+    NSLog(@"-2-----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
     visited++;
     currentCell.visited = YES;
     // save some allocations
@@ -154,11 +153,11 @@
         // cleanup
         [neighbors removeAllObjects];
     }
-//    NSLog(@"--3----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
+    NSLog(@"--3----timerinterval is :%f",[[NSDate date]timeIntervalSince1970]-start);
     // final cleanup
     [neighbors release];
     [stack release];
-//    NSLog(@"createUsingDepthFirstSearch--- end");
+    NSLog(@"createUsingDepthFirstSearch--- end");
 }
 
 - (void)searchUsingAStar:(CGPoint)start endingAt:(CGPoint)end movingEntity:(CCSprite *)entity

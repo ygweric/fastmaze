@@ -187,7 +187,7 @@
         adWhirlView.tag=kTAG_Ad_VIEW;
         [[CCDirector sharedDirector].view addSubview:adWhirlView];
     }
-   
+//   [CCDirector sharedDirector] 
     
 	return YES;
 }

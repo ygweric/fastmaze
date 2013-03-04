@@ -36,9 +36,9 @@
 {
     self = [super init];
     winSize = [[CCDirector sharedDirector] winSize];
-    
+    BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
     progressTimer=[CCProgressTimer progressWithSprite:[CCSprite spriteWithFile:@"progress_bar.png"]];
-    progressTimer.position=ccp( winSize.width*1/2 , winSize.height-30);
+    progressTimer.position=ccp( winSize.width*1/2 , winSize.height-(showAd?80:30));
     progressTimer.anchorPoint=ccp(0.5, 1);
     progressTimer.type=kCCProgressTimerTypeBar;
     progressTimer.midpoint=ccp(1, 0.5);
@@ -51,21 +51,21 @@
     
     lastTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,0.0f] fntFile:@"futura-48.fnt"];
 	[self addChild:lastTimeLable z:zBelowOperation tag:tShortestTime];
-	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(IS_IPAD()?70:40));
+	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(showAd?110:40));
     lastTimeLable.scale=0.5;
     
     currentTimeLable=[CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,0.0f] fntFile:@"futura-48.fnt"];
     [self addChild:currentTimeLable z:zBelowOperation tag:tCurrentTime];
-	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(IS_IPAD()?70:40));
+	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(showAd?110:40));
     currentTimeLable.scale=0.5;
     
 
     CCMenu* pauseButton= [SpriteUtil createMenuWithImg:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];    
-    pauseButton.position=ccp(winSize.width*2/3+200, winSize.height-50);
+    pauseButton.position=ccp(winSize.width*2/3+200, winSize.height-(showAd?130:50));
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
     
     CCMenu* nextLevelButton= [SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
-    nextLevelButton.position=ccp(winSize.width*2/3+200, winSize.height-50);
+    nextLevelButton.position=ccp(winSize.width*2/3+200, winSize.height-(showAd?130:50));
     [self addChild:nextLevelButton z:zBelowOperation tag:tNextLevel];
     nextLevelButton.visible=NO;
     return self;
