@@ -51,12 +51,12 @@
     
     lastTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,0.0f] fntFile:@"futura-48.fnt"];
 	[self addChild:lastTimeLable z:zBelowOperation tag:tShortestTime];
-	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(showAd?110:40));
+	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(showAd?110:80));
     lastTimeLable.scale=0.5;
     
     currentTimeLable=[CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,0.0f] fntFile:@"futura-48.fnt"];
     [self addChild:currentTimeLable z:zBelowOperation tag:tCurrentTime];
-	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(showAd?110:40));
+	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(showAd?110:80));
     currentTimeLable.scale=0.5;
     
 

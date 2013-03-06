@@ -77,6 +77,7 @@
         for (NSUInteger y = 0; y < self.size.height; y+=32) {
             MazeCell *cell = [[[MazeCell alloc] initWithIndex:[self createIndex:ccp(x, y)] andBatchNode:_batch layer:_mazeLayer] autorelease];
             [cell setPosition:ccp(x, y) ];
+            [cell setupWalls];
             [self.grid setObject:cell forKey:cell.index];
         }
     }

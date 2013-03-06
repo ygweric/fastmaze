@@ -372,6 +372,7 @@ const NSUInteger defaultCapacity = 29;
 	CC_NODE_DRAW_SETUP();
 
 	[children_ makeObjectsPerformSelector:@selector(updateTransform)];
+    [descendants_ makeObjectsPerformSelector:@selector(updateTransform)];
 
 	ccGLBlendFunc( blendFunc_.src, blendFunc_.dst );
 

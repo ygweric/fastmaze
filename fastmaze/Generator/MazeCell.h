@@ -16,7 +16,7 @@ static const CGPoint kEast = {32, 0};
 - (id)initWithIndex:(NSNumber *)index andBatchNode:(CCSpriteBatchNode *)batch layer:(CCLayer*)layer;
 - (void)addNeighbor:(MazeCell *)neighbor;
 - (void)removeWall:(MazeCell *)neighbor;
-
+- (void)setupWalls;
 - (CCSprite *)wallForNeighbor:(MazeCell *)neighbor;
 
 @property (nonatomic, assign) CCSprite *northWall;

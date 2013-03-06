@@ -35,15 +35,13 @@
     self = [super init];
     self.batch = batch;
     self.mazeLayer=layer;
-//    [self setBatchNode:batch];
+    [self setBatchNode:batch];
     self.index = index;
     self.visited = NO;
     self.neighbors = [[[NSMutableDictionary alloc] initWithCapacity:4] autorelease];
     self.walls = [[[NSMutableDictionary alloc] initWithCapacity:4] autorelease];
     self.horiz = [CCSprite spriteWithSpriteFrameName:@"horiz.png"];
     self.vert = [CCSprite spriteWithSpriteFrameName:@"vert.png"];
-    [self setupWalls];
-    [_mazeLayer addChild:self];
     return self;
 }
 
