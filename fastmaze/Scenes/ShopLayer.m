@@ -11,8 +11,12 @@
 
 #define IAP_REMOVE_AD @"fastmaze.removead"
 
-@implementation ShopLayer 
+enum{
+    tRemoveAd=100,
+};
 
+
+@implementation ShopLayer 
 
 
 +(CCScene *) scene
@@ -50,10 +54,15 @@
         removeAdLable.color=ccBLACK;
         [self addChild:removeAdLable];
         
-        
-        CCMenu* menuRemoveAdBt= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
-        [self addChild:menuRemoveAdBt];
-        menuRemoveAdBt.position=ccp(550,400);
+        BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
+        CCNode* removeAdButton=nil;
+        if (showAd) {
+            removeAdButton= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
+        }else{
+           removeAdButton= [CCSprite spriteWithFile:@"removed_bt.png"];
+        }
+        [self addChild:removeAdButton z:1 tag:tRemoveAd];
+        removeAdButton.position=ccp(550,400);
         
         CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
         [self addChild:menuBack];
@@ -186,7 +195,11 @@
     //移除广告
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
     [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
-    
+    CCNode* removeAdButton=[self getChildByTag:tRemoveAd];
+    CCSprite* removed= [CCSprite spriteWithFile:@"removed_bt.png"];
+    removed.position=removeAdButton.position;
+    [self addChild:removed];
+    [removeAdButton removeFromParentAndCleanup:YES];
     // Your application should implement these two methods.
 
     [self recordTransaction:transaction];

@@ -107,7 +107,7 @@ typedef enum{
 #define kDEFAULT_LAST_TIME 1*60.0f
 
 //FIXME release
-#define kRATE_FIRST_TIME 5 //首次运行n次后提醒评分 5
+#define kRATE_FIRST_TIME 3 //首次运行n次后提醒评分 5
 #define kRATE_DAYS 5*24*60*60    //距离上次评分n天后再次提醒评分 5*24*60*60
 #define kRATE_MAX_DAYS kRATE_DAYS*2  //“不再提醒”后提醒的时间间隔
 
