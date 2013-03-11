@@ -8,7 +8,9 @@
 
 #import "cocos2d.h"
 #import "MenuLayer.h"
-
+#import "MobClick.h"
+#import "SysConfig.h"
+#import "SimpleAudioEngine.h"
 #import "AppDelegate.h"
 
 @implementation AppController
@@ -146,8 +148,8 @@
 //	[director setProjection:kCCDirectorProjection3D];
 
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-	if( ! [director_ enableRetinaDisplay:NO] )
-		CCLOG(@"Retina Display Not supported");
+//	if( ! [director_ enableRetinaDisplay:NO] )
+//		CCLOG(@"Retina Display Not supported");
 
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
