@@ -14,6 +14,8 @@
 @implementation GameLayer
 {
     BOOL isMove;
+    float lastScale;
+    CGPoint lastPosition;
 }
 
 @synthesize mazeGenerator = _mazeGenerator;
@@ -47,6 +49,14 @@
 
     
     [self regenerateMaze];
+    
+    UIPinchGestureRecognizer *gestureRecognizer = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)] autorelease];    //1
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizer]; //2
+    lastScale = 1.0f; //3
+    
+    UIPanGestureRecognizer *gestureRecognizer1 = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)] autorelease];
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizer1];
+    
     return self;
 }
 
@@ -74,15 +84,13 @@
     [_mazeGenerator searchUsingDepthFirstSearch:_currentStart.position endingAt:_currentEnd.position movingEntity:_playerEntity];
     _mazeGenerator.playerEntity=_playerEntity;
 }
-
-
 - (void)loadGeneratedMaze
 {
     // determine our maze center
     CGPoint mazeCenter = ccp((_mazeGenerator.size.width)/2, (_mazeGenerator.size.height)/2);
     // find our center cell
     self.playerEntity = [Entity spriteWithFile:@"entity.png"];
-//    [_playerEntity setColor:ccc3(255, 255, 100)];
+    //    [_playerEntity setColor:ccc3(255, 255, 100)];
     [_playerEntity setColor:ccc3(248, 248, 173)];
     _playerEntity.scale=1.5;
     //set player position
@@ -107,9 +115,9 @@
     // add the difference to our current position to center the maze
     [_mazeLayer setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
     
-//    CCSprite* bg=[CCSprite spriteWithFile:@"bg.png"];
-//    bg.position=mazeCenter;
-//    [self addChild:bg z:-1];
+    //    CCSprite* bg=[CCSprite spriteWithFile:@"bg.png"];
+    //    bg.position=mazeCenter;
+    //    [self addChild:bg z:-1];
     
     
     //创建&放置start点
@@ -131,6 +139,50 @@
     [_currentEnd setPosition:_desireEntity.position];
     
 }
+#pragma mark guesture
+-(void) handlePinchFrom:(UIPinchGestureRecognizer*)recognizer
+{
+    if([recognizer state] == UIGestureRecognizerStateBegan)  //1
+    {
+        lastScale = _mazeLayer.scale; //2
+    }else if ([recognizer state] == UIGestureRecognizerStateChanged)
+    {
+        float nowScale;    //3
+        //减缓放缩速度
+//        float tmpS= recognizer.scale;
+//        nowScale = (lastScale - 1) + tmpS+(1-tmpS)/200;    //4
+        float tmpS = (lastScale - 1) + recognizer.scale;
+//        nowScale=1+(tmpS-1)/2;
+        nowScale=tmpS;
+        CCLOG(@"tmpS+(1-tmpS)/4--:%f,nowScale--:%f,tmpS--:%f,lastScale--:%f",tmpS+(1-tmpS)/4,nowScale,tmpS,lastScale);
+        nowScale = MIN(nowScale,2);//设置缩放上限   //5
+        nowScale = MAX(nowScale,0.3);//设置缩放下限   //6
+        _mazeLayer.scale = nowScale;//7
+    }
+}
+
+- (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer
+{
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        lastPosition = _mazeLayer.position;
+        
+    } else if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        
+        CGPoint translation = [recognizer translationInView:recognizer.view];
+        translation = ccp(translation.x, -translation.y);
+        //乘以了0.7f是因为觉得位移太灵敏了，通过乘以一个小于1的数，相当于减小了这个位移量
+        translation = ccpMult(translation, 0.7f);
+        CGPoint newPos = ccpAdd(lastPosition, translation);
+        //加入允许的范围的判断
+        _mazeLayer.position = newPos;
+    }
+    
+}
+
+#pragma mark touches
 #if 1
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
@@ -140,6 +192,7 @@
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
+#if 0
     if ([SysConfig mazeSize]>=oLarge ) {
         isMove=YES;
         
@@ -160,6 +213,7 @@
 
     }
     
+#endif
   }
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
