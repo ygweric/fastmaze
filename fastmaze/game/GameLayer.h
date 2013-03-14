@@ -27,6 +27,7 @@
 
 
 - (void)regenerateMaze;
+-(void)normalSize;
 - (void)showMazeAnswer;
 -(void)restartGame;
 - (void)loadGeneratedMaze;

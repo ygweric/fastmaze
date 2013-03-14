@@ -65,9 +65,15 @@
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
     
     CCMenu* nextLevelButton= [SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
-    nextLevelButton.position=ccp(winSize.width*2/3+200, winSize.height-(showAd?130:50));
+    nextLevelButton.position=pauseButton.position;
     [self addChild:nextLevelButton z:zBelowOperation tag:tNextLevel];
     nextLevelButton.visible=NO;
+    
+    CCMenu* normalSizeButton= [SpriteUtil createMenuWithImg:@"button_normal_size.png" pressedColor:ccYELLOW target:self selector:@selector(normalSize)];
+    normalSizeButton.position=pauseButton.position;
+    [self addChild:normalSizeButton z:zBelowOperation tag:tNormalSize];
+    normalSizeButton.visible=NO;
+    
     return self;
 }
 -(void) update:(ccTime)delta{
@@ -191,7 +197,17 @@
     [self showOperationLayer:NO];
     [self regenerateMaze];
 }
-
+-(void)normalSize{
+    [AudioUtil displayAudioButtonClick];
+    [self modifySizeToNormal:YES];
+    [_gameLayer normalSize];
+}
+-(void)modifySizeToNormal:(BOOL)isNormal{
+    isPause=!isNormal;
+    [self getChildByTag:tPause].visible=isNormal;
+    [self getChildByTag:tNormalSize].visible=!isNormal;
+    isNormal?[self scheduleUpdate]:[self unscheduleUpdate];
+}
 -(void)restartGame{
     [AudioUtil displayAudioButtonClick];
     [self showOperationLayer:NO];

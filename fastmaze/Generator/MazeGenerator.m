@@ -284,7 +284,7 @@
 //只计算shot path距离是否合适
 - (BOOL)showShotPath:(CGPoint)start endingAt:(CGPoint)end
 {
-    NSLog(@"-1-showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
+//    NSLog(@"-1-showShotPath--start x:%f,y:%f,end x:%f,y:%f",start.x,start.y,end.x,end.y);
     __block float distance = INFINITY;
     __block NSNumber *index = nil;
     __block float endDistance = INFINITY;
@@ -308,7 +308,7 @@
          }
      }
      ];
-    NSLog(@"showShotPath--currentCell.index:%d, endCell.index:%d",index.intValue,endIndex.intValue);
+//    NSLog(@"showShotPath--currentCell.index:%d, endCell.index:%d",index.intValue,endIndex.intValue);
     MazeCell *currentCell = [self.grid objectForKey:index];
     if (currentCell == nil) {
         return NO;

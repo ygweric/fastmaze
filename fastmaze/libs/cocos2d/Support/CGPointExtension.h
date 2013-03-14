@@ -105,7 +105,16 @@ ccpMult(const CGPoint v, const CGFloat s)
 {
 	return ccp(v.x*s, v.y*s);
 }
+/*
+ return point scale
+ */
+static inline CGPoint
+ccpDiv(const CGPoint v, const CGFloat s)
+{
+     return ccp(v.x/s, v.y/s);
+}
 
+    
 /** Calculates midpoint between two points.
  @return CGPoint
  @since v0.7.2

@@ -73,7 +73,7 @@
         //否则，置蓝点
         CCSprite *current = [CCSprite spriteWithFile:@"entity.png"];
         current.tag=tCorrectEntity;
-        [current setColor:ccc3(64, 215, 96)];
+        [current setColor:ccc3(0.7347*255, 0*255, 0.5521*255)];
         [current setPosition:position_];
         [_currentEntities addObject:current];
         [self.parent addChild:current];

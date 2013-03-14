@@ -13,7 +13,6 @@
 
 @implementation GameLayer
 {
-    BOOL isMove;
     float lastScale;
     CGPoint lastPosition;
 }
@@ -31,7 +30,6 @@
 - (id)init
 {
     self = [super init];
-    isMove=NO;    
     self.isTouchEnabled = YES;
     
     if (IS_IPHONE_5) {
@@ -40,6 +38,7 @@
         [self setBg:@"bg.png"];
     }
     _mazeLayer=[CCLayer node];
+    _mazeLayer.anchorPoint=ccp(0.5,0.5);
     [self addChild:_mazeLayer];
     
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"walls.plist"];
@@ -57,11 +56,17 @@
     UIPanGestureRecognizer *gestureRecognizer1 = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)] autorelease];
     [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizer1];
     
+    
+    UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)]autorelease];
+    tapGesture.numberOfTapsRequired = 2;
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:tapGesture];
+    
     return self;
 }
 
 - (void)regenerateMaze
 {
+    _mazeLayer.scale=1;
     [_mazeLayer removeAllChildrenWithCleanup:YES];
     [_batchNode removeAllChildrenWithCleanup:YES];
     [_mazeLayer addChild:_batchNode];
@@ -76,6 +81,9 @@
 -(void)restartGame{
     [_mazeGenerator cleanAllTrack:_playerEntity];
     _playerEntity.position=_currentStart.position;
+}
+-(void)normalSize{
+    _mazeLayer.scale=1;
 }
 - (void)showMazeAnswer
 {
@@ -142,19 +150,20 @@
 #pragma mark guesture
 -(void) handlePinchFrom:(UIPinchGestureRecognizer*)recognizer
 {
+    if (!_guiLayer.isOver ) {
+        [_guiLayer modifySizeToNormal:NO];
+    }
+    
     if([recognizer state] == UIGestureRecognizerStateBegan)  //1
     {
         lastScale = _mazeLayer.scale; //2
     }else if ([recognizer state] == UIGestureRecognizerStateChanged)
     {
         float nowScale;    //3
-        //减缓放缩速度
-//        float tmpS= recognizer.scale;
-//        nowScale = (lastScale - 1) + tmpS+(1-tmpS)/200;    //4
         float tmpS = (lastScale - 1) + recognizer.scale;
-//        nowScale=1+(tmpS-1)/2;
+//        nowScale=lastScale+(tmpS-lastScale)/2;//减缓放缩速度
         nowScale=tmpS;
-        CCLOG(@"tmpS+(1-tmpS)/4--:%f,nowScale--:%f,tmpS--:%f,lastScale--:%f",tmpS+(1-tmpS)/4,nowScale,tmpS,lastScale);
+//        CCLOG(@"nowScale--:%f,tmpS--:%f,lastScale--:%f",nowScale,tmpS,lastScale);
         nowScale = MIN(nowScale,2);//设置缩放上限   //5
         nowScale = MAX(nowScale,0.3);//设置缩放下限   //6
         _mazeLayer.scale = nowScale;//7
@@ -182,56 +191,56 @@
     
 }
 
+- (void)handleDoubleTapGesture:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+//        CCLOG(@"handleDoubleTapGesture------");
+        if(_guiLayer.isPause
+           && !_guiLayer.isOver
+           && _mazeLayer.scale!=1){
+            [_guiLayer modifySizeToNormal:YES];
+            _mazeLayer.scale=1;
+        }
+    }
+}
 #pragma mark touches
 #if 1
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
 //    NSLog(@"--self.position x:%f,y:%f",self.position.x,self.position.y);
-    isMove=NO;
+
 }
 
 - (void)ccTouchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
-#if 0
-    if ([SysConfig mazeSize]>=oLarge ) {
-        isMove=YES;
-        
-        // we also handle touches for map movement
-        // simply move the layer around by the diff of this move and the last
-        UITouch *touch = [touches anyObject];
-        // get our GL location
-        CGPoint location = [[CCDirector sharedDirector]
-                            convertToGL:[touch locationInView:touch.view]
-                            ];
-        CGPoint previousLocation = [[CCDirector sharedDirector]
-                                    convertToGL:[touch previousLocationInView:touch.view]
-                                    ];
-        // create the difference
-        CGPoint diff = ccp(location.x - previousLocation.x, location.y - previousLocation.y);
-        // add the diff to the current position
-        [_mazeLayer setPosition:ccp(_mazeLayer.position.x + diff.x, _mazeLayer.position.y + diff.y)];
-
-    }
     
-#endif
-  }
+}
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!isMove && !_guiLayer.isOver && !_guiLayer.isPause) {
+    if (!_guiLayer.isOver && !_guiLayer.isPause) {
         UITouch *touch = [touches anyObject];
         CGPoint location = [[CCDirector sharedDirector]
                             convertToGL:[touch locationInView:touch.view]
                             ];
         //这里点击有些偏移，因此需要手动修改
-        int diffx=15;int diffy=18;
+        float diffx=15;float diffy=18;
         //        CGPoint endPosition = ccpAdd( ccpSub(location, self.position),ccp(15, 18));
-        CGPoint endPosition = ccpSub(location, _mazeLayer.position);
-        NSLog(@"ccTouchesEnded---endPosition x:%f,y:%f",endPosition.x,endPosition.y);
+        CGPoint tempPosition = ccpSub(location, _mazeLayer.position);
+//        CGPoint endPosition=ccpDiv(tempPosition,mazeScale);
+//        CGPoint endPosition=ccpMult(tempPosition,mazeScale);
+        CGPoint endPosition=tempPosition;
+        NSLog(@"ccTouchesEnded---tempPosition x:%f,y:%f\n\
+              endPosition x:%f,y:%f \
+              mazelayer Position x:%f,y:%f w:%f,h:%f; mazeScale:%f"
+              ,tempPosition.x,tempPosition.y
+              ,endPosition.x,endPosition.y
+              ,_mazeLayer.position.x,_mazeLayer.position.y
+              ,_mazeGenerator.size.width,_mazeGenerator.size.height
+              ,_mazeLayer.scale);
         if (endPosition.x>-diffx
             && endPosition.y>-diffy
-            && endPosition.x<_mazeGenerator.size.width+diffx
-            && endPosition.y<_mazeGenerator.size.height+diffy) {
+            && endPosition.x<(_mazeGenerator.size.width+diffx)
+            && endPosition.y<(_mazeGenerator.size.height+diffy)) {
             if ([_mazeGenerator showShotPath:_playerEntity.position endingAt:endPosition ]) {
                 if ([SysConfig needAudio]){
                     [[SimpleAudioEngine sharedEngine] playEffect:@"put_role.wav"];

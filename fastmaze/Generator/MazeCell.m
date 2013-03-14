@@ -51,22 +51,22 @@
 //    NSLog(@"setupWalls------count:%d",count++);
     _northWall = [CCSprite spriteWithTexture:[_batch texture] rect:_horiz.textureRect];
     [_northWall setPosition:ccp(position_.x, position_.y + 16)];
-    [_northWall setColor:ccc3(130, 130, 130)];
+//    [_northWall setColor:ccc3(130, 130, 130)];
     [self addChild:_northWall];
 
     _southWall = [CCSprite spriteWithTexture:[_batch texture] rect:_horiz.textureRect];
     [_southWall setPosition:ccp(position_.x, position_.y - 16)];
-    [_southWall setColor:ccc3(130, 130, 130)];
+//    [_southWall setColor:ccc3(130, 130, 130)];
     [self addChild:_southWall];
 
     _westWall = [CCSprite spriteWithTexture:[_batch texture] rect:_vert.textureRect];
     [_westWall setPosition:ccp(position_.x - 16, position_.y)];
-    [_westWall setColor:ccc3(130, 130, 130)];
+//    [_westWall setColor:ccc3(130, 130, 130)];
     [self addChild:_westWall];
 
     _eastWall = [CCSprite spriteWithTexture:[_batch texture] rect:_vert.textureRect];
     [_eastWall setPosition:ccp(position_.x + 16, position_.y)];
-    [_eastWall setColor:ccc3(130, 130, 130)];
+//    [_eastWall setColor:ccc3(130, 130, 130)];
     [self addChild:_eastWall];
 }
 

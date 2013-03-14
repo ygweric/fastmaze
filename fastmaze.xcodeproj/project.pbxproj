@@ -12,6 +12,7 @@
 		0411089116D9CCBD007A1CDE /* logo144.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411088F16D9CCBD007A1CDE /* logo144.png */; };
 		0411089216D9CCBD007A1CDE /* logo72.png in Resources */ = {isa = PBXBuildFile; fileRef = 0411089016D9CCBD007A1CDE /* logo72.png */; };
 		04230E1116DE4DF000DF48BB /* ShopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04230E1016DE4DF000DF48BB /* ShopLayer.m */; };
+		044DF15F16F21895000B0355 /* button_normal_size-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 044DF15E16F21895000B0355 /* button_normal_size-ipad.png */; };
 		045624D216DCFA820097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456242B16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m */; };
 		045624D316DCFA820097D6E9 /* AdWhirlAdapterCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456243116DCFA810097D6E9 /* AdWhirlAdapterCustom.m */; };
 		045624D416DCFA820097D6E9 /* AdWhirlAdapterEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456243316DCFA810097D6E9 /* AdWhirlAdapterEvent.m */; };
@@ -267,6 +268,7 @@
 		0411089016D9CCBD007A1CDE /* logo72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo72.png; sourceTree = "<group>"; };
 		04230E0F16DE4DF000DF48BB /* ShopLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopLayer.h; sourceTree = "<group>"; };
 		04230E1016DE4DF000DF48BB /* ShopLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopLayer.m; sourceTree = "<group>"; };
+		044DF15E16F21895000B0355 /* button_normal_size-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_normal_size-ipad.png"; sourceTree = "<group>"; };
 		0456242A16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterGoogleAdMobAds.h; sourceTree = "<group>"; };
 		0456242B16DCFA810097D6E9 /* AdWhirlAdapterGoogleAdMobAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterGoogleAdMobAds.m; sourceTree = "<group>"; };
 		0456242C16DCFA810097D6E9 /* AdWhirlAdNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdNetworkAdapter.h; sourceTree = "<group>"; };
@@ -1338,12 +1340,12 @@
 			children = (
 				04D65E1716D924C800A26F3A /* GameLayer.h */,
 				04D65E1816D924C800A26F3A /* GameLayer.m */,
+				04D65E1D16D924C800A26F3A /* GuiLayer.h */,
+				04D65E1E16D924C800A26F3A /* GuiLayer.m */,
 				04D65E1916D924C800A26F3A /* GameScene.h */,
 				04D65E1A16D924C800A26F3A /* GameScene.m */,
 				04D65E1B16D924C800A26F3A /* GuideLayer.h */,
 				04D65E1C16D924C800A26F3A /* GuideLayer.m */,
-				04D65E1D16D924C800A26F3A /* GuiLayer.h */,
-				04D65E1E16D924C800A26F3A /* GuiLayer.m */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -1423,6 +1425,7 @@
 				04E2C47316EE3CCA00280FB2 /* button_new_maze-ipad.png */,
 				04E2C47416EE3CCA00280FB2 /* button_next_level-ipad.png */,
 				04E2C47516EE3CCA00280FB2 /* button_no-ipad.png */,
+				044DF15E16F21895000B0355 /* button_normal_size-ipad.png */,
 				04E2C47616EE3CCA00280FB2 /* button_ok-ipad.png */,
 				04E2C47716EE3CCA00280FB2 /* button_pause-ipad.png */,
 				04E2C47816EE3CCA00280FB2 /* button_previous-ipad.png */,
@@ -1642,6 +1645,7 @@
 				04E2C4F516EE3CCA00280FB2 /* walls.plist in Resources */,
 				04E2C4F616EE3CCA00280FB2 /* walls.png in Resources */,
 				04E2C4F716EE3CCA00280FB2 /* walls.zwd in Resources */,
+				044DF15F16F21895000B0355 /* button_normal_size-ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

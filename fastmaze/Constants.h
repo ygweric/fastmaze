@@ -35,6 +35,7 @@ enum{
     tGame,
     tPause,
     tNextLevel,
+    tNormalSize,
     tAudio,
     tAudioItem,
     tMusic,
