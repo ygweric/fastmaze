@@ -21,9 +21,15 @@
     }
     return self;
 }
--(void)setBg:(NSString*)bgName{
+-(void)setBgWithFrameName:(NSString*)bgName{
     //背景
-    CCSprite* bg=[CCSprite spriteWithFile:bgName];    
+    CCSprite* bg=[CCSprite spriteWithSpriteFrameName:bgName];
+    bg.position=ccp(winSize.width/2, winSize.height/2);
+    [self addChild:bg z:-1];
+}
+-(void)setBgWithFileName:(NSString*)bgName{
+    //背景
+    CCSprite* bg=[CCSprite spriteWithFile:bgName];
     bg.position=ccp(winSize.width/2, winSize.height/2);
     [self addChild:bg z:-1];
 }

@@ -15,6 +15,10 @@
 {
     float lastScale;
     CGPoint lastPosition;
+    
+    UIPinchGestureRecognizer *gestureRecognizerPin;
+    UIPanGestureRecognizer *gestureRecognizerPan;
+    UITapGestureRecognizer *gestureRecognizerTap;
 }
 
 @synthesize mazeGenerator = _mazeGenerator;
@@ -30,12 +34,15 @@
 - (id)init
 {
     self = [super init];
+    [self initSpriteSheetFile:@"buttons"];
+    [self initSpriteSheetFile:@"game_sheet"];
+    
     self.isTouchEnabled = YES;
     
     if (IS_IPHONE_5) {
-        [self setBg:@"bg-568h@2x.jpg"];
+        [self setBgWithFrameName:@"bg-568h@2x.jpg"];
     }else{
-        [self setBg:@"bg.png"];
+        [self setBgWithFrameName:@"bg.png"];
     }
     _mazeLayer=[CCLayer node];
     _mazeLayer.anchorPoint=ccp(0.5,0.5);
@@ -49,17 +56,17 @@
     
     [self regenerateMaze];
     
-    UIPinchGestureRecognizer *gestureRecognizer = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)] autorelease];    //1
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizer]; //2
+    gestureRecognizerPin = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)] autorelease];    //1
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerPin]; //2
     lastScale = 1.0f; //3
     
-    UIPanGestureRecognizer *gestureRecognizer1 = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)] autorelease];
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizer1];
+    gestureRecognizerPan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)] autorelease];
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerPan];
     
     
-    UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)]autorelease];
-    tapGesture.numberOfTapsRequired = 2;
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:tapGesture];
+    gestureRecognizerTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)]autorelease];
+    gestureRecognizerTap.numberOfTapsRequired = 2;
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerTap];
     
     return self;
 }
@@ -122,11 +129,7 @@
     CGPoint diff = ccpSub(winCenter, mazeCenter);
     // add the difference to our current position to center the maze
     [_mazeLayer setPosition:ccpAdd(position_, ccp(diff.x, diff.y/2))];
-    
-    //    CCSprite* bg=[CCSprite spriteWithFile:@"bg.png"];
-    //    bg.position=mazeCenter;
-    //    [self addChild:bg z:-1];
-    
+
     
     //创建&放置start点
     if (_currentStart == nil) {
@@ -146,6 +149,11 @@
     }
     [_currentEnd setPosition:_desireEntity.position];
     
+}
+-(void)handlerGoBack{
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:gestureRecognizerPin];
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:gestureRecognizerPan];
+    [[[CCDirector sharedDirector] view] removeGestureRecognizer:gestureRecognizerTap];
 }
 #pragma mark guesture
 -(void) handlePinchFrom:(UIPinchGestureRecognizer*)recognizer

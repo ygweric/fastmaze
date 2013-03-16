@@ -14,7 +14,8 @@
 }
 +(CCScene*)scene;
 -(CGSize)winSize;
--(void)setBg:(NSString*)bgName;
+-(void)setBgWithFrameName:(NSString*)bgName;
+-(void)setBgWithFileName:(NSString*)bgName;
 -(void)initSpriteSheetFile:(NSString*)frameName ;
 -(void)initSpriteSheetFile:(NSString*)frameName z:(int)z ;
 -(void)initSpriteSheetFile:(NSString*)frameName z:(int)z tag:t;

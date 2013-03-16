@@ -39,32 +39,31 @@ enum {
 - (id) init
 {
 	self = [super init];
+    [self initSpriteSheetFile:@"buttons"];
+    [self initSpriteSheetFile:@"game_sheet"];
 	if (self)
 	{
         if (IS_IPHONE_5) {
-            [self setBg:@"bg-568h@2x.jpg"];
+            [self setBgWithFrameName:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:@"main_bg.png"];
+//            [self setBgWithFrameName:@"bg.png"];
         }
         //操作菜单
-//        modeLevel= [CCMenuUtil createMenuWithImg:@"mode_level.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelLevel)];
-//        [self addChild:modeLevel z:zAboveOperation];
-//        modeLevel.position=ccp(-winSize.width*1/3, winSize.height*4/3);
-        
 
-        modelEndless= [SpriteUtil createMenuWithImg:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelEndless)];         
+
+        modelEndless= [SpriteUtil createMenuWithFrame:@"mode_endless.png" pressedColor:ccYELLOW target:self selector:@selector(showLayerModelEndless)];
         [self addChild:modelEndless z:zAboveOperation];
          modelEndless.position=ccp(-100, -100);
         
-        modelSetting= [SpriteUtil createMenuWithImg:@"mode_setting.png" pressedColor:ccYELLOW target:self selector:@selector(OnSettings:)];
+        modelSetting= [SpriteUtil createMenuWithFrame:@"mode_setting.png" pressedColor:ccYELLOW target:self selector:@selector(OnSettings:)];
         [self addChild:modelSetting z:zAboveOperation];
         modelSetting.position=ccp(winSize.width/2, winSize.height+100);
         
-        modelHelp= [SpriteUtil createMenuWithImg:@"mode_help.png" pressedColor:ccYELLOW target:self selector:@selector(onHelp:)];
+        modelHelp= [SpriteUtil createMenuWithFrame:@"mode_help.png" pressedColor:ccYELLOW target:self selector:@selector(onHelp:)];
         [self addChild:modelHelp z:zAboveOperation];
         modelHelp.position=ccp(winSize.width+100, -100);
         
-        modelShop= [SpriteUtil createMenuWithImg:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
+        modelShop= [SpriteUtil createMenuWithFrame:@"mode_shop.png" pressedColor:ccYELLOW target:self selector:@selector(onShop:)];
         [self addChild:modelShop z:zAboveOperation];
         modelShop.position=ccp(winSize.width+100, winSize.height+100);
         

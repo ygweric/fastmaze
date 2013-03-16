@@ -22,13 +22,15 @@ enum{
 
 -(id)init{
     if(self=[super init]){
+        [self initSpriteSheetFile:@"buttons"];
+        [self initSpriteSheetFile:@"game_sheet"];
         if (IS_IPHONE_5) {
-            [self setBg:@"bg-568h@2x.jpg"];
+            [self setBgWithFrameName:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:@"bg.png"];
+            [self setBgWithFrameName:@"bg.png"];
         }
 
-        CCSprite* removeAdIcon=[CCSprite spriteWithFile:@"removead_icon.png"];
+        CCSprite* removeAdIcon=[CCSprite spriteWithSpriteFrameName:@"removead_icon.png"];
         removeAdIcon.position=ccp(250,400);
         [self addChild:removeAdIcon];
         
@@ -51,16 +53,16 @@ enum{
         BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
         CCNode* removeAdButton=nil;
         if (showAd) {
-            removeAdButton= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
+            removeAdButton= [SpriteUtil createMenuWithFrame:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
         }else{
-           removeAdButton= [CCSprite spriteWithFile:@"removed_bt.png"];
+           removeAdButton= [CCSprite spriteWithSpriteFrameName:@"removed_bt.png"];
         }
         [self addChild:removeAdButton z:1 tag:tRemoveAd];
         removeAdButton.position=ccp(550,400);
         
-        CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
+        CCMenu* menuBack= [SpriteUtil createMenuWithFrame:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
         [self addChild:menuBack];
-        menuBack.position=ccp(150,winSize.height-100);
+        menuBack.position=ccp(150,winSize.height-150);
         //----observer transaction
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
@@ -190,7 +192,7 @@ enum{
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
     [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
     CCNode* removeAdButton=[self getChildByTag:tRemoveAd];
-    CCSprite* removed= [CCSprite spriteWithFile:@"removed_bt.png"];
+    CCSprite* removed= [CCSprite spriteWithSpriteFrameName:@"removed_bt.png"];
     removed.position=removeAdButton.position;
     [self addChild:removed];
     [removeAdButton removeFromParentAndCleanup:YES];

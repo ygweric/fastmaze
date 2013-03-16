@@ -43,9 +43,9 @@ enum {
 	if (self)
 	{
         if (IS_IPHONE_5) {
-            [self setBg:@"bg-568h@2x.jpg"];
+            [self setBgWithFrameName:@"bg-568h@2x.jpg"];
         }else{
-            [self setBg:SD_OR_HD(@"bg.jpg")];
+            [self setBgWithFrameName:SD_OR_HD(@"bg.jpg")];
         }
         CCLabelBMFont *newGameLabel = [CCLabelBMFont labelWithString:@"START GAME" fntFile:@"futura-48.fnt"];
         //        newGameLabel.scale=HD2SD_SCALE;

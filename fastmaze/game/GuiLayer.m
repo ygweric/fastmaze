@@ -35,16 +35,17 @@
 {
     self = [super init];
     [self initSpriteSheetFile:@"buttons"];
+    [self initSpriteSheetFile:@"game_sheet"];
 
     BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
-    progressTimer=[CCProgressTimer progressWithSprite:[CCSprite spriteWithFile:@"progress_bar.png"]];
+    progressTimer=[CCProgressTimer progressWithSprite:[CCSprite spriteWithSpriteFrameName:@"progress_bar.png"]];
     progressTimer.position=ccp( winSize.width*1/2 , winSize.height-(showAd?80:30));
     progressTimer.anchorPoint=ccp(0.5, 1);
     progressTimer.type=kCCProgressTimerTypeBar;
     progressTimer.midpoint=ccp(1, 0.5);
     progressTimer.barChangeRate=ccp(1,0);
-    CCSprite* progressTimerBg=[CCSprite spriteWithFile:@"progress_bar_bg.png"];
-    progressTimerBg.position=progressTimer.position;
+    CCSprite* progressTimerBg=[CCSprite spriteWithSpriteFrameName:@"progress_bar_bg.png"];
+    progressTimerBg.position=ccp(progressTimer.position.x, progressTimer.position.y+5);
     progressTimerBg.anchorPoint=ccp(0.5, 1);
     [self addChild:progressTimerBg z:zBelowOperation];
     [self addChild:progressTimer z:zBelowOperation];
@@ -104,8 +105,10 @@
 
 #pragma mark menu
 -(void)goBack{
+    [_gameLayer handlerGoBack];
     [AudioUtil displayAudioButtonClick];
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
+    
     
 }
 - (void)regenerateMaze:(id)sender
@@ -153,11 +156,11 @@
     [SysConfig setNeedAudio:isAudioOn];
     CCSprite* audion,*audios;
     if (isAudioOn) {
-        audion= [CCSprite spriteWithFile:@"button_audio.png"];
-        audios= [CCSprite spriteWithFile:@"button_audio.png"];
+        audion= [CCSprite spriteWithSpriteFrameName:@"button_audio.png"];
+        audios= [CCSprite spriteWithSpriteFrameName:@"button_audio.png"];
     }else{
-        audion= [CCSprite spriteWithFile:@"button_audio_bar.png"];
-        audios= [CCSprite spriteWithFile:@"button_audio_bar.png"];
+        audion= [CCSprite spriteWithSpriteFrameName:@"button_audio_bar.png"];
+        audios= [CCSprite spriteWithSpriteFrameName:@"button_audio_bar.png"];
     }
     audios.color=ccYELLOW;
     i.normalImage = audion;
@@ -179,11 +182,11 @@
     
     CCSprite* musicn,*musics;
     if (isMusicOn) {
-        musicn= [CCSprite spriteWithFile:@"button_music.png"];
-        musics= [CCSprite spriteWithFile:@"button_music.png"];
+        musicn= [CCSprite spriteWithSpriteFrameName:@"button_music.png"];
+        musics= [CCSprite spriteWithSpriteFrameName:@"button_music.png"];
     }else{
-        musicn= [CCSprite spriteWithFile:@"button_music_bar.png"];
-        musics= [CCSprite spriteWithFile:@"button_music_bar.png"];
+        musicn= [CCSprite spriteWithSpriteFrameName:@"button_music_bar.png"];
+        musics= [CCSprite spriteWithSpriteFrameName:@"button_music_bar.png"];
     }
     musics.color=ccYELLOW;
     i.normalImage = musicn;
@@ -327,9 +330,9 @@
         
         CCSprite* winGoodSprite=nil;
         if (isWin) {
-            winGoodSprite=[CCSprite spriteWithFile:@"result_win_good.png"];
+            winGoodSprite=[CCSprite spriteWithSpriteFrameName:@"result_win_good.png"];
         } else {
-            winGoodSprite=[CCSprite spriteWithFile:@"result_lose.png"];
+            winGoodSprite=[CCSprite spriteWithSpriteFrameName:@"result_lose.png"];
         }
         
         winGoodSprite.position=ccp(winSize.width/2, winSize.height*2/3+100);

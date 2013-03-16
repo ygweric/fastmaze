@@ -19,10 +19,12 @@
 -(id) init
 {
 	[super init];
+    [self initSpriteSheetFile:@"buttons"];
+    [self initSpriteSheetFile:@"game_sheet"];
     if (IS_IPHONE_5) {
-        [self setBg:@"bg-568h@2x.jpg"];
+        [self setBgWithFrameName:@"bg-568h@2x.jpg"];
     }else{
-        [self setBg:@"main_bg.png"];
+        [self setBgWithFrameName:@"bg.png"];
     }
     //help content
     CCLabelTTF *label = [CCLabelTTF labelWithString: [NSString stringWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"help" ofType:nil] encoding:NSUTF8StringEncoding error:NULL]

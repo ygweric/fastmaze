@@ -31,4 +31,5 @@
 - (void)showMazeAnswer;
 -(void)restartGame;
 - (void)loadGeneratedMaze;
+-(void)handlerGoBack;
 @end
