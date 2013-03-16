@@ -6,8 +6,9 @@
 #import <Foundation/Foundation.h>
 #import "CCLayer.h"
 
+
 @class GameLayer;
-@interface GuiLayer : CCLayer
+@interface GuiLayer :MyBaseLayer
 
 @property (assign,nonatomic) GameLayer* gameLayer;
 

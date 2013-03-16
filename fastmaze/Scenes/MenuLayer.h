@@ -6,9 +6,8 @@
 //  Copyright (c) 2012年 Symetrix. All rights reserved.
 //
 #import "MyCustomButton.h"
-#import "MyCustomLayer.h"
+#import "MyBaseLayer.h"
 
 @interface MenuLayer : MyBaseLayer
-+(id) scene;
 -(void)showAllMenu;
 @end

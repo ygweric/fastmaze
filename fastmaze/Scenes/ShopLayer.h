@@ -12,5 +12,4 @@
 {
     int iapId;
 }
-+(CCScene *) scene;
 @end

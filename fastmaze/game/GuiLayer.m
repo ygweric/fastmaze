@@ -16,7 +16,6 @@
 
 @implementation GuiLayer
 {
-    CGSize winSize;
     CCProgressTimer* progressTimer;
     CCLabelBMFont *lastTimeLable;
     CCLabelBMFont *currentTimeLable;
@@ -35,7 +34,8 @@
 - (id)init
 {
     self = [super init];
-    winSize = [[CCDirector sharedDirector] winSize];
+    [self initSpriteSheetFile:@"buttons"];
+
     BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
     progressTimer=[CCProgressTimer progressWithSprite:[CCSprite spriteWithFile:@"progress_bar.png"]];
     progressTimer.position=ccp( winSize.width*1/2 , winSize.height-(showAd?80:30));
@@ -49,6 +49,10 @@
     [self addChild:progressTimerBg z:zBelowOperation];
     [self addChild:progressTimer z:zBelowOperation];
     
+//    CCSprite* tmp=[CCSprite spriteWithSpriteFrameName:@"button_next_level.png"];
+//    tmp.position= ccp( winSize.width*1/2 , winSize.height-(showAd?80:30));
+//    [self addChild:tmp z:100];
+    
     lastTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,0.0f] fntFile:@"futura-48.fnt"];
 	[self addChild:lastTimeLable z:zBelowOperation tag:tShortestTime];
 	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(showAd?110:80));
@@ -60,16 +64,16 @@
     currentTimeLable.scale=0.5;
     
 
-    CCMenu* pauseButton= [SpriteUtil createMenuWithImg:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];    
+    CCMenu* pauseButton= [SpriteUtil createMenuWithFrame:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];
     pauseButton.position=ccp(winSize.width*2/3+200, winSize.height-(showAd?130:50));
     [self addChild:pauseButton z:zBelowOperation tag:tPause];
     
-    CCMenu* nextLevelButton= [SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
+    CCMenu* nextLevelButton= [SpriteUtil createMenuWithFrame:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
     nextLevelButton.position=pauseButton.position;
     [self addChild:nextLevelButton z:zBelowOperation tag:tNextLevel];
     nextLevelButton.visible=NO;
     
-    CCMenu* normalSizeButton= [SpriteUtil createMenuWithImg:@"button_normal_size.png" pressedColor:ccYELLOW target:self selector:@selector(normalSize)];
+    CCMenu* normalSizeButton= [SpriteUtil createMenuWithFrame:@"button_normal_size.png" pressedColor:ccYELLOW target:self selector:@selector(normalSize)];
     normalSizeButton.position=pauseButton.position;
     [self addChild:normalSizeButton z:zBelowOperation tag:tNormalSize];
     normalSizeButton.visible=NO;
@@ -262,9 +266,9 @@
     BOOL isAudioOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_AUDIO];
     CCMenu* audioButton=nil;
     if (isAudioOn) {
-        audioButton=[SpriteUtil createMenuWithImg:@"button_audio.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
+        audioButton=[SpriteUtil createMenuWithFrame:@"button_audio.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
     }else{
-        audioButton=[SpriteUtil createMenuWithImg:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
+        audioButton=[SpriteUtil createMenuWithFrame:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
     }
     audioButton.position=ccp(winSize.width /2-(IS_IPAD()?100:60), winSize.height*1/3+30);
     [operationLayer addChild:audioButton z:zAboveOperation tag:tAudio];
@@ -272,23 +276,23 @@
     BOOL isMusicOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_MUSIC];
     CCMenu* musicButton=nil;
     if (isMusicOn) {
-        musicButton=[SpriteUtil createMenuWithImg:@"button_music.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
+        musicButton=[SpriteUtil createMenuWithFrame:@"button_music.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
     }else{
-        musicButton=[SpriteUtil createMenuWithImg:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
+        musicButton=[SpriteUtil createMenuWithFrame:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
     }
     musicButton.position=ccp(winSize.width /2+(IS_IPAD()?100:60), winSize.height*1/3+30);
     [operationLayer addChild:musicButton z:zAboveOperation tag:tMusic];
     
     //menu & refresh & start
-//    CCMenu* menuButton= [SpriteUtil createMenuWithImg:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)];
+//    CCMenu* menuButton= [SpriteUtil createMenuWithFrame:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)];
 //    menuButton.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
 //    [operationLayer addChild:menuButton z:zAboveOperation];
     
-    CCMenu* back= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
+    CCMenu* back= [SpriteUtil createMenuWithFrame:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
     [operationLayer addChild:back z:zAboveOperation];
     back.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
     
-    CCMenu* restartButton= [SpriteUtil createMenuWithImg:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
+    CCMenu* restartButton= [SpriteUtil createMenuWithFrame:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
     restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
     [operationLayer addChild:restartButton z:zAboveOperation];
 }
@@ -306,7 +310,7 @@
         [self unscheduleUpdate];
         [self initBaseOperationLayer:operationLayer];
         
-        CCMenu* nextLevelButton=[SpriteUtil createMenuWithImg:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
+        CCMenu* nextLevelButton=[SpriteUtil createMenuWithFrame:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
         nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
         [operationLayer addChild:nextLevelButton z:zAboveOperation];
         
@@ -346,20 +350,20 @@
             {
                 [self initBaseOperationLayer:operationLayer];
 
-                CCMenu* regenerateMaze=[SpriteUtil createMenuWithImg:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze:)];
+                CCMenu* regenerateMaze=[SpriteUtil createMenuWithFrame:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze:)];
                 [operationLayer addChild:regenerateMaze z:zBelowOperation];
                 regenerateMaze.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3+160);
                 
                 
-                CCMenu* showMazeAnswer= [SpriteUtil createMenuWithImg:@"button_show_answer.png" pressedColor:ccYELLOW target:self selector:@selector(showMazeAnswer)];
+                CCMenu* showMazeAnswer= [SpriteUtil createMenuWithFrame:@"button_show_answer.png" pressedColor:ccYELLOW target:self selector:@selector(showMazeAnswer)];
                 [operationLayer addChild:showMazeAnswer z:zBelowOperation];
                 showMazeAnswer.position=ccp(winSize.width*1/2, winSize.height*1/3+160);
                 
-                CCMenu* resumeButton=[SpriteUtil createMenuWithImg:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(resumeGame)];
+                CCMenu* resumeButton=[SpriteUtil createMenuWithFrame:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(resumeGame)];
                 resumeButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
                 [operationLayer addChild:resumeButton z:zAboveOperation];
                 
-                CCMenu* help= [SpriteUtil createMenuWithImg:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];
+                CCMenu* help= [SpriteUtil createMenuWithFrame:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];
                 [operationLayer addChild:help z:zAboveOperation];
                 help.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3+160);
             }

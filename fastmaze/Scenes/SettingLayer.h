@@ -10,7 +10,6 @@
 
 
 @interface SettingLayer : MyBaseLayer
-    +(CCScene*)scene;
 
 
 @end

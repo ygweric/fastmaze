@@ -17,7 +17,7 @@
 #import "SysConfig.h"
 #import <mach/mach_time.h>
 #import "SimpleAudioEngine.h"
-#import "MyCustomLayer.h"
+#import "MyBaseLayer.h"
 #import "MyCustomButton.h"
 #import "DeviceSettings.h"
 #import "SpriteUtil.h"

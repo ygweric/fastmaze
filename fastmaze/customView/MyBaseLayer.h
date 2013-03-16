@@ -1,5 +1,5 @@
 //
-//  MyCustomLayer.h
+//  MyBaseLayer.h
 //  birdjump
 //
 //  Created by Eric on 12-11-24.
@@ -12,6 +12,11 @@
 {
     CGSize winSize;
 }
++(CCScene*)scene;
 -(CGSize)winSize;
 -(void)setBg:(NSString*)bgName;
+-(void)initSpriteSheetFile:(NSString*)frameName ;
+-(void)initSpriteSheetFile:(NSString*)frameName z:(int)z ;
+-(void)initSpriteSheetFile:(NSString*)frameName z:(int)z tag:t;
+
 @end

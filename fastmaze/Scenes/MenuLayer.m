@@ -34,20 +34,7 @@ enum {
     eMenuButtonSetting,
     eMenuButtonHelp,
 };
-+(id) scene
-{
-	// 'scene' is an autorelease object.
-	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
-	MenuLayer *layer = [MenuLayer node];
-	
-	// add layer as a child to scene
-	[scene addChild: layer];
-	
-	// return the scene
-	return scene;
-}
+
 
 - (id) init
 {

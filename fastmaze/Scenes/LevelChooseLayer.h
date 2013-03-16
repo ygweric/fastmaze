@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 Symetrix. All rights reserved.
 //
 #import "MyCustomButton.h"
-#import "MyCustomLayer.h"
+#import "MyBaseLayer.h"
 
 @interface LevelChooseLayer : MyBaseLayer
 +(id) scene;

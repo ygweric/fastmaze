@@ -12,12 +12,6 @@
 
 @implementation SettingLayer
 
-+(CCScene*)scene{
-    CCScene* sc=[CCScene node];
-    SettingLayer* la=[SettingLayer node];
-    [sc addChild:la];
-    return  sc;
-}
 
 -(id) init
 {

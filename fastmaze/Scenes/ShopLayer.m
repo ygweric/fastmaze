@@ -19,13 +19,7 @@ enum{
 @implementation ShopLayer 
 
 
-+(CCScene *) scene
-{
-    CCScene *scene = [CCScene node];
-    ShopLayer *layer = [ShopLayer node];
-    [scene addChild: layer];
-    return scene;
-}
+
 -(id)init{
     if(self=[super init]){
         if (IS_IPHONE_5) {

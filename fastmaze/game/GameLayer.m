@@ -229,13 +229,13 @@
 //        CGPoint endPosition=ccpDiv(tempPosition,mazeScale);
 //        CGPoint endPosition=ccpMult(tempPosition,mazeScale);
         CGPoint endPosition=tempPosition;
-        NSLog(@"ccTouchesEnded---tempPosition x:%f,y:%f\n\
+//        NSLog(@"ccTouchesEnded---tempPosition x:%f,y:%f\n\
               endPosition x:%f,y:%f \
-              mazelayer Position x:%f,y:%f w:%f,h:%f; mazeScale:%f"
-              ,tempPosition.x,tempPosition.y
-              ,endPosition.x,endPosition.y
-              ,_mazeLayer.position.x,_mazeLayer.position.y
-              ,_mazeGenerator.size.width,_mazeGenerator.size.height
+              mazelayer Position x:%f,y:%f w:%f,h:%f; mazeScale:%f" \
+              ,tempPosition.x,tempPosition.y \
+              ,endPosition.x,endPosition.y \
+              ,_mazeLayer.position.x,_mazeLayer.position.y \
+              ,_mazeGenerator.size.width,_mazeGenerator.size.height \
               ,_mazeLayer.scale);
         if (endPosition.x>-diffx
             && endPosition.y>-diffy

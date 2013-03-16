@@ -16,6 +16,7 @@
     [self addChild:gameLayer];
     guiLayer=[[[GuiLayer alloc] initWithGameLayer:gameLayer] autorelease];
     gameLayer.guiLayer=guiLayer;
+    guiLayer.anchorPoint=ccp(0.0, 0.0);
     [self addChild:guiLayer];
     return self;
 }
