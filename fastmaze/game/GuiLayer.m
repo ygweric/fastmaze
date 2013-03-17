@@ -57,12 +57,12 @@
     lastTimeLable = [CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_LAST_TIME,0.0f] fntFile:@"futura-48.fnt"];
 	[self addChild:lastTimeLable z:zBelowOperation tag:tShortestTime];
 	lastTimeLable.position = ccp(winSize.width/2-120,winSize.height-(showAd?110:80));
-    lastTimeLable.scale=0.5;
+    lastTimeLable.scale=IS_RETINA ?1:0.5;
     
     currentTimeLable=[CCLabelBMFont labelWithString:[NSString stringWithFormat:kGAME_INFO_CURRENT_TIME,0.0f] fntFile:@"futura-48.fnt"];
     [self addChild:currentTimeLable z:zBelowOperation tag:tCurrentTime];
 	currentTimeLable.position = ccp(winSize.width/2+120,winSize.height-(showAd?110:80));
-    currentTimeLable.scale=0.5;
+    currentTimeLable.scale=IS_RETINA ?1:0.5;
     
 
     CCMenu* pauseButton= [SpriteUtil createMenuWithFrame:@"button_pause.png" pressedColor:ccYELLOW target:self selector:@selector(pauseGame)];
@@ -273,7 +273,7 @@
     }else{
         audioButton=[SpriteUtil createMenuWithFrame:@"button_audio_bar.png" pressedColor:ccYELLOW target:self selector:@selector(audio:)];
     }
-    audioButton.position=ccp(winSize.width /2-(IS_IPAD()?100:60), winSize.height*1/3+30);
+    audioButton.position=ccp(winSize.width /2-(IS_IPAD?100:60), winSize.height*1/3+30);
     [operationLayer addChild:audioButton z:zAboveOperation tag:tAudio];
     
     BOOL isMusicOn= [[NSUserDefaults standardUserDefaults] boolForKey:UDF_MUSIC];
@@ -283,17 +283,17 @@
     }else{
         musicButton=[SpriteUtil createMenuWithFrame:@"button_music_bar.png" pressedColor:ccYELLOW target:self selector:@selector(music:)];
     }
-    musicButton.position=ccp(winSize.width /2+(IS_IPAD()?100:60), winSize.height*1/3+30);
+    musicButton.position=ccp(winSize.width /2+(IS_IPAD?100:60), winSize.height*1/3+30);
     [operationLayer addChild:musicButton z:zAboveOperation tag:tMusic];
     
     //menu & refresh & start
 //    CCMenu* menuButton= [SpriteUtil createMenuWithFrame:@"button_menu.png" pressedColor:ccYELLOW target:self selector:@selector(menu)];
-//    menuButton.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
+//    menuButton.position=ccp(winSize.width /2-(IS_IPAD?200:100), winSize.height*1/3-100);
 //    [operationLayer addChild:menuButton z:zAboveOperation];
     
     CCMenu* back= [SpriteUtil createMenuWithFrame:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack)];
     [operationLayer addChild:back z:zAboveOperation];
-    back.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3-100);
+    back.position=ccp(winSize.width /2-(IS_IPAD?200:100), winSize.height*1/3-100);
     
     CCMenu* restartButton= [SpriteUtil createMenuWithFrame:@"button_refresh.png" pressedColor:ccYELLOW target:self selector:@selector(restartGame)];
     restartButton.position=ccp(winSize.width /2, winSize.height*1/3-100);
@@ -314,7 +314,7 @@
         [self initBaseOperationLayer:operationLayer];
         
         CCMenu* nextLevelButton=[SpriteUtil createMenuWithFrame:@"button_next_level.png" pressedColor:ccYELLOW target:self selector:@selector(nextLevel)];
-        nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
+        nextLevelButton.position=ccp(winSize.width/2+(IS_IPAD?200:100), winSize.height*1/3-100);
         [operationLayer addChild:nextLevelButton z:zAboveOperation];
         
         CCLabelBMFont* resultLable =nil;
@@ -355,7 +355,7 @@
 
                 CCMenu* regenerateMaze=[SpriteUtil createMenuWithFrame:@"button_new_maze.png" pressedColor:ccYELLOW target:self selector:@selector(regenerateMaze:)];
                 [operationLayer addChild:regenerateMaze z:zBelowOperation];
-                regenerateMaze.position=ccp(winSize.width /2-(IS_IPAD()?200:100), winSize.height*1/3+160);
+                regenerateMaze.position=ccp(winSize.width /2-(IS_IPAD?200:100), winSize.height*1/3+160);
                 
                 
                 CCMenu* showMazeAnswer= [SpriteUtil createMenuWithFrame:@"button_show_answer.png" pressedColor:ccYELLOW target:self selector:@selector(showMazeAnswer)];
@@ -363,12 +363,12 @@
                 showMazeAnswer.position=ccp(winSize.width*1/2, winSize.height*1/3+160);
                 
                 CCMenu* resumeButton=[SpriteUtil createMenuWithFrame:@"button_start.png" pressedColor:ccYELLOW target:self selector:@selector(resumeGame)];
-                resumeButton.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3-100);
+                resumeButton.position=ccp(winSize.width/2+(IS_IPAD?200:100), winSize.height*1/3-100);
                 [operationLayer addChild:resumeButton z:zAboveOperation];
                 
                 CCMenu* help= [SpriteUtil createMenuWithFrame:@"button_help.png" pressedColor:ccYELLOW target:self selector:@selector(help)];
                 [operationLayer addChild:help z:zAboveOperation];
-                help.position=ccp(winSize.width/2+(IS_IPAD()?200:100), winSize.height*1/3+160);
+                help.position=ccp(winSize.width/2+(IS_IPAD?200:100), winSize.height*1/3+160);
             }
                 
                 break;

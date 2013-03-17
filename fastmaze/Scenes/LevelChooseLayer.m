@@ -70,7 +70,7 @@ enum {
 		[mn alignItemsVerticallyWithPadding:30];
         //        mn.anchorPoint=ccp(0.5, 0.5); //右上角
         //        mn.anchorPoint=ccp(0, 0.5); //中间顶
-        if (!IS_IPAD()) {
+        if (!IS_IPAD) {
             mn.anchorPoint=ccp(0, 0);
             mn.scale=0.5;
             mn.position=ccp(winSize.width/2, winSize.height*2/3);
@@ -132,7 +132,7 @@ enum {
         }
         
         //从position开始向右下角排列
-        if (IS_IPAD()) {
+        if (IS_IPAD) {
             menuGrid = [SlidingMenuGrid menuWithArray:allItems cols:8 rows:3 position:ccp(70.f, 0.0f) padding:CGPointMake(90.f, 90.f) verticalPages:NO];
         } else {
             menuGrid = [SlidingMenuGrid menuWithArray:allItems cols:6 rows:3 position:ccp(45.f, 0.0f) padding:CGPointMake(45.f, 45.f) verticalPages:NO];
@@ -142,7 +142,7 @@ enum {
         
         
         //只有layer才有透明动画，menu没有
-        CGPoint p=IS_IPAD()? ccp(70, 280):ccp(45, 150);
+        CGPoint p=IS_IPAD? ccp(70, 280):ccp(45, 150);
         [menuGrid runAction:[CCMoveTo actionWithDuration:0.5 position:p]];
         menuGrid.menuOrigin=p;
     }

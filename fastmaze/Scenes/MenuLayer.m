@@ -46,7 +46,7 @@ enum {
         if (IS_IPHONE_5) {
             [self setBgWithFrameName:@"bg-568h@2x.jpg"];
         }else{
-//            [self setBgWithFrameName:@"bg.png"];
+            [self setBgWithFrameName:@"bg.png"];
         }
         //操作菜单
 

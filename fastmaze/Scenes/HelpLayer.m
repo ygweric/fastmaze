@@ -30,10 +30,10 @@
     CCLabelTTF *label = [CCLabelTTF labelWithString: [NSString stringWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"help" ofType:nil] encoding:NSUTF8StringEncoding error:NULL]
                                         dimensions: CGSizeMake(winSize.width -20, winSize.height)
                                          hAlignment: UITextAlignmentCenter
-                                          fontName:@"Arial" fontSize: (IS_IPAD()?32:15)];
+                                          fontName:@"Arial" fontSize: (IS_IPAD?32:15)];
     
     
-    [label setPosition:CGPointMake(winSize.width/2, winSize.height -(IS_IPAD()? 140:70))];
+    [label setPosition:CGPointMake(winSize.width/2, winSize.height -(IS_IPAD? 140:70))];
     
     [label setColor:ccBLACK];
     [label setAnchorPoint:CGPointMake(0.5f, 1.0f)];
@@ -43,26 +43,26 @@
     //-----
     CCLabelBMFont *facebookLabel = [CCLabelBMFont labelWithString:@"FaceBook" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* facebook =[CCMenuItemLabel itemWithLabel:facebookLabel target:self selector:@selector(goFacebook:)];
-    facebook.scale=HD2SD_SCALE;
+    facebook.scale=IS_RETINA ?1.5:1;
     
     CCLabelBMFont *twitterLabel = [CCLabelBMFont labelWithString:@"Twitter" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* twitter =[CCMenuItemLabel itemWithLabel:twitterLabel target:self selector:@selector(goTwitter:)];
-    twitter.scale=HD2SD_SCALE;
+    twitter.scale=IS_RETINA ?1.5:1;
     
     CCLabelBMFont *gorateLabel = [CCLabelBMFont labelWithString:@"Go Rate" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* rate =[CCMenuItemLabel itemWithLabel:gorateLabel target:self selector:@selector(goRate:)];
-    rate.scale=HD2SD_SCALE;
+    rate.scale=IS_RETINA ?1.5:1;
     
     CCLabelBMFont *mailMeLabel = [CCLabelBMFont labelWithString:@"Mail Me" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* mail =[CCMenuItemLabel itemWithLabel:mailMeLabel target:self selector:@selector(mailMe:)];
-    mail.scale=HD2SD_SCALE;
+    mail.scale=IS_RETINA ?1.5:1;
     
 
     
     // go back
     CCLabelBMFont *gobackLabel = [CCLabelBMFont labelWithString:@"Go Back" fntFile:@"futura-48.fnt"];
     CCMenuItemLabel* back =[CCMenuItemLabel itemWithLabel:gobackLabel target:self selector:@selector(backCallback:)];
-    back.scale=HD2SD_SCALE;
+    back.scale=IS_RETINA ?1.5:1;
     
     
     CCMenu *menu = [CCMenu menuWithItems:
@@ -74,7 +74,7 @@
      nil
 	 ];
     menu.anchorPoint=CGPointZero;
-    menu.position=ccp(winSize.width/2,(IS_IPAD()? 140:110));
+    menu.position=ccp(winSize.width/2,(IS_IPAD? 140:110));
 	[self addChild: menu];
     
     
