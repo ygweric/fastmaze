@@ -143,11 +143,9 @@ enum {
 -(void)showLayerModelEndless{
     [AudioUtil displayAudioButtonClick];
     GameScene* scene= [GameScene node];
-    CCLabelBMFont* spinner= [DialogUtil showWaitLable:self];
     [[CCDirector sharedDirector] replaceScene: [CCTransitionSplitRows transitionWithDuration:1.0f scene:scene]];
     [scene.guiLayer gameInit];
     
-    [DialogUtil unshowWaitLable:spinner];
 }
 
 

@@ -8,15 +8,20 @@
 
 #import "ShopLayer.h"
 #import "MenuLayer.h"
+#import "DialogUtil.h"
 
 #define IAP_REMOVE_AD @"fastmaze.removead"
 
 enum{
     tRemoveAd=100,
 };
+enum  {
+    tBought = 200,
+    tRestore ,
+    };
 
-
-@implementation ShopLayer 
+@implementation ShopLayer {
+}
 
 
 +(CCScene *) scene
@@ -57,14 +62,14 @@ enum{
         BOOL showAd=[[NSUserDefaults standardUserDefaults]boolForKey:UFK_SHOW_AD];
         CCNode* removeAdButton=nil;
         if (showAd) {
-            removeAdButton= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(removeAd)];
+            removeAdButton= [SpriteUtil createMenuWithImg:@"removead_bt.png" pressedColor:ccYELLOW target:self selector:@selector(showShopAlert)];
         }else{
            removeAdButton= [CCSprite spriteWithFile:@"removed_bt.png"];
         }
         [self addChild:removeAdButton z:1 tag:tRemoveAd];
         removeAdButton.position=ccp(550,400);
         
-        CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(backCallback:)];
+        CCMenu* menuBack= [SpriteUtil createMenuWithImg:@"button_previous.png" pressedColor:ccYELLOW target:self selector:@selector(goBack:)];
         [self addChild:menuBack];
         menuBack.position=ccp(150,winSize.height-100);
         //----observer transaction
@@ -72,17 +77,46 @@ enum{
     }
     return self;
 }
--(void) backCallback: (id) sender
+-(void) goBack: (id) sender
 {
 	[AudioUtil displayAudioButtonClick];
 	[[CCDirector sharedDirector] replaceScene:  [CCTransitionSplitRows transitionWithDuration:1.0f scene:[MenuLayer scene]]];
 }
 
--(void)removeAd{
+-(void)showShopAlert{
+    UIAlertView* alert=[[[UIAlertView alloc]initWithTitle:nil message:@"$0.99 can remove all Ad.\n If you have bought on other devices, click 'I've Bought'"  delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Buy It Now",@"I've Bought", nil]autorelease];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            CCLOG(@"---cancel");
+            break;
+        case 1:
+            [self removeAd:tBought];
+            break;
+        case 2:
+            [self removeAd:tRestore];
+            break;
+    }
+}
+
+
+
+-(void)removeAd:(int)type{
     iapId=IAP_REMOVE_AD;
     if ([SKPaymentQueue canMakePayments]) {
-        //[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
-        [self RequestProductData];
+        switch (type) {
+            case tBought:
+                [self RequestProductData];
+                break;
+            case tRestore:
+                [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+                break;
+        }
+        [MobClick event:@"removead"];
+        [[DialogUtil share]showLoading:[[CCDirector sharedDirector]view]];
         NSLog(@"---allow In-App Purchase");
     }
     else
@@ -137,10 +171,10 @@ enum{
 //弹出错误信息
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     CCLOG(@"-------弹出错误信息----------");
-    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription]
-                                                       delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil];
+    UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription]
+                                                       delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil]autorelease];
     [alerView show];
-    [alerView release];
+    [self doRemoveAd:NO];
 }
 
 -(void) requestDidFinish:(SKRequest *)request
@@ -191,17 +225,7 @@ enum{
                                                         delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
     
     [alerView show];
-    
-    //移除广告
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
-    [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
-    CCNode* removeAdButton=[self getChildByTag:tRemoveAd];
-    CCSprite* removed= [CCSprite spriteWithFile:@"removed_bt.png"];
-    removed.position=removeAdButton.position;
-    [self addChild:removed];
-    [removeAdButton removeFromParentAndCleanup:YES];
-    // Your application should implement these two methods.
-
+    [self doRemoveAd:YES];
     [self recordTransaction:transaction];
      [self provideContent:transaction.payment.productIdentifier];
 
@@ -220,14 +244,37 @@ enum{
                                                              delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
         
         [alerView2 show];
-        
     }
+    [self doRemoveAd:NO];
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
+}
+//移除广告
+-(void)doRemoveAd:(BOOL)success{
+    CCLOG(@"doRemoveAd-------");
+    if (success) {
+#ifndef  DEBUG
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:UFK_SHOW_AD];
+        [[[CCDirector sharedDirector].view viewWithTag:kTAG_Ad_VIEW]removeFromSuperview];
+        CCNode* removeAdButton=[self getChildByTag:tRemoveAd];
+        CCSprite* removed= [CCSprite spriteWithFile:@"removed_bt.png"];
+        removed.position=removeAdButton.position;
+        [self addChild:removed];
+        [removeAdButton removeFromParentAndCleanup:YES];
+#endif
+        
+    }
+    [[DialogUtil share]unshowLoading];
 }
 - (void) restoreTransaction: (SKPaymentTransaction *)transaction
 {
     NSLog(@"-------restoreTransaction");
+    UIAlertView *alerView =  [[[UIAlertView alloc] initWithTitle:nil
+                                                         message:@"Restore Succesfully"
+                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
+    
+    [alerView show];
+    [self doRemoveAd:YES];
     [self recordTransaction: transaction];
     [self provideContent: transaction.originalTransaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -247,7 +294,16 @@ enum{
 
 
 -(void) paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
-    CCLOG(@"-------paymentQueue----");
+    CCLOG(@"-------restoreCompletedTransactionsFailedWithError----error:%d",error.code);
+    if (error.code != SKErrorPaymentCancelled)
+    {
+        UIAlertView *alerView2 =  [[[UIAlertView alloc] initWithTitle:nil
+                                                              message:@"Restore Failed"
+                                                             delegate:nil cancelButtonTitle:NSLocalizedString(@"OK",nil) otherButtonTitles:nil]autorelease];
+        
+        [alerView2 show];
+    }
+    [self doRemoveAd:NO];
 }
 
 #pragma mark connection delegate
@@ -262,24 +318,7 @@ enum{
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     switch([(NSHTTPURLResponse *)response statusCode]) {
-        case 200:
-        case 206:
-            break;
-        case 304:
-            break;
-        case 400:
-            break;
-        case 404:
-            break;
-        case 416:
-            break;
-        case 403:
-            break;
-        case 401:
-        case 500:
-            break;
-        default:
-            break;
+       
     }
 }
 
