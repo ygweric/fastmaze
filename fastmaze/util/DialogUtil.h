@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface DialogUtil : NSObject
-+(UIActivityIndicatorView*)showWaitDialog;
-+(void)unshowWaitDialog:(UIActivityIndicatorView*)spinner;
++(DialogUtil*)share;
+-(UIActivityIndicatorView*)showWaitDialog;
+-(void)unshowWaitDialog:(UIActivityIndicatorView*)spinner;
 
-+(CCLabelBMFont*)showWaitLable:(CCNode*)layer;
-+(void)unshowWaitLable:(CCLabelBMFont*)waitLable;
+-(CCLabelBMFont*)showWaitLable:(CCNode*)layer;
+-(void)unshowWaitLable:(CCLabelBMFont*)waitLable;
+- (void) showLoading:(UIView*)parentView;
+- (void) unshowLoading;
 @end

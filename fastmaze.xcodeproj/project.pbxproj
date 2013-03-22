@@ -106,6 +106,8 @@
 		0456253516DCFD410097D6E9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0456253416DCFD410097D6E9 /* AdSupport.framework */; };
 		0456253816DD06460097D6E9 /* AdWhirlAdapterIAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0456253716DD06460097D6E9 /* AdWhirlAdapterIAd.m */; };
 		0456253A16DD066E0097D6E9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0456253916DD066E0097D6E9 /* iAd.framework */; };
+		045C126816F8AF7300F67F2C /* TKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C126716F8AF7300F67F2C /* TKLoadingView.m */; };
+		045C126B16F8B06D00F67F2C /* UIView+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C126A16F8B06D00F67F2C /* UIView+TKCategory.m */; };
 		04D65C7216D9223500A26F3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7116D9223500A26F3A /* QuartzCore.framework */; };
 		04D65C7416D9223500A26F3A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7316D9223500A26F3A /* OpenGLES.framework */; };
 		04D65C7616D9223500A26F3A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D65C7516D9223500A26F3A /* OpenAL.framework */; };
@@ -390,6 +392,10 @@
 		0456253616DD06460097D6E9 /* AdWhirlAdapterIAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdWhirlAdapterIAd.h; sourceTree = "<group>"; };
 		0456253716DD06460097D6E9 /* AdWhirlAdapterIAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdWhirlAdapterIAd.m; sourceTree = "<group>"; };
 		0456253916DD066E0097D6E9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		045C126616F8AF7300F67F2C /* TKLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKLoadingView.h; sourceTree = "<group>"; };
+		045C126716F8AF7300F67F2C /* TKLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKLoadingView.m; sourceTree = "<group>"; };
+		045C126916F8B06D00F67F2C /* UIView+TKCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TKCategory.h"; sourceTree = "<group>"; };
+		045C126A16F8B06D00F67F2C /* UIView+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TKCategory.m"; sourceTree = "<group>"; };
 		04D65C6E16D9223500A26F3A /* fastmaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fastmaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D65C7116D9223500A26F3A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		04D65C7316D9223500A26F3A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1392,6 +1398,10 @@
 				04D65E1116D924C800A26F3A /* SlidingMenuGrid.m */,
 				04D65E1216D924C800A26F3A /* SpriteUtil.h */,
 				04D65E1316D924C800A26F3A /* SpriteUtil.m */,
+				045C126616F8AF7300F67F2C /* TKLoadingView.h */,
+				045C126716F8AF7300F67F2C /* TKLoadingView.m */,
+				045C126916F8B06D00F67F2C /* UIView+TKCategory.h */,
+				045C126A16F8B06D00F67F2C /* UIView+TKCategory.m */,
 			);
 			path = customView;
 			sourceTree = "<group>";
@@ -1749,6 +1759,8 @@
 				0456252016DCFA820097D6E9 /* CSerializedJSONData.m in Sources */,
 				0456253816DD06460097D6E9 /* AdWhirlAdapterIAd.m in Sources */,
 				04230E1116DE4DF000DF48BB /* ShopLayer.m in Sources */,
+				045C126816F8AF7300F67F2C /* TKLoadingView.m in Sources */,
+				045C126B16F8B06D00F67F2C /* UIView+TKCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
