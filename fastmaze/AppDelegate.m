@@ -16,7 +16,7 @@
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
-
+//######### for adwhirl ########
 - (NSString *)adWhirlApplicationKey {
     return KEY_AD_ADWHIRL;
 }
@@ -56,7 +56,6 @@
     [ [ UIApplication sharedApplication ] setIdleTimerDisabled:YES ] ;
     // init app configure
     NSUserDefaults* def=[NSUserDefaults standardUserDefaults];
-    
     /*
      升级须知
      每次app生新版本，
@@ -82,11 +81,12 @@
                 break;
         }
         [def setInteger:appVersion forKey:UFK_CURRENT_VERSION];
-    }else{//已经做过升级
-        [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
-        [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
-        [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
     }
+    
+    [SysConfig setNeedAudio: [def boolForKey:UDF_AUDIO]];
+    [SysConfig setNeedMusic: [def boolForKey:UDF_MUSIC]];
+    [SysConfig setMazeSize:[def integerForKey:UDF_MAZESIZE]];
+    
     if ([SysConfig needMusic]) {
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gamebg.mp3" loop:YES];
     }
@@ -189,11 +189,10 @@
         adWhirlView.tag=kTAG_Ad_VIEW;
         [[CCDirector sharedDirector].view addSubview:adWhirlView];
     }
-//   [CCDirector sharedDirector] 
     
 	return YES;
 }
-//设置广告条宽度
+
 - (void)adWhirlDidReceiveAd:(AdWhirlView *)adView {
     [UIView beginAnimations:@"AdWhirlDelegate.adWhirlDidReceiveAd:"
                     context:nil];
@@ -204,10 +203,8 @@
     CGRect newFrame = adView.frame;
     CGSize winsize=[CCDirector sharedDirector].winSize;
     newFrame.size = adSize;
-    newFrame.origin.x = (winsize.width - adSize.width)/ 2;
-    
-    adView.frame = newFrame;
-    
+    newFrame.origin.x = (winsize.width - adSize.width)/ 2;    
+    adView.frame = newFrame;    
     [UIView commitAnimations];
 }
 

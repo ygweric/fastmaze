@@ -56,14 +56,11 @@
     
     [self regenerateMaze];
     
-    gestureRecognizerPin = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)] autorelease];    //1
-    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerPin]; //2
-    lastScale = 1.0f; //3
-    
+    gestureRecognizerPin = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)] autorelease];
+    [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerPin];
+    lastScale = 1.0f;
     gestureRecognizerPan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)] autorelease];
     [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerPan];
-    
-    
     gestureRecognizerTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)]autorelease];
     gestureRecognizerTap.numberOfTapsRequired = 2;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:gestureRecognizerTap];
