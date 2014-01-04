@@ -1,5 +1,5 @@
 //
-// @author Jonny Brannum <jonny.brannum@gmail.com> 
+// @author Eric Yang <ygweric@gmail.com> 
 //         1/21/12
 //
 

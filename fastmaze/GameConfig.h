@@ -2,7 +2,7 @@
 //  GameConfig.h
 //  toddlermaze
 //
-//  Created by Jonny Brannum on 1/21/12.
+//  Created by Eric Yang on 1/21/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
 //
 

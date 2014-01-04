@@ -1,5 +1,5 @@
 //
-// @author Jonny Brannum <jonny.brannum@gmail.com> 
+// @author Eric Yang <ygweric@gmail.com> 
 //         1/22/12
 //
 #import <UIKit/UIKit.h>
