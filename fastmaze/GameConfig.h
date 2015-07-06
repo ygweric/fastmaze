@@ -3,7 +3,7 @@
 //  toddlermaze
 //
 //  Created by Eric Yang on 1/21/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Copyright appcpu.com 2012. All rights reserved.
 //
 
 #ifndef __GAME_CONFIG_H

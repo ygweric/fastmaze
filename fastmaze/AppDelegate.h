@@ -3,7 +3,7 @@
 //  fastmaze
 //
 //  Created by Eric on 13-2-24.
-//  Copyright __MyCompanyName__ 2013年. All rights reserved.
+//  Copyright appcpu.com 2013年. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

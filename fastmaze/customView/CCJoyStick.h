@@ -3,7 +3,7 @@
 //  cocos2d-Joystick
 //
 //  Created by ezshine on 11-1-28.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 appcpu.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
